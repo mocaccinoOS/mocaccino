@@ -1,4 +1,4 @@
-name: Build
+name: MocaccinoOS Micro
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       run: |
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
-    - name: build ISOS 🔧
+    - name: ISO Build 🔧
       run: |
             IMAGE_NAME=$IMAGE_NAME-0.$(date +%Y%m%d).iso
             export ROOT_DIR=$PWD 
