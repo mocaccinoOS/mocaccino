@@ -17,23 +17,13 @@ jobs:
       run: |
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
+        sudo luet install repository/mocaccino-extra
+        sudo luet install utils/jq utils/yq
     - name: ISO Build 🔧
       run: |
-            IMAGE_NAME=$IMAGE_NAME-0.$(date +%Y%m%d).iso
-            export ROOT_DIR=$PWD 
-            export LUET_CONFIG="$PWD/conf/luet-desktop.yaml"
-            sudo -E luet geniso
-            sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256
+            sudo -E ./scripts/isospec specs/gnome.yaml
             mkdir isobuild
-            mv $IMAGE_NAME $IMAGE_NAME.sha256 isobuild/
-      env:
-        IMAGE_NAME: "MocaccinoOS-GNOME"
-        OVERLAY: "true"
-        FIRST_STAGE: "distro/mocaccino-initramfs"
-        ISOIMAGE_PACKAGES: "live/syslinux system/mocaccino-live-boot"
-        UEFI_PACKAGES: "live/systemd-boot system/mocaccino-live-boot"
-        LUET_BIN: "/usr/bin/luet"
-        LUET_PACKAGES: "flavor/sabayon-gnome-live system/luet system/container-diff"
+            mv *.iso *.sha256 isobuild/
     - name: setup-docker
       uses: docker-practice/actions-setup-docker@0.0.1
     - name: Deploy 🚀
