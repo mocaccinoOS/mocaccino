@@ -18,7 +18,7 @@ export ISOIMAGE_PACKAGES="$(yq r -j $SPEC 'packages.isoimage' | jq -r '.[]' | xa
 export UEFI_PACKAGES="$(yq r -j $SPEC 'packages.uefi' | jq -r '.[]' | xargs echo)"
 export LUET_BIN="${LUET_BIN:-/usr/bin/luet}"
 export ROOT_DIR="${ROOT_DIR:-$PWD}"
-export LUET_CONFIG="$(yq r $SPEC 'luet.config')"
+export LUET_CONFIG="$ROOT_DIR/$(yq r $SPEC 'luet.config')"
 
 echo "Packages"
 echo "--------"
