@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        git fetch --prune --unshallow
+    - name: Install Luet and deps 🔧
+      run: |
+        sudo apt-get install -y xorriso squashfs-tools dosfstools
+        curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
+    - name: build ISOS 🔧
+      run: |
+            IMAGE_NAME=$IMAGE_NAME-0.$(date +%Y%m%d).iso
+            ROOT_DIR=$PWD LUET_CONFIG="$PWD/conf/luet-micro.yaml"
+            sudo -E luet geniso
+            sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256
+            mkdir isobuild
+            mv $IMAGE_NAME $IMAGE_NAME.sha256 isobuild/
+      env:
+        IMAGE_NAME: "MocaccinoOS-Micro"
+        OVERLAY: "true"
+        FIRST_STAGE: "distro/mocaccino-initramfs"
+        ISOIMAGE_PACKAGES: "live/syslinux system/mocaccino-live-boot"
+        UEFI_PACKAGES: "live/systemd-boot system/mocaccino-live-boot"
+        LUET_PACKAGES: "utils/busybox container/k3s init/runit init/runit-init init/mocaccino-runit init/mocaccino-skel editors/vim repository/mocaccino-extra system/mocaccino-init kernel/sabayon-full system/mocaccino-live-boot system/luet runit-srv/k3s runit-srv/udhcpc utils/eudev utils/openssh"
+    - name: Deploy 🚀
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: |
+        curl https://gist.githubusercontent.com/mudler/87a5da08bacae8ea69b8f15497534d8d/raw/26109389ea6eb5f0b8b54c9711509e5ec974b1d2/keybase_cp.sh > keybase_cp.sh
+        bash keybase_cp.sh $PWD/isobuild /keybase/public/mocaccino/iso/micro
+      env:
+        KEYBASE_DEVICENAME: ${{ secrets.KEYBASE_DEVICENAME }}
+        KEYBASE_PAPERKEY: ${{ secrets.KEYBASE_PAPERKEY }}
+        KEYBASE_USERNAME: ${{ secrets.KEYBASE_USERNAME }}
