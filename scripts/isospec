@@ -1,0 +1,38 @@
+#!/bin/bash
+set -e
+SPEC=$1
+
+export OVERLAY="$(yq r $SPEC 'overlay')"
+export IMAGE_NAME="$(yq r $SPEC 'image_prefix')"
+date="$(yq r $SPEC 'image_date')"
+
+if [[ "$date" == "true" ]]; then
+    export IMAGE_NAME=$IMAGE_NAME$(date +%Y%m%d).iso         
+else 
+    export IMAGE_NAME=$IMAGE_NAME.iso
+fi
+
+export LUET_PACKAGES="$(yq r -j $SPEC 'packages.rootfs' | jq -r '.[]' | xargs echo)"
+export FIRST_STAGE="$(yq r -j $SPEC 'packages.initramfs' | jq -r '.[]' | xargs echo)"
+export ISOIMAGE_PACKAGES="$(yq r -j $SPEC 'packages.isoimage' | jq -r '.[]' | xargs echo)"
+export UEFI_PACKAGES="$(yq r -j $SPEC 'packages.uefi' | jq -r '.[]' | xargs echo)"
+export LUET_BIN="${LUET_BIN:-/usr/bin/luet}"
+export ROOT_DIR="${ROOT_DIR:-$PWD}"
+export LUET_CONFIG="$(yq r $SPEC 'luet.config')"
+
+echo "Packages"
+echo "--------"
+echo "Rootfs: $LUET_PACKAGES"
+echo "UEFI: $UEFI_PACKAGES"
+echo "ISO: $ISOIMAGE_PACKAGES"
+echo "Initramfs: $FIRST_STAGE"
+echo "--------"
+echo
+echo "Overlay: $OVERLAY"
+echo "Luet: $LUET_BIN"
+echo "Luet config: $LUET_CONFIG"
+echo "Image name: $IMAGE_NAME"
+
+luet geniso
+
+sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256

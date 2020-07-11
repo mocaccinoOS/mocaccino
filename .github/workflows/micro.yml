@@ -19,21 +19,9 @@ jobs:
         curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
     - name: ISO Build 🔧
       run: |
-            IMAGE_NAME=$IMAGE_NAME-0.$(date +%Y%m%d).iso
-            export ROOT_DIR=$PWD 
-            export LUET_CONFIG="$PWD/conf/luet-micro.yaml"
-            sudo -E luet geniso
-            sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256
+            sudo -E ./scripts/isospec specs/micro.yaml
             mkdir isobuild
-            mv $IMAGE_NAME $IMAGE_NAME.sha256 isobuild/
-      env:
-        IMAGE_NAME: "MocaccinoOS-Micro"
-        OVERLAY: "true"
-        FIRST_STAGE: "distro/mocaccino-initramfs"
-        ISOIMAGE_PACKAGES: "live/syslinux system/mocaccino-live-boot"
-        UEFI_PACKAGES: "live/systemd-boot system/mocaccino-live-boot"
-        LUET_BIN: "/usr/bin/luet"
-        LUET_PACKAGES: "utils/busybox container/k3s init/runit init/runit-init init/mocaccino-runit init/mocaccino-skel editors/vim repository/mocaccino-extra system/mocaccino-init kernel/sabayon-full system/mocaccino-live-boot system/luet runit-srv/k3s runit-srv/udhcpc utils/eudev utils/openssh"
+            mv *.iso *.sha256 isobuild/
     - name: setup-docker
       uses: docker-practice/actions-setup-docker@0.0.1
     - name: Deploy 🚀

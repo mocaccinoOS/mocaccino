@@ -1,0 +1,33 @@
+packages:
+  rootfs:
+  - utils/busybox 
+  - container/k3s
+  - init/runit
+  - init/runit-init 
+  - init/mocaccino-runit 
+  - init/mocaccino-skel 
+  - editors/vim 
+  - repository/mocaccino-extra 
+  - system/mocaccino-init 
+  - kernel/sabayon-full 
+  - system/mocaccino-live-boot
+  - system/luet
+  - runit-srv/k3s
+  - runit-srv/udhcpc 
+  - utils/eudev
+  - utils/openssh
+  uefi:
+  - live/systemd-boot
+  - system/mocaccino-live-boot
+  isoimage:
+  - live/syslinux
+  - system/mocaccino-live-boot
+  initramfs:
+  - distro/mocaccino-initramfs
+
+overlay: "true"
+image_prefix: "MocaccinoOS-Micro-0."
+image_date: "true"
+
+luet:
+  config: conf/luet-micro.yaml
