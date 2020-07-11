@@ -1,0 +1,30 @@
+general:
+  debug: true
+repositories:
+- name: "MocaccinoOS Desktop repo"
+  type: "http"
+  enable: true
+  urls:
+  - "https://mocaccino.keybase.pub/desktop"
+- name: "MocaccinoOS Micro repo"
+  type: "http"
+  enable: true
+  urls:
+  - "https://mocaccino.keybase.pub/micro"
+- name: "livecd"
+  type: "http"
+  enable: true
+  priority: 10
+  urls:
+  - "https://raw.githubusercontent.com/Luet-lab/livecd-specs/gh-pages"
+- name: "luet"
+  type: "http"
+  enable: true
+  priority: 1
+  urls:
+  - "https://raw.githubusercontent.com/Luet-lab/luet-repo/gh-pages"
+- name: "MocaccinoOS Extra repo"
+  type: "http"
+  enable: true
+  urls:
+  - "https://mocaccino.keybase.pub/extra"
