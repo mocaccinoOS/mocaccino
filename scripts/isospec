@@ -1,4 +1,5 @@
 #!/bin/bash
+# Wrapper around luet geniso to accept a yaml as an input
 set -e
 SPEC=$1
 

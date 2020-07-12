@@ -1,0 +1,37 @@
+name: MocaccinoOS KDE
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        git fetch --prune --unshallow
+    - name: Install Luet and deps 🔧
+      run: |
+        sudo apt-get install -y xorriso squashfs-tools dosfstools
+        curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
+        sudo luet install repository/mocaccino-extra
+        sudo luet install utils/jq utils/yq
+    - name: ISO Build 🔧
+      run: |
+            sudo -E ./scripts/isospec specs/kde.yaml
+            mkdir isobuild
+            mv *.iso *.sha256 isobuild/
+    - name: setup-docker
+      uses: docker-practice/actions-setup-docker@0.0.1
+    - name: Deploy 🚀
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: |
+        curl https://gist.githubusercontent.com/mudler/87a5da08bacae8ea69b8f15497534d8d/raw/26109389ea6eb5f0b8b54c9711509e5ec974b1d2/keybase_cp.sh > keybase_cp.sh
+        bash keybase_cp.sh $PWD/isobuild /keybase/public/mocaccino/iso/kde
+      env:
+        KEYBASE_DEVICENAME: ${{ secrets.KEYBASE_DEVICENAME }}
+        KEYBASE_PAPERKEY: ${{ secrets.KEYBASE_PAPERKEY }}
+        KEYBASE_USERNAME: ${{ secrets.KEYBASE_USERNAME }}
