@@ -72,7 +72,7 @@ $> ./scripts/isospec specs/micro.yaml
 
 ## Local Requirements
 
-When running it locally, you need those tools installed:
+When running it locally, you need these tools installed:
 
 - [luet](https://github.com/mudler/luet)
 - luet-extensions (can be installed with `luet install luet-extensions` from the [Luet official repository](https://github.com/Luet-lab/luet-repo))
