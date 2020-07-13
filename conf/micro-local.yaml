@@ -1,0 +1,45 @@
+general:
+  debug: false
+
+repositories:
+   - name: "mocaccino-micro"
+     description: "MocaccinoOS micro Repository"
+     type: "http"
+     enable: true
+     cached: true
+     priority: 1
+     urls:
+       - "https://mocaccino.keybase.pub/micro"
+
+   - name: "mocaccino-extra"
+     description: "MocaccinoOS extra Repository"
+     type: "http"
+     enable: true
+     cached: true
+     priority: 1
+     urls:
+       - "https://mocaccino.keybase.pub/extra"
+
+   - name: "luet-official"
+     description: "Luet Official Repository"
+     type: "http"
+     enable: true
+     cached: true
+     priority: 1
+     urls:
+       - "https://raw.githubusercontent.com/Luet-lab/luet-repo/gh-pages"
+
+   - name: "local"
+     description: "Local Repository"
+     type: "http"
+     enable: true
+     cached: true
+     priority: 999
+     urls:
+       - "http://127.0.0.1:8000"
+   - name: "MocaccinoOS Desktop repo"
+     type: "http"
+     enable: true
+     priority: 1
+     urls:
+     - "https://mocaccino.keybase.pub/desktop"
