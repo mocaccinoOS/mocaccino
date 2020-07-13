@@ -3,6 +3,7 @@
 set -e
 SPEC=$1
 
+export CA_CERTIFICATES="$(yq r $SPEC 'ca_certificate')"
 export OVERLAY="$(yq r $SPEC 'overlay')"
 export IMAGE_NAME="$(yq r $SPEC 'image_prefix')"
 date="$(yq r $SPEC 'image_date')"
@@ -33,7 +34,7 @@ echo "Overlay: $OVERLAY"
 echo "Luet: $LUET_BIN"
 echo "Luet config: $LUET_CONFIG"
 echo "Image name: $IMAGE_NAME"
-
+echo "Bootstrap CA: $CA_CERTIFICATES"
 luet geniso
 
 sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256
