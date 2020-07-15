@@ -9,7 +9,7 @@
 
 This repository contains GitHub Actions to build MocaccinoOS ISOs.
 
-The CI will deploy from master the iso built in the [mocaccino keybase public directory](https://keybase.pub/mocaccino/iso/).
+The [CI](https://www.linux.com/news/what-cicd-0) will deploy from master the iso built in the [mocaccino keybase public directory](https://keybase.pub/mocaccino/iso/).
 
 
 ## Flavors
