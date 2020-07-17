@@ -16,6 +16,8 @@ packages:
   - runit-srv/udhcpc 
   - utils/eudev
   - utils/openssh
+  - utils/procps
+  - groups/utmp
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
