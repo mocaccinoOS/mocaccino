@@ -29,6 +29,7 @@ packages:
   - kernel/sabayon-minimal
   - system/mocaccino-init
   - system/mocaccino-live-boot
+  - init/mocaccino-skel
 
 overlay: "true"
 image_prefix: "MocaccinoOS-Micro-0."
