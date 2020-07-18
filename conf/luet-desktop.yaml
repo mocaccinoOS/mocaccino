@@ -6,6 +6,11 @@ repositories:
   enable: true
   urls:
   - "https://mocaccino.keybase.pub/desktop"
+- name: "MocaccinoOS Kernel repo"
+  type: "http"
+  enable: true
+  urls:
+  - "https://mocaccino.keybase.pub/kernel-repo"
 - name: "livecd"
   type: "http"
   enable: true

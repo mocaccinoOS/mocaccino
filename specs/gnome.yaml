@@ -11,7 +11,7 @@ packages:
   - live/syslinux
   - system/mocaccino-live-boot
   initramfs:
-  - distro/mocaccino-initramfs
+  - distro/sabayon-initramfs
 
 overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-0."

@@ -25,7 +25,10 @@ packages:
   - live/syslinux
   - system/mocaccino-live-boot
   initramfs:
-  - distro/mocaccino-initramfs
+  - utils/busybox
+  - kernel/sabayon-minimal
+  - system/mocaccino-init
+  - system/mocaccino-live-boot
 
 overlay: "true"
 image_prefix: "MocaccinoOS-Micro-0."

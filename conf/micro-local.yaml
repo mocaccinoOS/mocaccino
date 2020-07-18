@@ -37,9 +37,8 @@ repositories:
      priority: 999
      urls:
        - "http://127.0.0.1:8000"
-   - name: "MocaccinoOS Desktop repo"
-     type: "http"
-     enable: true
-     priority: 1
-     urls:
-     - "https://mocaccino.keybase.pub/desktop"
+  - name: "MocaccinoOS Kernel repo"
+    type: "http"
+    enable: true
+    urls:
+    - "https://mocaccino.keybase.pub/kernel-repo"
