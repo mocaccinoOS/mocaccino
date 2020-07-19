@@ -18,6 +18,8 @@ packages:
   - utils/openssh
   - utils/procps
   - groups/utmp
+  - utils/yip
+  - utils/yip-integration
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -30,6 +32,8 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
+  - utils/yip
+  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-Micro-0."
