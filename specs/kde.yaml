@@ -2,7 +2,8 @@
 
 packages:
   rootfs:
-  - flavor/sabayon-kde-live 
+  - flavor/sabayon-kde-live
+  - app-misc/sabayon-live
   - system/luet
   uefi:
   - live/systemd-boot

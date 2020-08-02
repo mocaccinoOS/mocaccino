@@ -1,6 +1,7 @@
 packages:
   rootfs:
   - flavor/sabayon-mate-live 
+  - app-misc/sabayon-live
   - system/luet
   uefi:
   - live/systemd-boot
