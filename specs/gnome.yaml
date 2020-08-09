@@ -5,6 +5,8 @@ packages:
   - flavor/sabayon-gnome-live
   - app-misc/sabayon-live
   - system/luet
+  - utils/yip
+  - utils/yip-integration
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -13,6 +15,8 @@ packages:
   - system/mocaccino-live-boot
   initramfs:
   - distro/sabayon-initramfs
+  - utils/yip
+  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-0."
