@@ -3,6 +3,19 @@
 set -e
 SPEC=$1
 
+create_iso_metadata_file () {
+  local iso=$1
+  local sha256=$2
+  local f=$3
+
+  echo "
+iso: $iso
+sha256: ${sha256}
+" > $f
+
+  return 0
+}
+
 export CA_CERTIFICATES="$(yq r $SPEC 'ca_certificate')"
 export OVERLAY="$(yq r $SPEC 'overlay')"
 export IMAGE_NAME="$(yq r $SPEC 'image_prefix')"
@@ -37,4 +50,8 @@ echo "Image name: $IMAGE_NAME"
 echo "Bootstrap CA: $CA_CERTIFICATES"
 luet geniso
 
-sha256sum $IMAGE_NAME > $IMAGE_NAME.sha256
+IMAGE_SHA256=`sha256sum $IMAGE_NAME`
+
+create_iso_metadata_file "$IMAGE_NAME" "$IMAGE_SHA256" "iso-meta.yaml"
+
+echo $IMAGE_SHA256 > $IMAGE_NAME.sha256
