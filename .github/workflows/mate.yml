@@ -26,12 +26,18 @@ jobs:
             mv *.iso *.sha256 isobuild/
     - name: setup-docker
       uses: docker-practice/actions-setup-docker@0.0.1
+
+    - name: Install minio and login
+      env:
+        MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+        MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+        MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      run: |
+        sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc
+        sudo chmod +x /usr/bin/mc
+        mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+
     - name: Deploy 🚀
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
-        curl https://gist.githubusercontent.com/mudler/87a5da08bacae8ea69b8f15497534d8d/raw/26109389ea6eb5f0b8b54c9711509e5ec974b1d2/keybase_cp.sh > keybase_cp.sh
-        bash keybase_cp.sh $PWD/isobuild /keybase/public/mocaccino/iso/mate
-      env:
-        KEYBASE_DEVICENAME: ${{ secrets.KEYBASE_DEVICENAME }}
-        KEYBASE_PAPERKEY: ${{ secrets.KEYBASE_PAPERKEY }}
-        KEYBASE_USERNAME: ${{ secrets.KEYBASE_USERNAME }}
+        mc cp --recursive $PWD/isobuild/ minio/mocaccino-iso
