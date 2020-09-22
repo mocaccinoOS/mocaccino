@@ -28,6 +28,7 @@ else
 fi
 
 export LUET_PACKAGES="$(yq r -j $SPEC 'packages.rootfs' | jq -r '.[]' | xargs echo)"
+export LUET_REPOS="$(yq r -j $SPEC 'packages.repos' | jq -r '.[]' | xargs echo)"
 export FIRST_STAGE="$(yq r -j $SPEC 'packages.initramfs' | jq -r '.[]' | xargs echo)"
 export ISOIMAGE_PACKAGES="$(yq r -j $SPEC 'packages.isoimage' | jq -r '.[]' | xargs echo)"
 export UEFI_PACKAGES="$(yq r -j $SPEC 'packages.uefi' | jq -r '.[]' | xargs echo)"
@@ -41,6 +42,7 @@ echo "Rootfs: $LUET_PACKAGES"
 echo "UEFI: $UEFI_PACKAGES"
 echo "ISO: $ISOIMAGE_PACKAGES"
 echo "Initramfs: $FIRST_STAGE"
+echo "Repositories: ${LUET_REPOS}"
 echo "--------"
 echo
 echo "Overlay: $OVERLAY"
