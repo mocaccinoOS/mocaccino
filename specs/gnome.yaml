@@ -1,4 +1,11 @@
 packages:
+  # Repositories packages from repository-index
+  repos:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel
+  - repository/mocaccino-desktop
+
   rootfs:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
@@ -23,4 +30,4 @@ image_prefix: "MocaccinoOS-GNOME-0."
 image_date: "true"
 
 luet:
-  config: conf/luet-desktop.yaml
+  config: conf/luet-desktop-thin.yaml

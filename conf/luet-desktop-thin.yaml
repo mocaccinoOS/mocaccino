@@ -1,0 +1,12 @@
+general:
+  debug: true
+
+repositories:
+- name: "mocaccino-repository-index"
+  description: "MocaccinoOS Repository index"
+  type: "http"
+  enable: true
+  cached: true
+  priority: 1
+  urls:
+  - "https://mocaccino.keybase.pub/repository-index"
