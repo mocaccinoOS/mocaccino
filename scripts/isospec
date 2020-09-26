@@ -3,6 +3,11 @@
 set -e
 SPEC=$1
 
+if [ ! -f "${SPEC}" ] ; then
+  echo "Invalid spec ${SPEC}. File not found"
+  exit 1
+fi
+
 create_iso_metadata_file () {
   local iso=$1
   local sha256=$2
