@@ -10,7 +10,7 @@ repositories:
   type: "http"
   enable: true
   urls:
-  - "https://mocaccino.keybase.pub/micro"
+  - "https://get.mocaccino.org/mocaccino-micro"
 - name: "LiveCD Tools repo"
   type: "http"
   enable: true
@@ -27,4 +27,4 @@ repositories:
   type: "http"
   enable: true
   urls:
-  - "https://mocaccino.keybase.pub/extra"
+  - "https://get.mocaccino.org/mocaccino-extra"
