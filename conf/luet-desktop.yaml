@@ -6,13 +6,13 @@ repositories:
   enable: true
   urls:
   #- "https://mocaccino.keybase.pub/desktop"
-  - "https://dispatcher.sabayon.org/sbi/namespace/mocaccino-desktop"
+  - "https://get.mocaccino.org/mocaccino-desktop"
 - name: "MocaccinoOS Kernel repo"
   type: "http"
   enable: true
   urls:
   #- "https://mocaccino.keybase.pub/kernel-repo"
-  - "https://dispatcher.sabayon.org/sbi/namespace/mocaccino-kernel"
+  - "https://get.mocaccino.org/mocaccino-kernel"
 - name: "livecd"
   type: "http"
   enable: true
