@@ -5,6 +5,7 @@ packages:
   - repository/livecd
   - repository/mocaccino-kernel
   - repository/mocaccino-desktop
+  - repository/mocaccino-extra
 
   rootfs:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
