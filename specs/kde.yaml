@@ -15,7 +15,7 @@ packages:
   - distro/sabayon-initramfs
 
 overlay: "true"
-image_prefix: "MocaccinoOS-KDE-0."
+image_prefix: "Sabayon-KDE-0."
 image_date: "true"
 
 luet:
