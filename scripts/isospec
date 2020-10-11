@@ -13,10 +13,29 @@ create_iso_metadata_file () {
   local sha256=$2
   local f=$3
 
+  local d=$(date +%Y%m%d)
+
   echo "
+date: $d
 iso: $iso
 sha256: ${sha256}
 " > $f
+
+  return 0
+}
+
+create_iso_metadata_jsonfile () {
+  local iso=$1
+  local sha256=$2
+  local f=$3
+
+  local d=$(date +%Y%m%d)
+
+  echo "{
+"date": "$d",
+"iso": "$iso",
+"sha256": "${sha256}"
+}" > $f
 
   return 0
 }
@@ -60,5 +79,6 @@ luet geniso
 IMAGE_SHA256=`sha256sum $IMAGE_NAME`
 
 create_iso_metadata_file "$IMAGE_NAME" "$IMAGE_SHA256" "iso-meta.yaml"
+create_iso_metadata_jsonfile "$IMAGE_NAME" "$IMAGE_SHA256" "iso-meta.json"
 
 echo $IMAGE_SHA256 > $IMAGE_NAME.sha256
