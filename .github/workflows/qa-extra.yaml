@@ -1,0 +1,97 @@
+name: QA Mocaccino Smoke
+
+on:
+  push:
+  schedule:
+    - cron:  '* 1 * * *'
+
+jobs:
+  generate-matrix-extra:
+    name: Generate matrix for Mocaccino Extra
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: MocaccinoOS/mocaccino-extra
+      - name: Install deps
+        env:
+          PREVIOUS: ${{ github.event.before }}
+        run: |
+          curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
+          sudo wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /usr/bin/jq
+          sudo chmod a+x /usr/bin/jq
+          sudo luet install system/container-diff system/luet-extensions
+          sudo luet install utils/keybase-tools
+      - name: Set matrix for build
+        id: set-matrix
+        run: |
+          JSON="{\"include\":"
+          JSONline="$(luet tree pkglist --tree amd64 -t multi-arch -o json | jq -rc '.packages')"
+          JSON="$JSON$JSONline"
+          JSON="$JSON}"
+          # Set output
+          echo "::set-output name=matrix::$( echo "$JSON" )"
+
+  generate-matrix-micro:
+    name: Generate matrix for Mocaccino Micro
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: MocaccinoOS/mocaccino-micro
+      - name: Install deps
+        env:
+          PREVIOUS: ${{ github.event.before }}
+        run: |
+          curl https://gist.githubusercontent.com/mudler/8b8d6c53c4669f4b9f9a72d1a2b92172/raw/e9d38b8e0702e7f1ef9a5db1bfa428add12a2d24/get_luet_root.sh | sudo sh
+          sudo wget https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -O /usr/bin/jq
+          sudo chmod a+x /usr/bin/jq
+          sudo luet install system/container-diff system/luet-extensions
+          sudo luet install utils/keybase-tools
+      - name: Set matrix for build
+        id: set-matrix
+        run: |
+          JSON="{\"include\":"
+          JSONline="$(luet tree pkglist --tree amd64 -t multi-arch -o json | jq -rc '.packages')"
+          JSON="$JSON$JSONline"
+          JSON="$JSON}"
+          # Set output
+          echo "::set-output name=matrix::$( echo "$JSON" )"
+  test-extra:
+    runs-on: ubuntu-latest
+    needs: generate-matrix-extra
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix-extra.outputs.matrix)}}
+    steps:
+    - name: Install deps
+      run: |
+            curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+            sudo luet install system/container-diff system/luet-extensions
+            sudo luet install utils/keybase-tools utils/charty
+    - name: Test package
+      continue-on-error: true
+      env:
+        PACKAGE: ${{ matrix.category }}/${{ matrix.name }}
+      run: |
+            charty start https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz --set "packages[0]=$PACKAGE" --set "debug=true"
+  test-micro:
+    runs-on: ubuntu-latest
+    needs: generate-matrix-micro
+    strategy:
+      matrix: ${{fromJson(needs.generate-matrix-micro.outputs.matrix)}}
+    steps:
+    - name: Install deps
+      run: |
+            curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+            sudo luet install system/container-diff system/luet-extensions
+            sudo luet install utils/keybase-tools utils/charty
+    - name: Test package
+      continue-on-error: true
+      env:
+        PACKAGE: ${{ matrix.category }}/${{ matrix.name }}
+      run: |
+            charty start https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz --set "packages[0]=$PACKAGE" --set "debug=true"
