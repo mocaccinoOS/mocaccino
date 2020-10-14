@@ -1,7 +1,6 @@
 name: QA Mocaccino Smoke
 
 on:
-  push:
   schedule:
     - cron:  '* 1 * * *'
 
