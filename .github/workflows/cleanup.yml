@@ -1,0 +1,23 @@
+name: Bucket cleanup
+
+on:
+  schedule:
+    - cron:  '* * 1 * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install minio and login
+      env:
+        MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+        MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+        MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      run: |
+        sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc
+        sudo chmod +x /usr/bin/mc
+        mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+
+    - name: Deploy 🚀
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: |
+        mc find minio/mocaccino-iso --older-than 30d --exec "mc rm {}"
