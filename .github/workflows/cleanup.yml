@@ -2,7 +2,7 @@ name: Bucket cleanup
 
 on:
   schedule:
-    - cron:  '* * 1 * *'
+    - cron:  '* 20 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
