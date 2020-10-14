@@ -2,8 +2,18 @@ name: MocaccinoOS MinimalX
 
 on:
   push:
+    paths:
+    - 'conf/**'
+    - 'specs/**'
+    - 'scripts/**'
+    - '.github/workflows/**'
     branches: [ master, develop ]
   pull_request:
+    paths:
+    - 'conf/**'
+    - 'specs/**'
+    - 'scripts/**'
+    - '.github/workflows/**'
     branches: [ master, develop ]
   schedule:
     - cron:  '* 1 * * *'
