@@ -155,47 +155,12 @@ jobs:
                         sleep 20
                     done
                 done
-  - name: create-repo-{{$repo.name}}
-    serial_groups: [{{$repo.name}}]
-    plan:
-      - get: {{$repo.name}}
-        passed: [wait-for-packages-{{$repo.name}}]
-        trigger: true
-      - task: create-repo
-        input_mapping:
-         repository: {{$repo.name}}
-        config:
-          inputs:
-          - name: repository
-          platform: linux
-          image_resource:
-            type: registry-image
-            source: { repository: quay.io/mocaccino/extra }
-          run:
-            path: "/bin/sh"
-            args: 
-            - -ce
-            - |
-                export SUDO=
-                ls -liah
-                ls -liah repository
-                luet install repository/mocaccino-extra
-                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
-                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
-               
-                cd repository/
-                mkdir build
-                mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ build
-                ls -liah build/
-                make create-repo
-                mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
-                ls -liah build/
 
   - name: prune-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
-        passed: [create-repo-{{$repo.name}}]
+        passed: [wait-for-packages-{{$repo.name}}]
         trigger: true
       - task: prune-repo
         input_mapping:
@@ -243,12 +208,48 @@ jobs:
                 mc rm $a
 
                 done
+  - name: create-repo-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
+    plan:
+      - get: {{$repo.name}}
+        passed: [prune-repo-{{$repo.name}}]
+        trigger: true
+      - task: create-repo
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                export SUDO=
+                ls -liah
+                ls -liah repository
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+               
+                cd repository/
+                mkdir build
+                mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ build
+                ls -liah build/
+                make create-repo
+                mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
+                ls -liah build/
+
 {{- if $repo.qa }}
   - name: qa-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
-        passed: [prune-repo-{{$repo.name}}]
+        passed: [create-repo-{{$repo.name}}]
         trigger: true
       - task: qa
         input_mapping:
