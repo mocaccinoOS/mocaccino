@@ -2,12 +2,22 @@ repositories:
   - name: "mocaccino-extra"
     bucket: "mocaccino-extra"
     clean: false
+    branch: master
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
     clean: false
+    branch: master
   - name: "desktop"
     bucket: "mocaccino-desktop"
     clean: false
+    branch: master
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
     clean: false
+    branch: master
+  - name: "portage-tree"
+    bucket: "mocaccino-portage-tree"
+    clean: false
+    branch: main
+
+qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz"

@@ -8,12 +8,13 @@ resources:
   type: git
   source:
     uri: https://github.com/mocaccinoOS/{{$repo.name}}
-    branch: master
+    branch: {{$repo.branch}}
 {{ end }}
 
 jobs:
 {{ range $_, $repo := $config.repositories }}
   - name: {{$repo.name}}
+    serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
         trigger: true
@@ -103,6 +104,7 @@ jobs:
                 done
 
   - name: wait-for-packages-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
         passed: [{{$repo.name}}]
@@ -154,6 +156,7 @@ jobs:
                     done
                 done
   - name: create-repo-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
         passed: [wait-for-packages-{{$repo.name}}]
@@ -187,4 +190,69 @@ jobs:
                 make create-repo
                 mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
                 ls -liah build/
+  - name: qa-repo-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
+    plan:
+      - get: {{$repo.name}}
+        passed: [create-repo-{{$repo.name}}]
+        trigger: true
+      - task: qa
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                ls -liah repository
+                luet install repository/mocaccino-extra
+                luet install utils/charty utils/jq shells/bash
+                
+
+                # Luet tree package list
+                #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
+                if [ -e "repository/packages" ]; then 
+                    PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
+                else 
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                fi  
+
+                # For each package in the tree, get the path where the spec resides
+                # e.g. packages/acct-group/amavis/0/
+                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+
+                    PACKAGE_PATH=$i
+                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
+                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
+                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
+                done
+  - name: publish-stable-repo-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
+    plan:
+      - get: {{$repo.name}}
+        passed: [qa-repo-{{$repo.name}}]
+        trigger: true
+      - task: publish
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+                mc mirror --overwrite --remove minio-ci/{{$repo.bucket}} minio-ci/{{$repo.bucket}}-stable
 {{ end }}
