@@ -190,12 +190,65 @@ jobs:
                 make create-repo
                 mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
                 ls -liah build/
+
+  - name: prune-repo-{{$repo.name}}
+    serial_groups: [{{$repo.name}}]
+    plan:
+      - get: {{$repo.name}}
+        passed: [create-repo-{{$repo.name}}]
+        trigger: true
+      - task: prune-repo
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+               
+                # Luet tree package list
+                #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
+                if [ -e "repository/packages" ]; then 
+                    PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
+                else 
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                fi  
+                echo "Pruning old packages from repository"
+                for a in $(mc find minio-ci/{{$repo.bucket}} --regex '.*.package.*|.*.metadata.yaml$' --json |  jq -r '.key' ); do
+
+                    # For each package in the tree, get the path where the spec resides
+                    # e.g. packages/acct-group/amavis/0/
+                    for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+
+                        PACKAGE_PATH=$i
+                        PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
+                        PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
+                        PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                        if echo $a | grep -q "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION"; then
+                            continue 2
+                        fi
+                    done
+
+                # echo "$a pending deletion"
+                mc rm $a
+
+                done
 {{- if $repo.qa }}
   - name: qa-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
-        passed: [create-repo-{{$repo.name}}]
+        passed: [prune-repo-{{$repo.name}}]
         trigger: true
       - task: qa
         input_mapping:
