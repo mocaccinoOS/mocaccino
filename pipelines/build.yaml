@@ -8,3 +8,6 @@ repositories:
   - name: "desktop"
     bucket: "mocaccino-desktop"
     clean: false
+  - name: "kernel-repo"
+    bucket: "mocaccino-kernel"
+    clean: false

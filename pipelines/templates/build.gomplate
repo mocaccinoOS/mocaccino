@@ -107,6 +107,7 @@ jobs:
         passed: [{{$repo.name}}]
         trigger: true
       - task: wait-for-packages
+        timeout: 1h30m
         input_mapping:
          repository: {{$repo.name}}
         config:
@@ -135,7 +136,7 @@ jobs:
                 else 
                     PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
                 fi  
-                
+
                 # For each package in the tree, get the path where the spec resides
                 # e.g. packages/acct-group/amavis/0/
                 for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
@@ -144,11 +145,11 @@ jobs:
                     PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
                     PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
                     PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
-                    echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME is built"
+                    echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                     while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
                     do
-                        echo "Not yet, sleeping"
-                        sleep 5
+                        echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
+                        sleep 20
                     done
                 done
   - name: create-repo-{{$repo.name}}
