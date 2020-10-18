@@ -1,0 +1,10 @@
+repositories:
+  - name: "mocaccino-extra"
+    bucket: "mocaccino-extra"
+    clean: false
+  - name: "mocaccino-micro"
+    bucket: "mocaccino-micro"
+    clean: false
+  - name: "desktop"
+    bucket: "mocaccino-desktop"
+    clean: false

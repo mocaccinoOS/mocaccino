@@ -1,0 +1,188 @@
+# load the config provided when evaluating the template
+{{ $config := (datasource "config") }}
+---
+resources:
+{{ range $_, $repo := $config.repositories }}
+- name: {{$repo.name}}
+  type: git
+  source:
+    uri: https://github.com/mocaccinoOS/{{$repo.name}}
+    branch: master
+{{ end }}
+
+jobs:
+{{ range $_, $repo := $config.repositories }}
+  - name: {{$repo.name}}
+    plan:
+      - get: {{$repo.name}}
+        trigger: true
+      - task: run-mottainai-task
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                ls -liah
+                ls -liah repository
+                REF=$(cat repository/.git/ref)
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+                mottainai-cli profile create build http://mottainai.mottainai-prod.svc.cluster.local ((mottainai_api_key))
+
+                # Luet tree package list
+                #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
+                if [ -e "repository/packages" ]; then 
+                    PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
+                else 
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                fi  
+    
+                # For each package in the tree, get the path where the spec resides
+                # e.g. packages/acct-group/amavis/0/
+                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+
+                    PACKAGE_PATH=$i
+                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
+                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
+                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
+                        echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
+                        continue
+                    fi
+                cat << EOF >task.yaml
+                name: "Build $PACKAGE_CATEGORY/$PACKAGE_NAME from {{$repo.name}} to minio"
+                image: sabayon/builder
+                type: lxd
+                queue: lxd
+                storage: 'mocaccino-credentials,minio'
+                environment:
+                - BUILD_ARGS=--pull --push --config ./conf/luet.yaml --no-spinner --skip-if-metadata-exists=true
+                - "SUDO="
+                - CLEAN={{$repo.clean}}
+                - REPO=https://github.com/mocaccinoOS/{{$repo.name}}.git
+                - BRANCH=$REF
+                - PACKAGES=$PACKAGE_CATEGORY/$PACKAGE_NAME
+                - MINIO_ID=((minio_id))
+                - MINIO_SECRET=((minio_secret))
+                - MINIO_URL=((minio_url))
+                script:
+                - sleep 5
+                - source /etc/profile
+                - source storage/env
+                - echo "Logging to minio"
+                - systemctl start docker
+                - echo "Docker started"
+                - mkdir -p \$HOME/.docker
+                - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > \$HOME/.docker/config.json'
+                - docker login -u \$DOCKER_USER -p \$DOCKER_PASSWORD
+                - curl --no-progress-meter https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+                - luet install repository/mocaccino-extra
+                - luet install net-fs/minio-client
+                - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
+                - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
+                - mkdir \$PWD/build
+                - chmod -R 777 \$PWD/build
+                - mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ \$PWD/build
+                - make rebuild
+                - mc cp --recursive \$PWD/build/ minio-ci/{{$repo.bucket}}/
+                - ls -l build
+                EOF
+                    mottainai-cli -p build task create --yaml task.yaml
+
+                done
+
+  - name: wait-for-packages-{{$repo.name}}
+    plan:
+      - get: {{$repo.name}}
+        passed: [{{$repo.name}}]
+        trigger: true
+      - task: wait-for-packages
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                ls -liah
+                ls -liah repository
+                REF=$(cat repository/.git/ref)
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+               
+                # Luet tree package list
+                #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
+                if [ -e "repository/packages" ]; then 
+                    PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
+                else 
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                fi  
+                
+                # For each package in the tree, get the path where the spec resides
+                # e.g. packages/acct-group/amavis/0/
+                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+
+                    PACKAGE_PATH=$i
+                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
+                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
+                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME is built"
+                    while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
+                    do
+                        echo "Not yet, sleeping"
+                        sleep 5
+                    done
+                done
+  - name: create-repo-{{$repo.name}}
+    plan:
+      - get: {{$repo.name}}
+        passed: [wait-for-packages-{{$repo.name}}]
+        trigger: true
+      - task: create-repo
+        input_mapping:
+         repository: {{$repo.name}}
+        config:
+          inputs:
+          - name: repository
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: quay.io/mocaccino/extra }
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                export SUDO=
+                ls -liah
+                ls -liah repository
+                luet install repository/mocaccino-extra
+                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
+               
+                cd repository/
+                mkdir build
+                mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ build
+                ls -liah build/
+                make create-repo
+                mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
+                ls -liah build/
+{{ end }}
