@@ -190,6 +190,7 @@ jobs:
                 make create-repo
                 mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
                 ls -liah build/
+{{- if $repo.qa }}
   - name: qa-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
@@ -255,4 +256,5 @@ jobs:
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mc mirror --overwrite --remove minio-ci/{{$repo.bucket}} minio-ci/{{$repo.bucket}}-stable
+{{- end }}
 {{ end }}
