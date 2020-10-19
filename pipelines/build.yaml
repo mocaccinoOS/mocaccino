@@ -22,7 +22,7 @@ repositories:
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
     clean: false
-    branch: main
+    branch: master
     qa: true
 
 qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz"
