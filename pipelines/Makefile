@@ -1,5 +1,5 @@
 TARGET ?= mocaccino
-PIPELINES ?= test build
+PIPELINES ?= test build bump
 PIPELINE ?= test
 VARS ?=
 
