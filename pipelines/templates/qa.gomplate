@@ -19,6 +19,7 @@ jobs:
             source: { repository: {{$chart.image}} }
           params:
             LUET_NOLOCK: true
+            ACCEPT_LICENSE: "*"
           run:
             path: "/bin/sh"
             args: 
@@ -26,6 +27,14 @@ jobs:
             - |
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sh
                 luet install repository/mocaccino-extra
-                luet install system/luet-extensions utils/charty utils/jq utils/yq 
+                luet install system/luet-extensions utils/charty utils/jq utils/yq
+                {{- if eq $chart.image "sabayon/base" }}
+                equo i git
+                {{- end }}
+                {{- if $chart.from_repo }}
+                git clone {{$chart.repo}} chart
+                charty start chart/{{$chart.chartpath}} {{$chart.args}}
+                {{- else }}
                 charty start {{$chart.url}} {{$chart.args}}
+                {{- end }}
 {{ end }}
