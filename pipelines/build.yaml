@@ -1,28 +1,53 @@
 repositories:
   - name: "mocaccino-extra"
     bucket: "mocaccino-extra"
+    project: "mocaccino-extra" 
     qa: true
     clean: false
+    arch: amd64
     branch: master
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
     clean: false
+    project: "mocaccino-micro" 
     branch: master
     qa: true
+    arch: amd64
+  - name: "mocaccino-extra-arm"
+    bucket: "mocaccino-extra-arm"
+    project: "mocaccino-extra" 
+    qa: true
+    clean: false
+    arch: arm
+    branch: master
+  - name: "mocaccino-micro-arm"
+    bucket: "mocaccino-micro-arm"
+    clean: false
+    project: "mocaccino-micro" 
+    branch: master
+    qa: true
+    arch: arm
   - name: "desktop"
     bucket: "mocaccino-desktop"
     clean: false
+    project: "desktop" 
     qa: false
     branch: master
+    arch: amd64
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
     clean: false
     qa: true
     branch: master
+    project: "kernel-repo" 
+    arch: amd64
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
     clean: false
     branch: master
     qa: true
+    arch: amd64
+    project: "portage-tree" 
+
 
 qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz"

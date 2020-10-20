@@ -7,7 +7,7 @@ resources:
   check_every: 10m
   type: git
   source:
-    uri: https://github.com/mocaccinoOS/{{$repo.name}}
+    uri: https://github.com/mocaccinoOS/{{$repo.project}}
     branch: {{$repo.branch}}
 {{ end }}
 
@@ -28,6 +28,10 @@ jobs:
           image_resource:
             type: registry-image
             source: { repository: quay.io/mocaccino/extra }
+          params:
+           {{- if eq $repo.arch "arm" }}
+            REPO_CACHE: "mocaccinoos/micro-arm-cache"
+           {{- end }}
           run:
             path: "/bin/sh"
             args: 
@@ -46,7 +50,7 @@ jobs:
                 if [ -e "repository/packages" ]; then 
                     PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
                 else 
-                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/{{$repo.arch}} -o json)
                 fi  
     
                 # For each package in the tree, get the path where the spec resides
@@ -65,7 +69,11 @@ jobs:
                 name: "Build $PACKAGE_CATEGORY/$PACKAGE_NAME from {{$repo.name}} to minio"
                 image: sabayon/builder
                 type: lxd
+                {{- if eq $repo.arch "arm" }}
+                queue: arm_lxd
+                {{- else }}
                 queue: lxd
+                {{- end }}
                 storage: 'mocaccino-credentials,minio'
                 environment:
                 - BUILD_ARGS=--pull --push --config ./conf/luet.yaml --no-spinner --skip-if-metadata-exists=true
@@ -79,6 +87,20 @@ jobs:
                 - MINIO_URL=((minio_url))
                 script:
                 - sleep 5
+                {{- if eq $repo.arch "arm" }}
+                # Temporary workaround for delay on DHCP response
+                - sleep 4
+                # stop systemd-networkd to drop iface address from docker0
+                # NOTE: this is needed until we use sabayon/builder-arm image
+                - echo "[Match]" >> /etc/systemd/network/default_dhcp.network
+                - echo 'Name=eth*' >> /etc/systemd/network/default_dhcp.network
+                - systemctl daemon-reload
+                - systemctl restart systemd-networkd
+                - systemctl start docker
+                - sleep 10
+                - systemctl status docker
+                - ip a
+                {{- end }}
                 - source /etc/profile
                 - source storage/env
                 - echo "Logging to minio"
@@ -87,9 +109,14 @@ jobs:
                 - mkdir -p \$HOME/.docker
                 - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > \$HOME/.docker/config.json'
                 - docker login -u \$DOCKER_USER -p \$DOCKER_PASSWORD
+                {{- if eq $repo.arch "arm" }}
+                - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
+                - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
+                {{- else }}
                 - curl --no-progress-meter https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
                 - luet install repository/mocaccino-extra
                 - luet install net-fs/minio-client
+                {{- end }}
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
                 - mkdir \$PWD/build
@@ -137,7 +164,7 @@ jobs:
                 if [ -e "repository/packages" ]; then 
                     PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
                 else 
-                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/{{$repo.arch}} -o json)
                 fi  
 
                 # For each package in the tree, get the path where the spec resides
@@ -186,7 +213,7 @@ jobs:
                 if [ -e "repository/packages" ]; then 
                     PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
                 else 
-                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/{{$repo.arch}} -o json)
                 fi  
                 echo "Pruning old packages from repository"
                 for a in $(mc find minio-ci/{{$repo.bucket}} --regex '.*.package.*|.*.metadata.yaml$' --json |  jq -r '.key' ); do
@@ -276,7 +303,7 @@ jobs:
                 if [ -e "repository/packages" ]; then 
                     PKG_LIST=$(luet tree pkglist --tree repository/packages -o json)
                 else 
-                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/amd64 -o json)
+                    PKG_LIST=$(luet tree pkglist --tree repository/multi-arch --tree repository/{{$repo.arch}} -o json)
                 fi  
 
                 # For each package in the tree, get the path where the spec resides
