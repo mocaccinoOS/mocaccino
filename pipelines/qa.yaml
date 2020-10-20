@@ -1,0 +1,5 @@
+charts:
+  - url: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.3/entropy-migration-0.1.tar.gz"
+    name: "entropy-migration"
+    image: "sabayon/base"
+    args: ""

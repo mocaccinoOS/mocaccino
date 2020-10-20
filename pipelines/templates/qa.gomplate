@@ -1,0 +1,31 @@
+{{ $config := (datasource "config") }}
+---
+resources:
+- name: daily
+  type: time
+  source: {interval: 24h}
+
+jobs:
+{{ range $_, $chart := $config.charts }}
+  - name: {{$chart.name}}
+    plan:
+      - get: daily
+        trigger: true
+      - task: test
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: {{$chart.image}} }
+          params:
+            LUET_NOLOCK: true
+          run:
+            path: "/bin/sh"
+            args: 
+            - -ce
+            - |
+                curl https://get.mocaccino.org/luet/get_luet_root.sh | sh
+                luet install repository/mocaccino-extra
+                luet install system/luet-extensions utils/charty utils/jq utils/yq 
+                charty start {{$chart.url}} {{$chart.args}}
+{{ end }}
