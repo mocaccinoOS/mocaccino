@@ -40,7 +40,9 @@ jobs:
                 ls -liah
                 ls -liah repository
                 REF=$(cat repository/.git/ref)
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
+
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mottainai-cli profile create build http://mottainai.mottainai-prod.svc.cluster.local ((mottainai_api_key))
@@ -155,7 +157,8 @@ jobs:
                 ls -liah
                 ls -liah repository
                 REF=$(cat repository/.git/ref)
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                
@@ -204,7 +207,8 @@ jobs:
             args: 
             - -ce
             - |
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                
@@ -259,7 +263,8 @@ jobs:
                 export SUDO=
                 ls -liah
                 ls -liah repository
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                
@@ -294,7 +299,8 @@ jobs:
             - -ce
             - |
                 ls -liah repository
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
                 luet install utils/charty utils/jq shells/bash
                 
 
@@ -333,7 +339,8 @@ jobs:
             args: 
             - -ce
             - |
-                luet install repository/mocaccino-extra
+                luet uninstall repository/mocaccino-extra
+                luet install repository/mocaccino-extra-stable
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mc mirror --overwrite --remove minio-ci/{{$repo.bucket}} minio-ci/{{$repo.bucket}}-stable
