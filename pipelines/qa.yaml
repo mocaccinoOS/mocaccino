@@ -5,4 +5,7 @@ charts:
     chartpath: "testcharts/entropy-migration"
     name: "entropy-migration"
     image: "sabayon/base" # This test is special and needs a sabayon image. It tests entropy migration!
-    args: ""
+    args: >
+            --set 'luet_version=0.8.9' 
+            --set 'packages[0]=dev-vcs/git' 
+            --set 'packages[1]=dev-perl/Error'
