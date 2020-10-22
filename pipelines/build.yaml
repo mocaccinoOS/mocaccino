@@ -43,7 +43,7 @@ repositories:
     arch: amd64
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
-    clean: false
+    clean: true
     branch: master
     qa: true
     arch: amd64
@@ -51,3 +51,7 @@ repositories:
 
 
 qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz"
+
+slack:
+  channel: "mocaccino"
+  enabled: true

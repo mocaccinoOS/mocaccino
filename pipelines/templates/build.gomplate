@@ -1,7 +1,22 @@
 # load the config provided when evaluating the template
 {{ $config := (datasource "config") }}
 ---
+resource_types:
+
+- name: slack-alert
+  type: docker-image
+  source:
+    repository: arbourd/concourse-slack-alert-resource
+
+  
 resources:
+- name: notify
+  type: slack-alert
+  source:
+    url: "((slack_api))"
+    channel: {{ $config.slack.channel | quote }}
+    disable: {{ not $config.slack.enabled }}
+
 {{ range $_, $repo := $config.repositories }}
 - name: {{$repo.name}}
   check_every: 10m
@@ -344,5 +359,10 @@ jobs:
                 luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mc mirror --overwrite --remove minio-ci/{{$repo.bucket}} minio-ci/{{$repo.bucket}}-stable
+      - put: notify
+        params:
+          message: "New {{$repo.bucket}} is available!"
+          color: "#eeeeee"
+          alert_type: success
 {{- end }}
 {{ end }}
