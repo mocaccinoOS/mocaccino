@@ -20,4 +20,4 @@ jobs:
     - name: Deploy 🚀
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
       run: |
-        mc find minio/mocaccino-iso --older-than 30d --exec "mc rm {}"
+        mc find minio/mocaccino-iso --older-than 7d --exec "mc rm {}"
