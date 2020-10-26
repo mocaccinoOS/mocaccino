@@ -1,4 +1,10 @@
 packages:
+  # Repositories packages from repository-index
+  repos:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel
+  - repository/mocaccino-extra
   rootfs:
   - utils/busybox 
   - container/k3s
@@ -40,4 +46,4 @@ image_prefix: "MocaccinoOS-Micro-0."
 image_date: "true"
 
 luet:
-  config: conf/luet-micro.yaml
+  config: conf/luet-index.yaml
