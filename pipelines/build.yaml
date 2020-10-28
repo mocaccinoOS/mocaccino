@@ -50,7 +50,7 @@ repositories:
     project: "portage-tree" 
 
 
-qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.2/package-smoke-0.2.2.tar.gz"
+qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.4/package-smoke-0.2.2.tar.gz"
 
 slack:
   channel: "mocaccino"
