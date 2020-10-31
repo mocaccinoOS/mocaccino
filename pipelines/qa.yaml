@@ -9,3 +9,20 @@ charts:
             --set 'luet_version=0.8.9' 
             --set 'packages[0]=dev-vcs/git' 
             --set 'packages[1]=dev-perl/Error'
+    install_luet: true
+    bucket:
+      enabled: false
+  - url: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.6/artifact-qa-0.2.tar.gz"
+    from_repo: true 
+    repo: "https://github.com/mocaccinoOS/mocaccino-charty"
+    chartpath: "testcharts/artifact-qa"
+    name: "repo-qa-portage-tree"
+    install_luet: false
+    image: "quay.io/mocaccino/extra" 
+    args: >
+            --set 'packages_dir=/repo'
+            --set 'features.verify_fileconflicts=true'
+    bucket:
+     enabled: true
+     name: "mocaccino-portage-tree"
+     dest: "/repo"
