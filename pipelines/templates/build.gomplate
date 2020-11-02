@@ -316,8 +316,8 @@ jobs:
                 ls -liah repository
                 luet uninstall repository/mocaccino-extra repository/mocaccino-micro
                 luet install repository/mocaccino-extra-stable repository/mocaccino-micro-stable
-                luet install utils/charty utils/jq shells/bash
-                
+                luet install utils/jq shells/bash dev-util/mottainai-cli vcs/git shells/bash utils/jq
+                mottainai-cli profile create build http://mottainai.mottainai-prod.svc.cluster.local ((mottainai_api_key))
 
                 # Luet tree package list
                 #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
@@ -335,7 +335,20 @@ jobs:
                     PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
                     PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
                     PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
-                    charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
+                    cat << EOF >task.yaml
+                name: "QA $PACKAGE_CATEGORY/$PACKAGE_NAME"
+                image: sabayon/builder
+                type: lxd
+                queue: lxd
+                script:
+                - sleep 5
+                - source /etc/profile
+                - curl --no-progress-meter https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+                - luet install repository/mocaccino-extra
+                - luet install net-fs/minio-client utils/charty
+                - charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
+                EOF
+                    mottainai-cli -p build task create --monitor --yaml task.yaml
                 done
   - name: publish-stable-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
