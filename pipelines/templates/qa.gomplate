@@ -1,14 +1,27 @@
 {{ $config := (datasource "config") }}
 ---
+resource_types:
+- name: luet-resource
+  type: docker-image
+  source:
+      repository: quay.io/luet/concourse-resource
+      tag: latest
+
 resources:
 - name: daily
   type: time
   source: {interval: 24h}
+- name: mocaccino-portage-tree
+  type: luet-resource
+  source:
+    url: https://get.mocaccino.org/mocaccino-portage-tree
 
 jobs:
 {{ range $_, $chart := $config.charts }}
   - name: {{$chart.name}}
     plan:
+      - get: mocaccino-portage-tree
+        trigger: true
       - get: daily
         trigger: true
       - task: test
