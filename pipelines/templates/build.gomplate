@@ -346,9 +346,10 @@ jobs:
                 - curl --no-progress-meter https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
                 - luet install repository/mocaccino-extra
                 - luet install net-fs/minio-client utils/charty
-                - charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
+                - mkdir /qa
+                - TMPDIR=/qa charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
                 EOF
-                    mottainai-cli -p build task create --monitor --yaml task.yaml
+                    mottainai-cli -p build task create --monitor --yaml task.yaml || mottainai-cli -p build task create --monitor --yaml task.yaml
                 done
   - name: publish-stable-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
