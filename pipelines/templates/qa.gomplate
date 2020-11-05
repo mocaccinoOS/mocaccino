@@ -51,7 +51,9 @@ jobs:
                 mkdir -p {{$chart.bucket.dest}}
                 mc mirror  --exclude '*.gz' minio-ci/{{$chart.bucket.name}}/ {{$chart.bucket.dest}}
                 {{- end }}
-                {{- if eq $chart.image "sabayon/base" }}
+                {{- if eq $chart.image "sabayon/base" }}              
+                luet install repository/mocaccino-extra
+                luet install system/luet-extensions utils/charty utils/jq utils/yq
                 equo i git
                 {{- else }}
                 luet install repository/mocaccino-extra
