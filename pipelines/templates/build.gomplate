@@ -28,12 +28,12 @@ resources:
 
 jobs:
 {{ range $_, $repo := $config.repositories }}
-  - name: {{$repo.name}}
+  - name: build-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
         trigger: true
-        version: every
+        
       - task: run-mottainai-task
         timeout: 1h30m
 
@@ -200,15 +200,6 @@ jobs:
 
                 done # Done build sequence
                 EOB
-
-
-  - name: wait-for-packages-{{$repo.name}}
-    serial_groups: [{{$repo.name}}]
-    plan:
-      - get: {{$repo.name}}
-        passed: [{{$repo.name}}]
-        trigger: true
-        version: every
       - task: wait-for-packages
         timeout: 1h30m
         input_mapping:
@@ -256,14 +247,6 @@ jobs:
                         sleep 20
                     done
                 done
-
-  - name: prune-repo-{{$repo.name}}
-    serial_groups: [{{$repo.name}}]
-    plan:
-      - get: {{$repo.name}}
-        passed: [wait-for-packages-{{$repo.name}}]
-        trigger: true
-        version: every
       - task: prune-repo
         input_mapping:
          repository: {{$repo.name}}
@@ -315,9 +298,9 @@ jobs:
     serial_groups: [{{$repo.name}}]
     plan:
       - get: {{$repo.name}}
-        passed: [prune-repo-{{$repo.name}}]
+        passed: [build-{{$repo.name}}]
         trigger: true
-        version: every
+        
       - task: create-repo
         input_mapping:
          repository: {{$repo.name}}
@@ -356,7 +339,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [create-repo-{{$repo.name}}]
         trigger: true
-        version: every
+        
       - task: qa
         input_mapping:
          repository: {{$repo.name}}
@@ -413,7 +396,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [qa-repo-{{$repo.name}}]
         trigger: true
-        version: every
+        
       - task: publish
         config:
           platform: linux
