@@ -33,6 +33,7 @@ jobs:
     plan:
       - get: {{$repo.name}}
         trigger: true
+        version: every
       - task: run-mottainai-task
         timeout: 1h30m
 
@@ -207,6 +208,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [{{$repo.name}}]
         trigger: true
+        version: every
       - task: wait-for-packages
         timeout: 1h30m
         input_mapping:
@@ -261,6 +263,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [wait-for-packages-{{$repo.name}}]
         trigger: true
+        version: every
       - task: prune-repo
         input_mapping:
          repository: {{$repo.name}}
@@ -314,6 +317,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [prune-repo-{{$repo.name}}]
         trigger: true
+        version: every
       - task: create-repo
         input_mapping:
          repository: {{$repo.name}}
@@ -352,6 +356,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [create-repo-{{$repo.name}}]
         trigger: true
+        version: every
       - task: qa
         input_mapping:
          repository: {{$repo.name}}
@@ -408,6 +413,7 @@ jobs:
       - get: {{$repo.name}}
         passed: [qa-repo-{{$repo.name}}]
         trigger: true
+        version: every
       - task: publish
         config:
           platform: linux
