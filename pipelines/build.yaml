@@ -48,7 +48,13 @@ repositories:
     qa: true
     arch: amd64
     project: "portage-tree" 
-
+  - name: "musl-universe"
+    bucket: "mocaccino-musl-universe"
+    clean: false
+    branch: master
+    qa: true
+    arch: amd64
+    project: "mocaccino-musl-universe" 
 
 qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.4/package-smoke-0.2.2.tar.gz"
 

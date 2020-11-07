@@ -15,3 +15,7 @@ repositories:
     fork: "git@github.com:auto-maintainers/desktop.git"
     upstream: "https://github.com/mocaccinoOS/desktop"
     upstream_branch: "master"
+  - name: "mocaccino-musl-universe"
+    fork: "git@github.com:auto-maintainers/mocaccino-musl-universe.git"
+    upstream: "https://github.com/mocaccinoOS/mocaccino-musl-universe"
+    upstream_branch: "master"
