@@ -56,7 +56,7 @@ repositories:
     arch: amd64
     project: "mocaccino-musl-universe" 
 
-qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.4/package-smoke-0.2.2.tar.gz"
+qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.7/package-smoke-0.2.3.tar.gz"
 
 slack:
   channel: "mocaccino"
