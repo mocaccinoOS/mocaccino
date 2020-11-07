@@ -136,7 +136,7 @@ jobs:
                 - BRANCH=$REF
                 - PACKAGES=$PACKAGE_CATEGORY/$PACKAGE_NAME
                 - MINIO_ID=((minio_id))
-                - DOCKER_BUILDKIT=1
+                - DOCKER_BUILDKIT={{$repo.buildkit}}
                 - MINIO_SECRET=((minio_secret))
                 - MINIO_URL=((minio_url))
                 script:

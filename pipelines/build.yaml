@@ -6,6 +6,7 @@ repositories:
     clean: false
     arch: amd64
     branch: master
+    buildkit: 0
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
     clean: false
@@ -34,6 +35,7 @@ repositories:
     qa: false
     branch: master
     arch: amd64
+    buildkit: 0
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
     clean: false
@@ -41,13 +43,15 @@ repositories:
     branch: master
     project: "kernel-repo" 
     arch: amd64
+    buildkit: 0
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
-    clean: true
+    clean: false
     branch: master
     qa: true
     arch: amd64
     project: "portage-tree" 
+    buildkit: 0
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
     clean: false
@@ -55,8 +59,10 @@ repositories:
     qa: true
     arch: amd64
     project: "mocaccino-musl-universe" 
+    buildkit: 0
 
 qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.7/package-smoke-0.2.3.tar.gz"
+
 
 slack:
   channel: "mocaccino"
