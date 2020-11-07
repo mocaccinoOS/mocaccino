@@ -28,3 +28,9 @@ repositories:
   enable: true
   urls:
   - "https://get.mocaccino.org/mocaccino-extra"
+- name: "MocaccinoOS Musl Universe"
+  type: "http"
+  priority: 1
+  enable: true
+  urls:
+  - "https://get.mocaccino.org/mocaccino-musl-universe"
