@@ -19,3 +19,7 @@ repositories:
     fork: "git@github.com:auto-maintainers/mocaccino-musl-universe.git"
     upstream: "https://github.com/mocaccinoOS/mocaccino-musl-universe"
     upstream_branch: "master"
+  - name: "mocaccino-porage-tree"
+    fork: "git@github.com:auto-maintainers/portage-tree.git"
+    upstream: "https://github.com/mocaccinoOS/portage-tree"
+    upstream_branch: "master"
