@@ -5,7 +5,7 @@ repositories:
   type: "http"
   enable: true
   urls:
-  - "https://mocaccino.keybase.pub/kernel-repo"
+  - "https://get.mocaccino.org/mocaccino-kernel"
 - name: "MocaccinoOS Micro repo"
   type: "http"
   enable: true
