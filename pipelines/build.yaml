@@ -61,7 +61,7 @@ repositories:
     project: "mocaccino-musl-universe" 
     buildkit: 0
 
-qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.8/package-smoke-0.2.3.tar.gz"
+qa_chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"
 
 
 slack:

@@ -129,7 +129,7 @@ jobs:
                 {{- end }}
                 storage: 'creds'
                 environment:
-                - BUILD_ARGS=--pull --push --config ./conf/luet.yaml --no-spinner --skip-if-metadata-exists=true
+                - BUILD_ARGS=--pull --only-target-package --push --config ./conf/luet.yaml --no-spinner --skip-if-metadata-exists=true
                 - "SUDO="
                 - CLEAN={{$repo.clean}}
                 - REPO=https://github.com/mocaccinoOS/{{$repo.project}}.git
