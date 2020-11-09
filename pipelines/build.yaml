@@ -54,7 +54,7 @@ repositories:
     buildkit: 0
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
-    clean: false
+    clean: true
     branch: master
     qa: true
     arch: amd64
