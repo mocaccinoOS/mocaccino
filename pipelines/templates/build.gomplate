@@ -387,6 +387,7 @@ jobs:
                 - sleep 5
                 - source /etc/profile
                 - mkdir /qa
+                - luet upgrade
                 - TMPDIR=/qa charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
                 EOF
                     mottainai-cli -p build task create --monitor --yaml task.yaml || mottainai-cli -p build task create --monitor --yaml task.yaml
