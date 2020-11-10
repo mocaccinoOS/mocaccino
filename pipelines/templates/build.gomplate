@@ -388,7 +388,7 @@ jobs:
                 - source /etc/profile
                 - mkdir /qa
                 - luet upgrade
-                - TMPDIR=/qa charty start {{$config.qa_chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set "debug=true"
+                - TMPDIR=/qa charty start {{$config.qa.chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set 'luet_version={{$config.qa.luet_version}}' --set "debug=true"
                 EOF
                     mottainai-cli -p build task create --monitor --yaml task.yaml || mottainai-cli -p build task create --monitor --yaml task.yaml
                 done
