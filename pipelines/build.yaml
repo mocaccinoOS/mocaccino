@@ -62,7 +62,10 @@ repositories:
     buildkit: 0
 
 qa:
-  chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.3.0/package-smoke-0.2.4.tar.gz"
+  chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"
+  from_repo: true
+  repo: https://github.com/mocaccinoOS/mocaccino-charty
+  path: testcharts/package-smoke
   luet_version: "0.9.3"
 
 slack:
