@@ -79,7 +79,6 @@ jobs:
                 fi  
 
                 PACKS=""
-    
                 # For each package in the tree, get the path where the spec resides
                 # e.g. packages/acct-group/amavis/0/
                 for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
@@ -95,8 +94,10 @@ jobs:
                     fi
           
                     PACKS="$PACKS $PACKAGE_CATEGORY/$PACKAGE_NAME"
-                done
                
+                {{- if $repo.smart }}
+                done
+
                 BUILDSEQUENCE=$(FORMAT=json luet parallel-tools-commondeps $PACKS)
 
                 echo "Buildsequence: $BUILDSEQUENCE"
@@ -117,6 +118,8 @@ jobs:
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
                         continue 1
                 fi
+
+                {{- end }}
                 
                 cat << EOF >task.yaml
                 name: "Build $PACKAGE_CATEGORY/$PACKAGE_NAME from {{$repo.name}} to minio"
@@ -181,6 +184,7 @@ jobs:
                 EOF
                 mottainai-cli -p build task create --yaml task.yaml
 
+                {{- if $repo.smart }}
                 done # Done tocompile
 
                 # Now let's wait
@@ -197,6 +201,7 @@ jobs:
                       sleep 20
                   done
                 done # Done waiting
+                {{- end }}
 
                 done # Done build sequence
                 EOB
