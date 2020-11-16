@@ -81,12 +81,12 @@ jobs:
                 PACKS=""
                 # For each package in the tree, get the path where the spec resides
                 # e.g. packages/acct-group/amavis/0/
-                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+                for i in $(echo "$PKG_LIST" | jq -rc '.packages[]'); do
 
-                    PACKAGE_PATH=$i
-                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
-                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
-                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    PACKAGE_PATH=$(echo "$i" | jq -r ".path")
+                    PACKAGE_NAME=$(echo "$i" | jq -r ".name")
+                    PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
+                    PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
 
                     if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
@@ -239,12 +239,12 @@ jobs:
 
                 # For each package in the tree, get the path where the spec resides
                 # e.g. packages/acct-group/amavis/0/
-                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+                for i in $(echo "$PKG_LIST" | jq -rc '.packages[]'); do
 
-                    PACKAGE_PATH=$i
-                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
-                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
-                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    PACKAGE_PATH=$(echo "$i" | jq -r ".path")
+                    PACKAGE_NAME=$(echo "$i" | jq -r ".name")
+                    PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
+                    PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                     while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
                     do
@@ -284,12 +284,12 @@ jobs:
 
                     # For each package in the tree, get the path where the spec resides
                     # e.g. packages/acct-group/amavis/0/
-                    for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+                    for i in $(echo "$PKG_LIST" | jq -rc '.packages[]'); do
 
-                        PACKAGE_PATH=$i
-                        PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
-                        PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
-                        PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                        PACKAGE_PATH=$(echo "$i" | jq -r ".path")
+                        PACKAGE_NAME=$(echo "$i" | jq -r ".name")
+                        PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
+                        PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                         if echo $a | grep -q "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION"; then
                             continue 2
                         fi
@@ -376,12 +376,12 @@ jobs:
 
                 # For each package in the tree, get the path where the spec resides
                 # e.g. packages/acct-group/amavis/0/
-                for i in $(echo "$PKG_LIST" | jq -r '.packages[].path'); do
+                for i in $(echo "$PKG_LIST" | jq -rc '.packages[]'); do
 
-                    PACKAGE_PATH=$i
-                    PACKAGE_NAME=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").name")
-                    PACKAGE_CATEGORY=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").category")
-                    PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.path==\"$i\").version")
+                    PACKAGE_PATH=$(echo "$i" | jq -r ".path")
+                    PACKAGE_NAME=$(echo "$i" | jq -r ".name")
+                    PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
+                    PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     cat << EOF >task.yaml
                 name: "QA $PACKAGE_CATEGORY/$PACKAGE_NAME"
                 image: mocaccino/qa
