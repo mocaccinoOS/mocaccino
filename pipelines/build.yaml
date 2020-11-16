@@ -76,7 +76,7 @@ qa:
   repo: https://github.com/mocaccinoOS/mocaccino-charty
   path: testcharts/package-smoke
   luet_version: "0.9.2"
-
+  bucket: mocaccino-qa
 slack:
   channel: "mocaccino"
   enabled: true

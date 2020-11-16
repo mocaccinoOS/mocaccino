@@ -346,6 +346,7 @@ jobs:
         trigger: true
         
       - task: qa
+        timeout: 1h30m
         input_mapping:
          repository: {{$repo.name}}
         config:
@@ -363,8 +364,9 @@ jobs:
                 ls -liah repository
                 luet uninstall repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
                 luet install repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
-                luet install utils/jq shells/bash dev-util/mottainai-cli vcs/git shells/bash utils/jq
+                luet install utils/jq shells/bash dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mottainai-cli profile create build http://mottainai.mottainai-prod.svc.cluster.local ((mottainai_api_key))
+                mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
 
                 # Luet tree package list
                 #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
@@ -387,19 +389,41 @@ jobs:
                 image: mocaccino/qa
                 type: lxd
                 queue: lxd
+                environment:
+                - MINIO_ID=((minio_id))
+                - MINIO_SECRET=((minio_secret))
+                - MINIO_URL=((minio_url))
                 script:
                 - sleep 5
                 - source /etc/profile
                 - mkdir /qa
                 - luet upgrade
+                - luet install net-fs/minio-client
+                - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 {{- if $config.qa.from_repo }}
                 - git clone {{ $config.qa.repo }} qa
                 - TMPDIR=/qa charty start qa/{{ $config.qa.path }} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set 'luet_version={{$config.qa.luet_version}}' --set "debug=true"
                 {{- else }}
                 - TMPDIR=/qa charty start {{$config.qa.chart}} --set "packages[0]=$PACKAGE_CATEGORY/$PACKAGE_NAME" --set 'luet_version={{$config.qa.luet_version}}' --set "debug=true"
                 {{- end }}
+                - touch $PACKAGE_CATEGORY-$PACKAGE_NAME-$PACKAGE_VERSION.success
+                - mc cp --recursive *.success minio-ci/{{$config.qa.bucket}}/
                 EOF
-                    mottainai-cli -p build task create --monitor --yaml task.yaml || mottainai-cli -p build task create --monitor --yaml task.yaml
+                    mottainai-cli -p build task create --yaml task.yaml
+                done
+
+                for i in $(echo "$PKG_LIST" | jq -rc '.packages[]'); do
+
+                    PACKAGE_PATH=$(echo "$i" | jq -r ".path")
+                    PACKAGE_NAME=$(echo "$i" | jq -r ".name")
+                    PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
+                    PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
+                    echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
+                    while ! ( mc ls minio-ci/{{$config.qa.bucket}}/ | grep "$PACKAGE_CATEGORY-$PACKAGE_NAME-$PACKAGE_VERSION.success" )
+                    do
+                        echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not qaed yet, sleeping"
+                        sleep 20
+                    done
                 done
   - name: publish-stable-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]

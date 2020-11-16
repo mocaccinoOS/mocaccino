@@ -32,6 +32,7 @@ jobs:
             LUET_NOLOCK: true
             ACCEPT_LICENSE: "*"
             HUB_ARGS: "-b {{$repo.upstream_branch}}"
+            TOKEN: "((github_token))"
           run:
             path: "/bin/sh"
 
