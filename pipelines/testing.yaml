@@ -1,0 +1,62 @@
+repositories:
+  - name: "mocaccino-extra"
+    bucket: "mocaccino-extra"
+    project: "mocaccino-extra" 
+    qa: true
+    clean: false
+    arch: amd64
+    branch: develop
+    buildkit: 0
+    smart: false
+  - name: "mocaccino-micro"
+    bucket: "mocaccino-micro"
+    clean: false
+    project: "mocaccino-micro" 
+    branch: develop
+    qa: true
+    arch: amd64
+    buildkit: 0
+    smart: false
+
+  - name: "desktop"
+    bucket: "mocaccino-desktop"
+    clean: false
+    project: "desktop" 
+    qa: false
+    branch: develop
+    arch: amd64
+    buildkit: 0
+    smart: false
+
+  - name: "kernel-repo"
+    bucket: "mocaccino-kernel"
+    clean: false
+    qa: true
+    branch: develop
+    project: "kernel-repo" 
+    arch: amd64
+    buildkit: 0
+    smart: false
+
+  - name: "portage-tree"
+    bucket: "mocaccino-portage-tree"
+    clean: false
+    branch: develop
+    qa: true
+    arch: amd64
+    project: "portage-tree" 
+    buildkit: 0
+    smart: false
+
+  - name: "musl-universe"
+    bucket: "mocaccino-musl-universe"
+    clean: true
+    branch: develop
+    qa: true
+    arch: amd64
+    project: "mocaccino-musl-universe" 
+    buildkit: 0
+    smart: false
+
+testing_bucket: mocaccino-staging-tests
+
