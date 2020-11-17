@@ -123,7 +123,7 @@ jobs:
                 
                 cat << EOF >task.yaml
                 name: "Build $PACKAGE_CATEGORY/$PACKAGE_NAME from {{$repo.name}} to minio"
-                image: sabayon/builder
+                image: mocaccino/builder
                 type: lxd
                 {{- if eq $repo.arch "arm" }}
                 queue: arm_lxd
@@ -169,9 +169,7 @@ jobs:
                 - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
                 - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
                 {{- else }}
-                - curl --no-progress-meter https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
-                - luet install repository/mocaccino-extra
-                - luet install net-fs/minio-client
+                - luet upgrade
                 {{- end }}
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
