@@ -1,18 +1,24 @@
 general:
   debug: true
 repositories:
-- name: "MocaccinoOS Desktop repo"
+- name: "MocaccinoOS Portage repo"
   type: "http"
   enable: true
   urls:
   #- "https://mocaccino.keybase.pub/desktop"
-  - "https://get.mocaccino.org/mocaccino-desktop"
+  - "https://get.mocaccino.org/mocaccino-portage-tree-stable"
+- name: "MocaccinoOS Extra repo"
+  type: "http"
+  enable: true
+  urls:
+  #- "https://mocaccino.keybase.pub/kernel-repo"
+  - "https://get.mocaccino.org/mocaccino-extra-stable"
 - name: "MocaccinoOS Kernel repo"
   type: "http"
   enable: true
   urls:
   #- "https://mocaccino.keybase.pub/kernel-repo"
-  - "https://get.mocaccino.org/mocaccino-kernel"
+  - "https://get.mocaccino.org/mocaccino-kernel-stable"
 - name: "livecd"
   type: "http"
   enable: true

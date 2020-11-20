@@ -2,7 +2,7 @@
 
 packages:
   rootfs:
-  - flavor/sabayon-kde-live
+  - layers/plasma
   - app-misc/sabayon-live
   - system/luet
   uefi:
@@ -15,7 +15,7 @@ packages:
   - distro/sabayon-initramfs
 
 overlay: "true"
-image_prefix: "Sabayon-KDE-0."
+image_prefix: "MocaccinoOS-KDE-0."
 image_date: "true"
 
 luet:

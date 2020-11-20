@@ -1,6 +1,6 @@
 packages:
   rootfs:
-  - flavor/sabayon-minimal-x-live
+  - layers/X
   - app-misc/sabayon-live
   - system/luet
   uefi:
