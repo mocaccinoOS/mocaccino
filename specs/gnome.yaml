@@ -3,14 +3,15 @@ packages:
   repos:
   - repository/luet
   - repository/livecd
-  - repository/mocaccino-kernel
+  - repository/mocaccino-kernel-stable
   - repository/mocaccino-desktop
-  - repository/mocaccino-extra
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-portage-stable
 
   rootfs:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
-  - flavor/sabayon-gnome-live
+  - layers/gnome
   - app-misc/sabayon-live
   - system/luet
   - utils/yip
@@ -27,7 +28,7 @@ packages:
   - utils/yip-integration
 
 overlay: "true"
-image_prefix: "Sabayon-GNOME-0."
+image_prefix: "Mocaccino-GNOME-0."
 image_date: "true"
 
 luet:
