@@ -7,6 +7,8 @@ repositories:
     arch: amd64
     branch: master
     buildkit: 0
+    prune: false
+
     smart: false
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
@@ -38,6 +40,8 @@ repositories:
     arch: amd64
     buildkit: 0
     smart: false
+    prune: false
+
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -46,12 +50,15 @@ repositories:
     branch: master
     project: "kernel-repo" 
     arch: amd64
+    prune: false
+
     buildkit: 0
     smart: false
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
     clean: false
+    prune: false
     branch: master
     qa: true
     arch: amd64
@@ -64,6 +71,7 @@ repositories:
     clean: true
     branch: master
     qa: true
+    prune: false
     arch: amd64
     project: "mocaccino-musl-universe" 
     buildkit: 0

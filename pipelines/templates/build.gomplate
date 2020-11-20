@@ -250,6 +250,8 @@ jobs:
                         sleep 20
                     done
                 done
+
+      {{- if $repo.prune }}
       - task: prune-repo
         input_mapping:
          repository: {{$repo.name}}
@@ -297,6 +299,8 @@ jobs:
                 mc rm $a
 
                 done
+
+      {{- end }}
   - name: create-repo-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
