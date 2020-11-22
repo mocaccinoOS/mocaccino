@@ -162,7 +162,7 @@ jobs:
                 - mkdir \$PWD/build
                 - chmod -R 777 \$PWD/build
                 - mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ \$PWD/build
-                - BUILD_ARGS="--emoji=false --color=false --pull --only-target-package --push --config ./conf/luet.yaml --no-spinner --skip-if-metadata-exists=true" make rebuild
+                - BUILD_ARGS="--emoji=false --color=false --pull --only-target-package --push --config ./conf/luet.yaml --skip-if-metadata-exists=true" make rebuild
                 - mc cp --recursive \$PWD/build/ minio-ci/{{$config.testing_bucket}}/
                 - ls -l build
                 EOF
