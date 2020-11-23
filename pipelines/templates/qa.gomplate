@@ -46,18 +46,18 @@ jobs:
                 {{- end }}
        
                 {{- if $chart.bucket.enabled }}
-                luet install net-fs/minio-client
+                luet install -y net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mkdir -p {{$chart.bucket.dest}}
                 mc mirror  --exclude '*.gz' minio-ci/{{$chart.bucket.name}}/ {{$chart.bucket.dest}}
                 {{- end }}
                 {{- if eq $chart.image "sabayon/base" }}              
-                luet install repository/mocaccino-extra
-                luet install system/luet-extensions utils/charty utils/jq utils/yq
+                luet install -y repository/mocaccino-extra
+                luet install -y system/luet-extensions utils/charty utils/jq utils/yq
                 equo i git
                 {{- else }}
-                luet install repository/mocaccino-extra
-                luet install system/luet-extensions utils/charty utils/jq utils/yq shells/bash vcs/git
+                luet install -y repository/mocaccino-extra
+                luet install -y system/luet-extensions utils/charty utils/jq utils/yq shells/bash vcs/git
                 {{- end }}
                 {{- if $chart.from_repo }}
                 git clone {{$chart.repo}} chart

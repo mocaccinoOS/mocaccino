@@ -40,8 +40,8 @@ jobs:
             - -ce
             - |
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sh
-                luet install repository/mocaccino-extra
-                luet install system/luet-extensions dev-util/mottainai-cli vcs/git utils/jq utils/yq
+                luet install -y repository/mocaccino-extra
+                luet install -y system/luet-extensions dev-util/mottainai-cli vcs/git utils/jq utils/yq
                 mkdir -p $HOME/.ssh
                 mkdir -p $HOME/.config
                 echo "((github_private_key))" > $HOME/.ssh/id_rsa

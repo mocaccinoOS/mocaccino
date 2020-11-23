@@ -33,8 +33,8 @@ jobs:
             - -ce
             - |
                 luet uninstall repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
-                luet install repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
-                luet install development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
+                luet install -y development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                
                 # Luet tree package list
