@@ -169,7 +169,7 @@ jobs:
                 - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
                 - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
                 {{- else }}
-                - luet upgrade
+                - luet upgrade -y
                 {{- end }}
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
@@ -404,7 +404,7 @@ jobs:
                 - sleep 5
                 - source /etc/profile
                 - mkdir /qa
-                - luet upgrade
+                - luet upgrade -y
                 - luet install -y net-fs/minio-client
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 {{- if $config.qa.from_repo }}

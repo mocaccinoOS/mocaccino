@@ -42,7 +42,7 @@ jobs:
                 {{- if $chart.install_luet }}
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sh
                 {{- else }}
-                luet upgrade
+                luet upgrade -y
                 {{- end }}
        
                 {{- if $chart.bucket.enabled }}
