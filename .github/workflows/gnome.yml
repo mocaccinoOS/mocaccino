@@ -28,11 +28,11 @@ jobs:
       run: |
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
-        sudo luet install repository/mocaccino-extra
-        sudo luet install utils/jq utils/yq
+        sudo luet install -y repository/mocaccino-extra
+        sudo luet install -y utils/jq utils/yq net-fs/minio-client
     - name: ISO Build 🔧
       run: |
-            sudo -E ./scripts/isospec specs/gnome.yaml
+            sudo -E luet geniso-isospec specs/minimal-x.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
     - name: setup-docker
@@ -44,8 +44,6 @@ jobs:
         MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
         MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
       run: |
-        sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc
-        sudo chmod +x /usr/bin/mc
         mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
 
     - name: Deploy 🚀
