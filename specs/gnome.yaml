@@ -30,7 +30,7 @@ packages:
   - utils/yip
 
 overlay: "true"
-image_prefix: "Mocaccino-GNOME-0."
+image_prefix: "MocaccinoOS-GNOME-0."
 image_date: "true"
 
 luet:
