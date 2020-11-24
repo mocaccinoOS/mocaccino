@@ -32,7 +32,7 @@ jobs:
         sudo luet install -y utils/jq utils/yq net-fs/minio-client
     - name: ISO Build 🔧
       run: |
-            sudo -E luet geniso-isospec specs/minimal-x.yaml
+            sudo -E luet geniso-isospec specs/lxqt.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
     - name: setup-docker
