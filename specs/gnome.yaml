@@ -4,7 +4,7 @@ packages:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-kernel-stable
-  - repository/mocaccino-desktop
+  - repository/mocaccino-micro-stable
   - repository/mocaccino-extra-stable
   - repository/mocaccino-portage-stable
 
@@ -22,7 +22,11 @@ packages:
   - live/syslinux
   - system/mocaccino-live-boot
   initramfs:
-  - distro/sabayon-initramfs
+  - utils/busybox
+  - kernel/sabayon-minimal
+  - system/mocaccino-init
+  - system/mocaccino-live-boot
+  - init/mocaccino-skel
   - utils/yip
 
 overlay: "true"
