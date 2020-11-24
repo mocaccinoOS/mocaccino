@@ -5,12 +5,12 @@ repositories:
   type: "http"
   enable: true
   urls:
-  - "https://get.mocaccino.org/mocaccino-kernel"
+  - "https://get.mocaccino.org/mocaccino-kernel-stable"
 - name: "MocaccinoOS Micro repo"
   type: "http"
   enable: true
   urls:
-  - "https://get.mocaccino.org/mocaccino-micro"
+  - "https://get.mocaccino.org/mocaccino-micro-stable"
 - name: "LiveCD Tools repo"
   type: "http"
   enable: true
@@ -27,10 +27,10 @@ repositories:
   type: "http"
   enable: true
   urls:
-  - "https://get.mocaccino.org/mocaccino-extra"
+  - "https://get.mocaccino.org/mocaccino-extra-stable"
 - name: "MocaccinoOS Musl Universe"
   type: "http"
   priority: 1
   enable: true
   urls:
-  - "https://get.mocaccino.org/mocaccino-musl-universe"
+  - "https://get.mocaccino.org/mocaccino-musl-universe-stable"
