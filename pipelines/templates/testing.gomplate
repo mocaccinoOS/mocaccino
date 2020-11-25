@@ -52,7 +52,7 @@ jobs:
                 REF=$(cat repository/.git/ref)
 
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
-                mottainai-cli profile create build http://mottainai.mottainai-prod.svc.cluster.local ((mottainai_api_key))
+                mottainai-cli profile create build ((mottainai_api_url)) ((mottainai_api_key))
 
                 # Luet tree package list
                 #PKG_LIST=$(luet tree pkglist --tree repository/ -o json)
