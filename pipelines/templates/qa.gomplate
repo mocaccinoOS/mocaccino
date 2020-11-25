@@ -46,7 +46,6 @@ jobs:
                 {{- end }}
        
                 {{- if $chart.bucket.enabled }}
-                luet install -y net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mkdir -p {{$chart.bucket.dest}}
                 mc mirror  --exclude '*.gz' minio-ci/{{$chart.bucket.name}}/ {{$chart.bucket.dest}}
