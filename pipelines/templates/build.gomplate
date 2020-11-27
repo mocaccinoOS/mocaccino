@@ -142,6 +142,7 @@ jobs:
                 - MINIO_SECRET=((minio_secret))
                 - MINIO_URL=((minio_url))
                 - LUET_YES=true
+                - DOCKER_SQUASH={{$repo.squash}}}
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
@@ -401,12 +402,13 @@ jobs:
                 - MINIO_ID=((minio_id))
                 - MINIO_SECRET=((minio_secret))
                 - MINIO_URL=((minio_url))
+                - LUET_YES=true
                 script:
                 - sleep 5
                 - source /etc/profile
                 - mkdir /qa
-                - luet upgrade -y
-                - luet install -y net-fs/minio-client
+                - luet upgrade
+                - luet install net-fs/minio-client
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 {{- if $config.qa.from_repo }}
                 - git clone {{ $config.qa.repo }} qa
