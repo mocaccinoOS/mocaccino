@@ -8,11 +8,12 @@ repositories:
     branch: master
     buildkit: 0
     prune: false
+    squash: false
 
     smart: false
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
-    clean: false
+    clean: true
     project: "mocaccino-micro" 
     branch: master
     qa: true
