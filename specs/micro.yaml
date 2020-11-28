@@ -6,7 +6,6 @@ packages:
   - repository/mocaccino-micro-stable
   - repository/mocaccino-extra-stable
   - repository/mocaccino-musl-universe-stable
-  - repository/kernel-repo
   rootfs:
   - utils/busybox 
   - container/k3s
