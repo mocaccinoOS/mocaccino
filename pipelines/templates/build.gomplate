@@ -128,7 +128,7 @@ jobs:
                 {{- if eq $repo.arch "arm" }}
                 queue: arm_lxd
                 {{- else }}
-                queue: lxd
+                queue: lxd_mocaccino
                 {{- end }}
                 storage: 'creds'
                 environment:
@@ -397,7 +397,7 @@ jobs:
                 name: "QA $PACKAGE_CATEGORY/$PACKAGE_NAME"
                 image: mocaccino/qa
                 type: lxd
-                queue: lxd
+                queue: lxd_qa
                 environment:
                 - MINIO_ID=((minio_id))
                 - MINIO_SECRET=((minio_secret))
