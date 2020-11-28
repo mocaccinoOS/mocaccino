@@ -1,8 +1,14 @@
 general:
-  debug: true
+  debug: false
   # spinner every 30m
   spinner_ms: 1800000
   spinner_charset: 12
+  color: false
+  enable_emoji: false
+system:
+  database_path: "/var/luet/db"
+  database_engine: "boltdb"
+  tmpdir_base: "/var/tmp/luet"
 repositories:
 - name: "mocaccino-repository-index"
   description: "MocaccinoOS Repository index"
