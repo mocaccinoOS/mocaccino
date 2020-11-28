@@ -16,6 +16,8 @@ packages:
   - app-misc/sabayon-live
   - system/luet
   - utils/yip
+  - init/mocaccino-skel 
+  - system/mocaccino-init 
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
