@@ -8,6 +8,7 @@ repositories:
     branch: master
     buildkit: 0
     prune: false
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     squash: false
 
     smart: false
@@ -43,6 +44,7 @@ repositories:
     smart: false
     prune: false
     squash: false
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
 
 
   - name: "kernel-repo"
@@ -53,7 +55,7 @@ repositories:
     project: "kernel-repo" 
     arch: amd64
     prune: false
-
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     buildkit: 0
     smart: false
     squash: false
@@ -69,6 +71,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
@@ -81,6 +84,8 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
     clean: true
@@ -92,6 +97,20 @@ repositories:
     smart: false
     prune: false
     squash: true
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+
+  - name: "distfiles-collection"
+    bucket: "mocaccino-distfiles-collection"
+    clean: false
+    qa: false
+    branch: master
+    project: "distfiles-collection" 
+    arch: amd64
+    prune: true
+    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    buildkit: 0
+    smart: false
+    squash: false
 
 qa:
   chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"

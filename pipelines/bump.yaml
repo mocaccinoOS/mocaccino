@@ -23,3 +23,7 @@ repositories:
     fork: "git@github.com:auto-maintainers/portage-tree.git"
     upstream: "https://github.com/mocaccinoOS/portage-tree"
     upstream_branch: "master"
+  - name: "distfiles-collection"
+    fork: "git@github.com:auto-maintainers/distfiles-collection.git"
+    upstream: "https://github.com/mocaccinoOS/distfiles-collection"
+    upstream_branch: "master"
