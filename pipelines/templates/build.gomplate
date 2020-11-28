@@ -143,6 +143,9 @@ jobs:
                 - MINIO_URL=((minio_url))
                 - LUET_YES=true
                 - DOCKER_SQUASH={{$repo.squash}}}
+                - DOCKER_USERNAME=((docker_user))
+                - DOCKER_PASS=((docker_pass))
+                - DOCKER_REGISTRY=((docker_registry))
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
@@ -166,7 +169,7 @@ jobs:
                 - echo "Docker started"
                 - mkdir -p \$HOME/.docker
                 - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > \$HOME/.docker/config.json'
-                - docker login -u \$DOCKER_USER -p \$DOCKER_PASSWORD
+                - docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASS \$DOCKER_REGISTRY
                 {{- if eq $repo.arch "arm" }}
                 - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
                 - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 

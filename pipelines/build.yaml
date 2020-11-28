@@ -69,7 +69,7 @@ repositories:
     arch: amd64
     project: "portage-tree" 
     buildkit: 0
-    smart: false
+    smart: true
     squash: false
     build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
 
@@ -94,7 +94,7 @@ repositories:
     qa: true
     arch: amd64
     buildkit: 0
-    smart: false
+    smart: true
     prune: false
     squash: true
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
