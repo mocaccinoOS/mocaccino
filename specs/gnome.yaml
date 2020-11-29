@@ -17,8 +17,8 @@ packages:
   - system/luet
   - utils/yip
   - utils/yip-integration
-  - init/mocaccino-skel 
-  - system/mocaccino-init 
+  - init/mocaccino-skel
+  - system/mocaccino-init
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -32,6 +32,7 @@ packages:
   - system/mocaccino-live-boot
   - init/mocaccino-skel
   - utils/yip
+  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-0."
