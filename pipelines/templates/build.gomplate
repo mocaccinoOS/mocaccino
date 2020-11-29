@@ -162,8 +162,6 @@ jobs:
                 - ip a
                 {{- end }}
                 - source /etc/profile
-                - source storage/env
-                - echo "Logging to minio"
                 - systemctl start docker
                 - echo "Docker started"
                 - mkdir -p \$HOME/.docker
