@@ -19,6 +19,7 @@ packages:
   - utils/yip-integration
   - init/mocaccino-skel
   - system/mocaccino-init
+  - system/mocaccino-wallpaper
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
