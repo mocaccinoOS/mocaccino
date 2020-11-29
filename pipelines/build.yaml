@@ -101,7 +101,7 @@ repositories:
 
   - name: "distfiles-collection"
     bucket: "mocaccino-distfiles-collection"
-    clean: false
+    clean: true
     qa: false
     branch: master
     project: "distfiles-collection" 

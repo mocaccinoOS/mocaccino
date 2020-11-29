@@ -130,7 +130,6 @@ jobs:
                 {{- else }}
                 queue: lxd_mocaccino
                 {{- end }}
-                storage: 'creds'
                 environment:
                 - "SUDO="
                 - CLEAN={{$repo.clean}}
