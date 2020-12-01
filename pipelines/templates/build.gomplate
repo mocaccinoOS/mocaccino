@@ -141,7 +141,7 @@ jobs:
                 - MINIO_SECRET=((minio_secret))
                 - MINIO_URL=((minio_url))
                 - LUET_YES=true
-                - DOCKER_SQUASH={{$repo.squash}}}
+                - DOCKER_SQUASH={{$repo.squash}}
                 - DOCKER_USERNAME=((docker_user))
                 - DOCKER_PASS=((docker_pass))
                 - DOCKER_REGISTRY=((docker_registry))

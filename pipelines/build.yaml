@@ -3,7 +3,7 @@ repositories:
     bucket: "mocaccino-extra"
     project: "mocaccino-extra" 
     qa: true
-    clean: false
+    clean: true
     arch: amd64
     branch: master
     buildkit: 0
@@ -69,7 +69,7 @@ repositories:
     arch: amd64
     project: "portage-tree" 
     buildkit: 0
-    smart: true
+    smart: false
     squash: false
     build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
 
@@ -94,7 +94,7 @@ repositories:
     qa: true
     arch: amd64
     buildkit: 0
-    smart: true
+    smart: false
     prune: false
     squash: true
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
