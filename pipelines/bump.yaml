@@ -27,3 +27,7 @@ repositories:
     fork: "git@github.com:auto-maintainers/distfiles-collection.git"
     upstream: "https://github.com/mocaccinoOS/distfiles-collection"
     upstream_branch: "master"
+  - name: "kernel-repo"
+    fork: "git@github.com:auto-maintainers/kernel-repo.git"
+    upstream: "https://github.com/mocaccinoOS/kernel-repo"
+    upstream_branch: "master"

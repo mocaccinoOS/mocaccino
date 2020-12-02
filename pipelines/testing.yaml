@@ -7,7 +7,10 @@ repositories:
     arch: amd64
     branch: develop
     buildkit: 0
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
     smart: false
+    squash: false
+
   - name: "mocaccino-micro"
     bucket: "mocaccino-micro"
     clean: false
@@ -17,6 +20,8 @@ repositories:
     arch: amd64
     buildkit: 0
     smart: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    squash: false
 
   - name: "desktop"
     bucket: "mocaccino-desktop"
@@ -27,6 +32,8 @@ repositories:
     arch: amd64
     buildkit: 0
     smart: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    squash: false
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -37,6 +44,8 @@ repositories:
     arch: amd64
     buildkit: 0
     smart: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    squash: false
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
@@ -47,6 +56,8 @@ repositories:
     project: "portage-tree" 
     buildkit: 0
     smart: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    squash: false
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
@@ -57,6 +68,8 @@ repositories:
     project: "mocaccino-musl-universe" 
     buildkit: 0
     smart: false
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    squash: false
 
 testing_bucket: mocaccino-staging-tests
 

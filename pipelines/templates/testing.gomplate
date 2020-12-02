@@ -108,15 +108,14 @@ jobs:
                 {{- end }}
                 
                 cat << EOF >task.yaml
-                name: "Build $PACKAGE_CATEGORY/$PACKAGE_NAME from {{$repo.name}} to minio"
+                name: "Build $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION} from {{$repo.name}} to minio"
                 image: mocaccino/builder
                 type: lxd
                 {{- if eq $repo.arch "arm" }}
                 queue: arm_lxd
                 {{- else }}
-                queue: lxd
+                queue: lxd_mocaccino
                 {{- end }}
-                storage: 'creds'
                 environment:
                 - "SUDO="
                 - CLEAN={{$repo.clean}}
@@ -127,6 +126,11 @@ jobs:
                 - DOCKER_BUILDKIT={{$repo.buildkit}}
                 - MINIO_SECRET=((minio_secret))
                 - MINIO_URL=((minio_url))
+                - LUET_YES=true
+                - DOCKER_SQUASH={{$repo.squash}}
+                - DOCKER_USERNAME=((docker_user))
+                - DOCKER_PASS=((docker_pass))
+                - DOCKER_REGISTRY=((docker_registry))
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
@@ -144,13 +148,11 @@ jobs:
                 - ip a
                 {{- end }}
                 - source /etc/profile
-                - source storage/env
-                - echo "Logging to minio"
                 - systemctl start docker
                 - echo "Docker started"
                 - mkdir -p \$HOME/.docker
                 - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > \$HOME/.docker/config.json'
-                - docker login -u \$DOCKER_USER -p \$DOCKER_PASSWORD
+                - docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASS \$DOCKER_REGISTRY
                 {{- if eq $repo.arch "arm" }}
                 - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
                 - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
@@ -162,8 +164,8 @@ jobs:
                 - mkdir \$PWD/build
                 - chmod -R 777 \$PWD/build
                 - mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ \$PWD/build
-                - BUILD_ARGS="--emoji=false --color=false --pull --only-target-package --push --config ./conf/luet.yaml --skip-if-metadata-exists=true" make rebuild
-                - mc cp --recursive \$PWD/build/ minio-ci/{{$config.testing_bucket}}/
+                - BUILD_ARGS="{{$repo.build_args}} --config ./conf/luet.yaml " make rebuild
+                - mc cp --recursive \$PWD/build/*.yaml minio-ci/{{$config.testing_bucket}}/
                 - ls -l build
                 EOF
                 mottainai-cli -p build task create --yaml task.yaml
@@ -179,7 +181,7 @@ jobs:
                   PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
 
                   echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                  while ! ( mc ls minio-ci/{{$config.testing_bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
+                  while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata" )
                   do
                       echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                       sleep 20
@@ -230,7 +232,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                    while ! ( mc ls minio-ci/{{$config.testing_bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
+                    while ! ( mc ls minio-ci/{{$config.testing_bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata" )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                         sleep 20
