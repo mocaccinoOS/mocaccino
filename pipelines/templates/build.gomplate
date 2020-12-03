@@ -88,7 +88,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
 
-                    if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
+                    if [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ]; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
                         continue
                     fi
@@ -114,7 +114,7 @@ jobs:
                 PACKAGE_NAME=${parts[1]}
                 PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
 
-                if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
+                if [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ]; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
                         continue 1
                 fi
@@ -182,6 +182,7 @@ jobs:
                 - mc cp --recursive \$PWD/build/ minio-ci/{{$repo.bucket}}/
                 - ls -l build
                 EOF
+                echo "Creating task for $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION}"
                 mottainai-cli -p build task create --yaml task.yaml
 
                 {{- if $repo.smart }}
@@ -195,7 +196,7 @@ jobs:
                   PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
 
                   echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                  while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
+                  while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
                   do
                       echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                       sleep 20
@@ -246,7 +247,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                    while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package" )
+                    while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                         sleep 20
@@ -388,7 +389,7 @@ jobs:
                     PACKAGE_NAME=$(echo "$i" | jq -r ".name")
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
-                    if mc ls minio-ci/{{$config.qa.bucket}}/ | grep "$PACKAGE_CATEGORY-$PACKAGE_NAME-$PACKAGE_VERSION.success"; then
+                    if [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.success | wc -l) != "0" ]; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already qaed, skipping"
                         continue
                     fi
@@ -429,7 +430,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is processed"
-                    while ! ( mc ls minio-ci/{{$config.qa.bucket}}/ | grep "$PACKAGE_CATEGORY-$PACKAGE_NAME-$PACKAGE_VERSION.success" )
+                    while ! ( [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.success | wc -l) != "0" ] )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not qaed yet, sleeping"
                         sleep 20

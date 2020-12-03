@@ -74,7 +74,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
 
-                    if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
+                    if [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
                         continue
                     fi
@@ -100,7 +100,7 @@ jobs:
                 PACKAGE_NAME=${parts[1]}
                 PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
 
-                if mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package"; then
+                if [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ]; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already present, skipping"
                         continue 1
                 fi
@@ -181,7 +181,7 @@ jobs:
                   PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
 
                   echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                  while ! ( mc ls minio-ci/{{$repo.bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata" )
+                  while ! ( [ $(mc ls minio-ci/{{$config.testing_bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata | wc -l) != "0" ] )
                   do
                       echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                       sleep 20
@@ -232,7 +232,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
-                    while ! ( mc ls minio-ci/{{$config.testing_bucket}}/ | grep "$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata" )
+                    while ! ( [ $(mc ls minio-ci/{{$config.testing_bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.metadata | wc -l) != "0" ] )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                         sleep 20
