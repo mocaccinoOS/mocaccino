@@ -389,7 +389,7 @@ jobs:
                     PACKAGE_NAME=$(echo "$i" | jq -r ".name")
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
-                    if [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.success | wc -l) != "0" ]; then
+                    if [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_CATEGORY\-$PACKAGE_NAME\-$PACKAGE_VERSION.success | wc -l) != "0" ]; then
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME already qaed, skipping"
                         continue
                     fi
@@ -430,7 +430,7 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is processed"
-                    while ! ( [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.success | wc -l) != "0" ] )
+                    while ! ( [ $(mc ls minio-ci/{{$config.qa.bucket}}/$PACKAGE_CATEGORY\-$PACKAGE_NAME\-$PACKAGE_VERSION.success | wc -l) != "0" ] )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not qaed yet, sleeping"
                         sleep 20
