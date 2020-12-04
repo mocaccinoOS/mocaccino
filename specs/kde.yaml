@@ -3,7 +3,6 @@
 packages:
   rootfs:
   - layers/plasma
-  - app-misc/sabayon-live
   - system/luet
   uefi:
   - live/systemd-boot

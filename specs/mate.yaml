@@ -10,7 +10,6 @@ packages:
 
   rootfs:
   - layers/mate 
-  - app-misc/sabayon-live
   - system/luet
   - utils/yip
   - utils/yip-integration
