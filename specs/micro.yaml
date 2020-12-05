@@ -7,28 +7,34 @@ packages:
   - repository/mocaccino-extra-stable
   - repository/mocaccino-musl-universe-stable
   rootfs:
-  - utils/busybox 
-  - container/k3s
+  - shells/sh
+  - shells/bash
+  - utils/coreutils
   - init/runit
   - init/runit-init 
   - init/mocaccino-runit 
   - init/mocaccino-skel 
   - editors/vim 
   - repository/mocaccino-extra 
-  - system/mocaccino-init 
-  - kernel/sabayon-full 
+  - system/mocaccino-init
+  - kernel/sabayon-full
   - system/mocaccino-live-boot
   - system/luet
-  - runit-srv/k3s
-  - runit-srv/udhcpc 
+  - runit-srv/udhcpc
   - utils/eudev
-  - shells/bash
   - mocaccino/unattended-install
   - utils/openssh
   - utils/procps
   - groups/utmp
+  - utils/sed
+  - utils/file
+  - utils/procps
   - utils/yip
+  - utils/tar
+  - utils/ca-certificates
   - utils/yip-integration
+#  - container/k3s
+#  - runit-srv/k3s
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
