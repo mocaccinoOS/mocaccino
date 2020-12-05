@@ -125,11 +125,7 @@ jobs:
                 name: "Build $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION} from {{$repo.name}} to minio"
                 image: mocaccino/builder
                 type: lxd
-                {{- if eq $repo.arch "arm" }}
-                queue: arm_lxd
-                {{- else }}
-                queue: lxd_mocaccino
-                {{- end }}
+                queue: {{$repo.queue}}
                 environment:
                 - "SUDO="
                 - CLEAN={{$repo.clean}}

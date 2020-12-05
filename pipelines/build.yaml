@@ -10,6 +10,7 @@ repositories:
     prune: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     squash: false
+    queue: lxd
 
     smart: false
   - name: "mocaccino-micro"
@@ -45,7 +46,7 @@ repositories:
     prune: false
     squash: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
-
+    queue: lxd_mocaccino
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -59,7 +60,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
-
+    queue: lxd
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
     clean: true
@@ -72,7 +73,7 @@ repositories:
     smart: false
     squash: false
     build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
-
+    queue: lxd_mocaccino
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
     clean: true
@@ -85,7 +86,7 @@ repositories:
     smart: false
     squash: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
-
+    queue: lxd_mocaccino
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
     clean: true
@@ -98,7 +99,7 @@ repositories:
     prune: false
     squash: true
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
-
+    queue: lxd_mocaccino
   - name: "distfiles-collection"
     bucket: "mocaccino-distfiles-collection"
     clean: true
@@ -111,7 +112,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
-
+    queue: lxd_mocaccino
 qa:
   chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"
   from_repo: true
