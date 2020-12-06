@@ -7,7 +7,7 @@ packages:
   - repository/mocaccino-extra-stable
   - repository/mocaccino-musl-universe-stable
   rootfs:
-  - shells/sh
+  - utils/busybox
   - shells/bash
   - utils/coreutils
   - init/runit
