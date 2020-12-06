@@ -28,12 +28,8 @@ packages:
   - utils/sed
   - utils/file
   - utils/procps
-  - utils/yip
   - utils/tar
   - utils/ca-certificates
-  - utils/yip-integration
-#  - container/k3s
-#  - runit-srv/k3s
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -46,8 +42,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
-  - utils/yip
-  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-Micro-0."
