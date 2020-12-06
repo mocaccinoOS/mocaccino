@@ -16,7 +16,7 @@ packages:
   - editors/vim 
   - repository/mocaccino-extra 
   - system/mocaccino-init
-  - kernel/sabayon-full
+  - kernel/mocaccino-full
   - system/mocaccino-live-boot
   - system/luet
   - runit-srv/udhcpc
@@ -42,7 +42,7 @@ packages:
   - system/mocaccino-live-boot
   initramfs:
   - utils/busybox
-  - kernel/sabayon-minimal
+  - kernel/mocaccino-minimal
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
