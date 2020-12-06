@@ -9,7 +9,6 @@ packages:
   rootfs:
   - utils/busybox
   - shells/bash
-  - utils/coreutils
   - init/runit
   - init/runit-init 
   - init/mocaccino-runit 
