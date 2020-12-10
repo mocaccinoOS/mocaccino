@@ -10,7 +10,9 @@ repositories:
     prune: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     squash: false
-    queue: lxd
+    queue: lxd_mocaccino
+    kube: true
+    imageRepository: "quay.io/mocaccinocache/extra-amd64-cache"
 
     smart: false
   - name: "mocaccino-micro"
@@ -47,6 +49,8 @@ repositories:
     squash: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
+    kube: false
+    imageRepository: "quay.io/mocaccinoos/desktop-cache"
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -61,6 +65,9 @@ repositories:
     smart: false
     squash: false
     queue: lxd
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/kernel-repo-amd64-cache"
+
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
     clean: true
@@ -74,6 +81,9 @@ repositories:
     squash: false
     build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
+
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
     clean: true
@@ -87,6 +97,9 @@ repositories:
     squash: false
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/musl-universe-amd64-cache"
+
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
     clean: true
@@ -100,6 +113,9 @@ repositories:
     squash: true
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/aports-amd64-cache"
+
   - name: "distfiles-collection"
     bucket: "mocaccino-distfiles-collection"
     clean: true
@@ -112,6 +128,8 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/distfiles-amd64-cache"
     queue: lxd_mocaccino
 qa:
   chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"

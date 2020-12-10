@@ -60,8 +60,19 @@ jobs:
                 luet uninstall -y repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
                 luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
                
-                luet install -y system/luet-extensions development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                luet install -y system/luet-extensions development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
 
+{{- if $repo.kube }}
+                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                chmod +x ./kubectl
+                mv ./kubectl /usr/bin/kubectl
+                export NAMESPACE=workload-{{$repo.name}}
+
+                kubectl delete namespace $NAMESPACE || true
+                kubectl create namespace $NAMESPACE
+                echo "((kubeconfig))" | base64 -d > kubeconfig
+                export KUBECONFIG=$PWD/kubeconfig
+{{- end }}
                 cat <<"EOB" | bash -e
                 REF=$(cat repository/.git/ref)
 
@@ -120,7 +131,9 @@ jobs:
                 fi
 
                 {{- end }}
-                
+
+{{- if not $repo.kube }}
+
                 cat << EOF >task.yaml
                 name: "Build $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION} from {{$repo.name}} to minio"
                 image: mocaccino/builder
@@ -180,6 +193,54 @@ jobs:
                 EOF
                 echo "Creating task for $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION}"
                 mottainai-cli -p build task create --yaml task.yaml
+
+
+{{- else }}
+                export JOB_NAME={{$repo.name}}-$PACKAGE_NAME-$PACKAGE_CATEGORY
+                cat << EOF >job.yaml
+                apiVersion: luet.k8s.io/v1alpha1
+                kind: PackageBuild
+                metadata:
+                  name: $JOB_NAME
+                spec:
+                  packageName: "$PACKAGE_CATEGORY/$PACKAGE_NAME@$PACKAGE_VERSION"
+                  repository: 
+                    url: "https://github.com/mocaccinoOS/{{$repo.project}}.git"
+                    checkout: "$REF"
+                  storage:
+                    enabled: true
+                    url: "((minio_url))"
+                    secretKey: "((minio_secret))"
+                    accessID: "((minio_id))"
+                    bucket: "{{$repo.bucket}}"
+                    path: ""
+                  options:
+                    pull: true
+                    push: true
+                    clean: {{ $repo.clean }}
+                    imageRepository: "{{$repo.imageRepository}}" 
+                    onlyTarget: true
+                    compression: "gzip"
+                    tree:
+                    {{- if ne $repo.arch "" }}
+                    - /{{$repo.arch}}
+                    - /multi-arch
+                    {{- else }}
+                    - /packages
+                    {{- end }}
+                  registry:
+                    enabled: true
+                    registry: "((docker_registry))"
+                    username: "((docker_user))"
+                    password: "((docker_pass))"
+                EOF
+                
+                kubectl apply -n $NAMESPACE -f job.yaml
+                #while [[ -z $(kubectl get --output=json -n "$NAMESPACE" pod "$JOB_NAME" | jq '.status.containerStatuses[0].state.terminated.exitCode | tonumber' 2>/dev/null) ]]; do
+                #    kubectl attach -n "$JOB_NAME" "$POD" -it 2>/dev/null ||:
+                #done
+{{- end }}
+
 
                 {{- if $repo.smart }}
                 done # Done tocompile
