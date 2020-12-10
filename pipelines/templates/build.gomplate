@@ -68,10 +68,10 @@ jobs:
                 mv ./kubectl /usr/bin/kubectl
                 export NAMESPACE=workload-{{$repo.name}}
 
-                kubectl delete namespace $NAMESPACE || true
-                kubectl create namespace $NAMESPACE
                 echo "((kubeconfig))" | base64 -d > kubeconfig
                 export KUBECONFIG=$PWD/kubeconfig
+                kubectl delete namespace $NAMESPACE || true
+                kubectl create namespace $NAMESPACE
 {{- end }}
                 cat <<"EOB" | bash -e
                 REF=$(cat repository/.git/ref)
@@ -310,6 +310,18 @@ jobs:
                         sleep 20
                     done
                 done
+
+{{- if $repo.kube }}
+                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                chmod +x ./kubectl
+                mv ./kubectl /usr/bin/kubectl
+                export NAMESPACE=workload-{{$repo.name}}
+
+                echo "((kubeconfig))" | base64 -d > kubeconfig
+                export KUBECONFIG=$PWD/kubeconfig
+
+                kubectl delete namespace $NAMESPACE || true
+{{- end }}
 
       {{- if $repo.prune }}
       - task: prune-repo
