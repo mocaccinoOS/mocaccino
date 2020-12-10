@@ -284,7 +284,18 @@ jobs:
                 REF=$(cat repository/.git/ref)
                 luet uninstall -y repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
                 luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
-                luet install -y development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
+                luet install -y development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
+
+{{- if $repo.kube }}
+                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                chmod +x ./kubectl
+                mv ./kubectl /usr/bin/kubectl
+                export NAMESPACE=workload-{{$repo.name}}
+
+                echo "((kubeconfig))" | base64 -d > kubeconfig
+                export KUBECONFIG=$PWD/kubeconfig
+
+{{- end }}
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                
                 # Luet tree package list
@@ -303,23 +314,27 @@ jobs:
                     PACKAGE_NAME=$(echo "$i" | jq -r ".name")
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
+                    export JOB_NAME={{$repo.name}}-$PACKAGE_NAME-$PACKAGE_CATEGORY
+
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                     while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
                     do
                         echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
+                        {{- if $repo.kube }}
+
+                         kubectl attach -n $NAMESPACE "$JOB_NAME" -c "spec-build" -it 2>/dev/null ||:
+                         if [ "$(kubectl get packagebuild -n $NAMESPACE $JOB_NAME -o json | jq -r '.status.state')"  == "Failed" ]; then
+                          kubectl logs -n $NAMESPACE "$JOB_NAME" -c "spec-build"
+                          exit 1
+                         fi
+                        {{- end }}
+
                         sleep 20
                     done
+
                 done
 
 {{- if $repo.kube }}
-                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-                chmod +x ./kubectl
-                mv ./kubectl /usr/bin/kubectl
-                export NAMESPACE=workload-{{$repo.name}}
-
-                echo "((kubeconfig))" | base64 -d > kubeconfig
-                export KUBECONFIG=$PWD/kubeconfig
-
                 kubectl delete namespace $NAMESPACE || true
 {{- end }}
 
