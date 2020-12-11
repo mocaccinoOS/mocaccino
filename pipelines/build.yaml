@@ -13,6 +13,7 @@ repositories:
     queue: lxd_mocaccino
     kube: true
     imageRepository: "quay.io/mocaccinocache/extra-amd64-cache"
+    tree: ""
 
     smart: false
   - name: "mocaccino-micro"
@@ -51,6 +52,7 @@ repositories:
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinoos/desktop-cache"
+    tree: ""
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -67,6 +69,7 @@ repositories:
     queue: lxd
     kube: false
     imageRepository: "quay.io/mocaccinocache/kernel-repo-amd64-cache"
+    tree: ""
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
@@ -83,6 +86,7 @@ repositories:
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
+    tree: ""
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
@@ -99,6 +103,7 @@ repositories:
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinocache/musl-universe-amd64-cache"
+    tree: ""
 
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
@@ -113,7 +118,8 @@ repositories:
     squash: true
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
-    kube: false
+    kube: true
+    tree: "/"
     imageRepository: "quay.io/mocaccinocache/aports-amd64-cache"
 
   - name: "distfiles-collection"
@@ -127,6 +133,7 @@ repositories:
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     buildkit: 0
     smart: false
+    tree: ""
     squash: false
     kube: false
     imageRepository: "quay.io/mocaccinocache/distfiles-amd64-cache"

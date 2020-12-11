@@ -196,7 +196,10 @@ jobs:
 
 
 {{- else }}
-                export JOB_NAME={{$repo.name}}-$PACKAGE_NAME-$PACKAGE_CATEGORY
+                export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
+                JOB_NAME=${JOB_NAME/_/}
+                JOB_NAME=${JOB_NAME/+/}
+
                 cat << EOF >job.yaml
                 apiVersion: luet.k8s.io/v1alpha1
                 kind: PackageBuild
@@ -222,12 +225,21 @@ jobs:
                     onlyTarget: true
                     compression: "gzip"
                     tree:
-                    {{- if ne $repo.arch "" }}
+                    {{- if ne $repo.tree "" }}
+                    - /{{$repo.tree}}
+                    {{- else if ne $repo.arch "" }}
                     - /{{$repo.arch}}
                     - /multi-arch
                     {{- else }}
                     - /packages
                     {{- end }}
+                    resources:
+                      requests:
+                        cpu: 2000m
+                        memory: 156Mi
+                      limits:
+                        cpu: 2000m
+                        memory: 512Mi
                   registry:
                     enabled: true
                     registry: "((docker_registry))"
@@ -314,7 +326,9 @@ jobs:
                     PACKAGE_NAME=$(echo "$i" | jq -r ".name")
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
-                    export JOB_NAME={{$repo.name}}-$PACKAGE_NAME-$PACKAGE_CATEGORY
+                    export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
+                    JOB_NAME=${JOB_NAME/_/}
+                    JOB_NAME=${JOB_NAME/+/}
 
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                     while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
