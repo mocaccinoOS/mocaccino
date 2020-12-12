@@ -203,6 +203,7 @@ jobs:
 {{- else }}
                 export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
                 JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
+                JOB_NAME=`echo -n $JOB_NAME | tr A-Z a-z`
 
                 cat << EOF >job.yaml
                 apiVersion: luet.k8s.io/v1alpha1
@@ -332,6 +333,7 @@ jobs:
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
                     JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
+                    JOB_NAME=`echo -n $JOB_NAME | tr A-Z a-z`
 
 
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
