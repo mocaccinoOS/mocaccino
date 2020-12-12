@@ -18,12 +18,15 @@ resources:
     disable: {{ not $config.slack.enabled }}
 
 {{ range $_, $repo := $config.repositories }}
+{{ if $repo.enabled }}
+
 - name: {{$repo.name}}
   check_every: 10m
   type: git
   source:
     uri: https://github.com/mocaccinoOS/{{$repo.project}}
     branch: {{$repo.branch}}
+{{ end }}
 {{ end }}
 
 jobs:

@@ -12,7 +12,7 @@ repositories:
     build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
     squash: false
     queue: lxd_mocaccino
-    kube: true
+    kube: false
     imageRepository: "quay.io/mocaccinocache/extra-amd64-cache"
     tree: ""
 
