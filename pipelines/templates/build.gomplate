@@ -202,8 +202,7 @@ jobs:
 
 {{- else }}
                 export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
-                JOB_NAME=${JOB_NAME/_/}
-                JOB_NAME=${JOB_NAME/+/}
+                JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
 
                 cat << EOF >job.yaml
                 apiVersion: luet.k8s.io/v1alpha1
@@ -332,8 +331,8 @@ jobs:
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
                     export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
-                    JOB_NAME=${JOB_NAME/_/}
-                    JOB_NAME=${JOB_NAME/+/}
+                    JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
+
 
                     echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                     while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
