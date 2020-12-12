@@ -82,7 +82,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
-    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push --plugin luetplugin-pkg-build-cleanup"
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"

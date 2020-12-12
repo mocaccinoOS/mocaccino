@@ -33,7 +33,7 @@ jobs:
     plan:
       - get: {{$repo.name}}
         trigger: true
-        
+
       - task: run-mottainai-task
         timeout: 5h30m
 
@@ -59,7 +59,7 @@ jobs:
                 ls -liah repository
                 luet uninstall -y repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
                 luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
-               
+
                 luet install -y system/luet-extensions development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
 
 {{- if $repo.kube }}
@@ -181,6 +181,7 @@ jobs:
                 - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
                 {{- else }}
                 - luet upgrade
+                - luet install system/luet-plugins-live -y
                 {{- end }}
                 - mc alias set minio-ci \$MINIO_URL \$MINIO_ID \$MINIO_SECRET
                 - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
