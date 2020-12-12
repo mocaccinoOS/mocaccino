@@ -28,6 +28,7 @@ resources:
 
 jobs:
 {{ range $_, $repo := $config.repositories }}
+{{ if $repo.enabled }}
   - name: build-{{$repo.name}}
     serial_groups: [{{$repo.name}}]
     plan:
@@ -564,4 +565,5 @@ jobs:
           color: "#eeeeee"
           alert_type: success
 {{- end }}
+{{ end }}
 {{ end }}
