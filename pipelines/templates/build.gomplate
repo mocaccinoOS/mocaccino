@@ -145,7 +145,6 @@ jobs:
                 queue: {{$repo.queue}}
                 environment:
                 - "SUDO="
-                - CLEAN={{$repo.clean}}
                 - REPO=https://github.com/mocaccinoOS/{{$repo.project}}.git
                 - BRANCH=$REF
                 - PACKAGES=$PACKAGE_CATEGORY/$PACKAGE_NAME
@@ -230,7 +229,6 @@ jobs:
                   options:
                     pull: true
                     push: true
-                    clean: {{ $repo.clean }}
                     imageRepository: "{{$repo.imageRepository}}" 
                     onlyTarget: true
                     compression: "gzip"
@@ -245,11 +243,11 @@ jobs:
                     {{- end }}
                     resources:
                       requests:
-                        cpu: 2000m
+                        cpu: 3000m
                         memory: 156Mi
                       limits:
-                        cpu: 2000m
-                        memory: 512Mi
+                        cpu: 5000m
+                        memory: 612Mi
                   registry:
                     enabled: true
                     registry: "((docker_registry))"

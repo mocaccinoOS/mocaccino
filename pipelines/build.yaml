@@ -4,12 +4,11 @@ repositories:
     project: "mocaccino-extra" 
     qa: true
     enabled: true
-    clean: true
     arch: amd64
     branch: master
     buildkit: 0
     prune: false
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     squash: false
     queue: lxd_mocaccino
     kube: false
@@ -20,7 +19,6 @@ repositories:
   - name: "mocaccino-micro"
     enabled: true
     bucket: "mocaccino-micro"
-    clean: true
     project: "mocaccino-micro" 
     branch: master
     qa: true
@@ -28,7 +26,7 @@ repositories:
     smart: false
     prune: false
     squash: false
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd
     kube: false
     imageRepository: "quay.io/mocaccinocache/micro-amd64-cache"
@@ -39,20 +37,20 @@ repositories:
     bucket: "mocaccino-extra-arm"
     project: "mocaccino-extra" 
     qa: true
-    clean: false
+    
     arch: arm
     branch: master
   - name: "mocaccino-micro-arm"
     enabled: false
     bucket: "mocaccino-micro-arm"
-    clean: false
+    
     project: "mocaccino-micro" 
     branch: master
     qa: true
     arch: arm
   - name: "desktop"
     bucket: "mocaccino-desktop"
-    clean: false
+    
     enabled: true
     project: "desktop" 
     qa: false
@@ -62,7 +60,7 @@ repositories:
     smart: false
     prune: false
     squash: false
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinoos/desktop-cache"
@@ -70,14 +68,14 @@ repositories:
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
-    clean: false
+    
     qa: true
     branch: master
     project: "kernel-repo" 
     enabled: true
     arch: amd64
     prune: false
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     buildkit: 0
     smart: false
     squash: false
@@ -88,7 +86,7 @@ repositories:
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
-    clean: true
+    
     prune: false
     branch: master
     qa: true
@@ -98,7 +96,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
-    build_args: "--skip-if-metadata-exists=true --emoji=false --color=false --pull --only-target-package --push --plugin luetplugin-pkg-build-cleanup"
+    build_args: "--emoji=false --color=false --pull --only-target-package --push --plugin luetplugin-pkg-build-cleanup"
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
@@ -106,7 +104,7 @@ repositories:
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
-    clean: true
+    
     branch: master
     qa: true
     prune: false
@@ -115,7 +113,7 @@ repositories:
     buildkit: 0
     smart: false
     squash: false
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
     kube: false
     imageRepository: "quay.io/mocaccinocache/musl-universe-amd64-cache"
@@ -124,7 +122,7 @@ repositories:
 
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
-    clean: true
+    
     project: "mocaccino-aports" 
     branch: master
     qa: true
@@ -133,7 +131,7 @@ repositories:
     smart: false
     prune: false
     squash: true
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
     kube: true
     tree: "/"
@@ -142,13 +140,13 @@ repositories:
 
   - name: "distfiles-collection"
     bucket: "mocaccino-distfiles-collection"
-    clean: true
+    
     qa: false
     branch: master
     project: "distfiles-collection" 
     arch: amd64
     prune: true
-    build_args: "--skip-if-metadata-exists=true --no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     buildkit: 0
     smart: false
     tree: ""
