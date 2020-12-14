@@ -243,10 +243,10 @@ jobs:
                     resources:
                       requests:
                         cpu: 3000m
-                        memory: 156Mi
+                        memory: 500Mi
                       limits:
                         cpu: 5000m
-                        memory: 612Mi
+                        memory: 1024Mi
                   registry:
                     enabled: true
                     registry: "((docker_registry))"
