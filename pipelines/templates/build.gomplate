@@ -192,10 +192,6 @@ jobs:
                 - chmod -R 777 \$PWD/build
                 - luet --version
                 - BUILD_ARGS="{{$repo.build_args}} --config ./conf/luet.yaml " make rebuild
-                - export cat=\$(echo \$PACKAGES | cut -d'/' -f1)
-                - export name=\$(echo \$PACKAGES | cut -d'/' -f2)
-                - export artefact_prefix=\${name}-\${cat}
-                - eval 'for i in `ls build/*.yaml` ; do metafile=\$(basename \$i) ; if [[ "\$metafile" =~ ^\${artefact_prefix} ]] ; then continue else rm \$i fi ; done'
                 - mc cp --recursive \$PWD/build/ minio-ci/{{$repo.bucket}}/
                 - ls -l build
                 EOF
