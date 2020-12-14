@@ -190,7 +190,6 @@ jobs:
                 - git clone \$REPO ./luet-repo && cd luet-repo && git checkout \$BRANCH -b build
                 - mkdir \$PWD/build
                 - chmod -R 777 \$PWD/build
-                - mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ \$PWD/build
                 - luet --version
                 - BUILD_ARGS="{{$repo.build_args}} --config ./conf/luet.yaml " make rebuild
                 - export cat=\$(echo \$PACKAGES | cut -d'/' -f1)
