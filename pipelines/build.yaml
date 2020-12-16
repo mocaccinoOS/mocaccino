@@ -156,6 +156,23 @@ repositories:
     queue: lxd_mocaccino
     enabled: true
 
+  - name: "mocaccino-os-commons"
+    bucket: "mocaccino-os-commons"
+    
+    project: "os-commons" 
+    branch: master
+    qa: true
+    arch: amd64
+    buildkit: 0
+    smart: false
+    prune: false
+    squash: true
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    queue: lxd_mocaccino
+    kube: false
+    tree: "/"
+    imageRepository: "quay.io/mocaccinocache/os-commons-amd64-cache"
+    enabled: true
 qa:
   chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"
   from_repo: true
