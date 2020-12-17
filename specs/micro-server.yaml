@@ -5,8 +5,10 @@ packages:
   - repository/mocaccino-kernel-stable
   - repository/mocaccino-micro-stable
   - repository/mocaccino-extra-stable
+  - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
   rootfs:
+  - mocaccino-release/micro
   - utils/busybox
   - shells/bash
   - init/runit

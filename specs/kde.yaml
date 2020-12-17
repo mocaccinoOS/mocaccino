@@ -1,21 +1,45 @@
 
 
 packages:
+
+  repos:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-micro-stable
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-portage-stable
+  - repository/mocaccino-os-commons-stable
+
   rootfs:
   - layers/plasma
   - system/luet
+  - kernel/sabayon-full
+  - utils/yip
+  - utils/yip-integration
+  - init/mocaccino-skel
+  - system/mocaccino-init
+  - system/mocaccino-wallpaper
+  - mocaccino/live-setup
+  - mocaccino-release/portage
   uefi:
   - live/systemd-boot
-  - system/sabayon-live-boot
+  - system/mocaccino-live-boot
   isoimage:
   - live/syslinux
-  - system/sabayon-live-boot
+  - system/mocaccino-live-boot
   initramfs:
-  - distro/sabayon-initramfs
+  - utils/busybox
+  - kernel/sabayon-minimal
+  - system/mocaccino-init
+  - system/mocaccino-live-boot
+  - init/mocaccino-skel
+  - utils/yip
+  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-KDE-0."
 image_date: "true"
 
 luet:
-  config: conf/luet-desktop.yaml
+  config: conf/luet-desktop-thin.yaml

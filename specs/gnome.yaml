@@ -7,6 +7,7 @@ packages:
   - repository/mocaccino-micro-stable
   - repository/mocaccino-extra-stable
   - repository/mocaccino-portage-stable
+  - repository/mocaccino-os-commons-stable
 
   rootfs:
   - kernel/sabayon-full
@@ -20,6 +21,8 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
+  - mocaccino-release/portage
+
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot

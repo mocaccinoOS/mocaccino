@@ -7,15 +7,18 @@ packages:
   - repository/mocaccino-micro-stable
   - repository/mocaccino-extra-stable
   - repository/mocaccino-portage-stable
+  - repository/mocaccino-os-commons-stable
 
   rootfs:
   - layers/mate 
-  - system/luet
+  - kernel/sabayon-full
   - utils/yip
   - utils/yip-integration
   - init/mocaccino-skel
-  - kernel/sabayon-full
   - system/mocaccino-init
+  - system/mocaccino-wallpaper
+  - mocaccino/live-setup
+  - mocaccino-release/portage
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
