@@ -8,7 +8,7 @@ packages:
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
   rootfs:
-  - mocaccino-release/portage
+  - mocaccino-release/micro
   - utils/busybox
   - shells/bash
   - init/runit
