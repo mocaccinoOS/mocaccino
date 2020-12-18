@@ -14,6 +14,7 @@ packages:
   - init/runit
   - init/runit-init 
   - init/mocaccino-runit 
+  - utils/runit-helper
   - init/mocaccino-skel 
   - editors/vim 
   - repository/mocaccino-extra 
@@ -22,6 +23,7 @@ packages:
   - system/mocaccino-live-boot
   - system/luet
   - runit-srv/udhcpc
+  - runit-srv/sshd
   - utils/eudev
   - mocaccino/unattended-install
   - utils/openssh
