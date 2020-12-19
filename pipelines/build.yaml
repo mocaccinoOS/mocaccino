@@ -133,7 +133,7 @@ repositories:
     squash: true
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
-    kube: true
+    kube: false
     tree: "/"
     imageRepository: "quay.io/mocaccinocache/aports-amd64-cache"
     enabled: true
