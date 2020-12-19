@@ -438,7 +438,7 @@ jobs:
                
                 cd repository/
                 mkdir build
-                mc mirror  --exclude '*.gz' minio-ci/{{$repo.bucket}}/ build
+                mc mirror  --exclude '*.gz' --exclude '*.zstd' minio-ci/{{$repo.bucket}}/ build
                 ls -liah build/
                 make create-repo
                 mc cp --recursive build/ minio-ci/{{$repo.bucket}}/
