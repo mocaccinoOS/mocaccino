@@ -2,7 +2,6 @@
 
 ![MocaccinoOS Micro](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20Micro/badge.svg)
 ![MocaccinoOS GNOME](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20GNOME/badge.svg)
-![MocaccinoOS MinimalX](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MinimalX/badge.svg)
 ![MocaccinoOS MATE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MATE/badge.svg)
 ![MocaccinoOS KDE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20KDE/badge.svg)
 
