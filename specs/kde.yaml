@@ -14,7 +14,7 @@ packages:
   rootfs:
   - layers/plasma
   - system/luet
-  - kernel/sabayon-full
+  - kernel/mocaccino-lts-full
   - utils/yip
   - utils/yip-systemd
   - init/mocaccino-skel
@@ -31,7 +31,7 @@ packages:
   - system/mocaccino-live-boot
   initramfs:
   - utils/busybox
-  - kernel/sabayon-minimal
+  - kernel/mocaccino-lts-minimal
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
