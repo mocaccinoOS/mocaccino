@@ -13,12 +13,13 @@ packages:
   - layers/mate 
   - kernel/sabayon-full
   - utils/yip
-  - utils/yip-integration
+  - system/luet
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - mocaccino-release/portage
+  - utils/yip-systemd
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -31,8 +32,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
-  - utils/yip
-  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-MATE-0."
