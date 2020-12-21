@@ -35,7 +35,7 @@ packages:
   - utils/yip
   - utils/tar
   - utils/ca-certificates
-  - utils/yip-integration
+  - runit-srv/yip
   - container/k3s
   - runit-srv/k3s
   uefi:
@@ -50,8 +50,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
-  - utils/yip
-  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-MicroServer-0."
