@@ -19,6 +19,8 @@ packages:
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - mocaccino-release/portage
+  - x11-misc/lightdm
+  - app-admin/calamares
   - utils/yip-systemd
   uefi:
   - live/systemd-boot
