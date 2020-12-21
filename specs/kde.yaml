@@ -16,7 +16,7 @@ packages:
   - system/luet
   - kernel/sabayon-full
   - utils/yip
-  - utils/yip-integration
+  - utils/yip-systemd
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
@@ -34,8 +34,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
-  - utils/yip
-  - utils/yip-integration
 
 overlay: "true"
 image_prefix: "MocaccinoOS-KDE-0."
