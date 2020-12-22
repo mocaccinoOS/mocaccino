@@ -14,8 +14,8 @@ packages:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/gnome
-  - acct-group/gdm
-  - acct-user/gdm
+  #  - acct-group/gdm
+   #  - acct-user/gdm
   - system/luet
   - utils/yip
   - utils/yip-systemd
