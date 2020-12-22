@@ -14,6 +14,7 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinocache/extra-amd64-cache"
     tree: ""
+    triggered: true
 
     smart: false
   - name: "mocaccino-micro"
@@ -31,13 +32,14 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinocache/micro-amd64-cache"
     tree: ""
+    triggered: true
     arch: amd64
   - name: "mocaccino-extra-arm"
     enabled: false
     bucket: "mocaccino-extra-arm"
     project: "mocaccino-extra" 
     qa: true
-    
+    triggered: false
     arch: arm
     branch: master
   - name: "mocaccino-micro-arm"
@@ -47,6 +49,7 @@ repositories:
     project: "mocaccino-micro" 
     branch: master
     qa: true
+    triggered: false
     arch: arm
   - name: "desktop"
     bucket: "mocaccino-desktop"
@@ -65,6 +68,7 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinoos/desktop-cache"
     tree: ""
+    triggered: false
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -83,6 +87,7 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinocache/kernel-repo-amd64-cache"
     tree: ""
+    triggered: false
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
@@ -101,6 +106,7 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
     tree: ""
+    triggered: false
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
@@ -119,6 +125,7 @@ repositories:
     imageRepository: "quay.io/mocaccinocache/musl-universe-amd64-cache"
     tree: ""
     enabled: true
+    triggered: false
 
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
@@ -137,6 +144,7 @@ repositories:
     tree: "/"
     imageRepository: "quay.io/mocaccinocache/aports-amd64-cache"
     enabled: true
+    triggered: false
 
   - name: "distfiles-collection"
     bucket: "mocaccino-distfiles-collection"
@@ -155,10 +163,11 @@ repositories:
     imageRepository: "quay.io/mocaccinocache/distfiles-amd64-cache"
     queue: lxd_mocaccino
     enabled: true
+    triggered: true
 
   - name: "mocaccino-os-commons"
     bucket: "mocaccino-os-commons"
-    
+    triggered: true
     project: "os-commons" 
     branch: master
     qa: true
