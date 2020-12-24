@@ -10,8 +10,9 @@ packages:
   - repository/mocaccino-os-commons-stable
 
   rootfs:
-  - layers/mate 
+  - layers/mate
   - kernel/mocaccino-lts-full
+  - kernel/mocaccino-lts-modules
   - kernel/linux-firmware
   - utils/yip
   - system/luet
