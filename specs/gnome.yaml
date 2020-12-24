@@ -16,8 +16,6 @@ packages:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/gnome
-  #  - acct-group/gdm
-   #  - acct-user/gdm
   - system/luet
   - utils/yip
   - utils/yip-systemd
@@ -27,6 +25,8 @@ packages:
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - mocaccino-release/portage
+  - acct-group/gdm
+  - acct-user/gdm
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
