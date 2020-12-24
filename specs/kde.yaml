@@ -15,6 +15,8 @@ packages:
   - layers/plasma
   - system/luet
   - kernel/mocaccino-lts-full
+  - kernel/mocaccino-lts-modules
+  - kernel/linux-firmware
   - utils/yip
   - utils/yip-systemd
   - init/mocaccino-skel
