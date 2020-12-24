@@ -12,6 +12,7 @@ packages:
   rootfs:
   - layers/mate 
   - kernel/mocaccino-lts-full
+  - kernel/linux-firmware
   - utils/yip
   - system/luet
   - init/mocaccino-skel
