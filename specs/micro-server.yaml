@@ -22,6 +22,7 @@ packages:
   - kernel/mocaccino-full
   - system/mocaccino-live-boot
   - system/luet
+  - system/luet-extensions
   - runit-srv/udhcpc
   - runit-srv/sshd
   - utils/eudev

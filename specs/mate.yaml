@@ -16,6 +16,7 @@ packages:
   - kernel/linux-firmware
   - utils/yip
   - system/luet
+  - system/luet-extensions
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
