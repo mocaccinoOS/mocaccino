@@ -98,7 +98,7 @@ repositories:
     enabled: true
     arch: amd64
     project: "portage-tree" 
-    buildkit: 0
+    buildkit: 1
     smart: false
     squash: false
     build_args: "--emoji=false --color=false --pull --only-target-package --push"
