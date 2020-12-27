@@ -28,6 +28,8 @@ packages:
   - mocaccino-release/portage
   - acct-group/gdm
   - acct-user/gdm
+  - www-client/epiphany
+  - www-client/chromium
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot

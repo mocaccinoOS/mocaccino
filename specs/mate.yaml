@@ -25,6 +25,7 @@ packages:
   - mocaccino-release/portage
   - x11-misc/lightdm
   - app-admin/calamares
+  - www-client/chromium
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
