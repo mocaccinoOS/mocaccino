@@ -13,8 +13,9 @@ packages:
   - layers/mate
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
-  - kernel/linux-firmware
+  - sys-kernel/linux-firmware
   - utils/yip
+  - utils/yip-systemd
   - system/luet
   - system/luet-extensions
   - init/mocaccino-skel
@@ -24,7 +25,6 @@ packages:
   - mocaccino-release/portage
   - x11-misc/lightdm
   - app-admin/calamares
-  - utils/yip-systemd
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot

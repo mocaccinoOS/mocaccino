@@ -12,8 +12,7 @@ packages:
   rootfs:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
-  - kernel/linux-firmware
-  - kernel/linux-firmware-sabayon
+  - sys-kernel/linux-firmware
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/gnome

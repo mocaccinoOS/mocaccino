@@ -17,7 +17,7 @@ packages:
   - system/luet-extensions
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
-  - kernel/linux-firmware
+  - sys-kernel/linux-firmware
   - utils/yip
   - utils/yip-systemd
   - init/mocaccino-skel
