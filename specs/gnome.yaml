@@ -30,6 +30,8 @@ packages:
   - acct-user/gdm
   - www-client/epiphany
   - www-client/chromium
+  - gnome-extra/gnome-tweaks
+  - gnome-extra/gnome-power-manager
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
