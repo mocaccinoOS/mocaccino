@@ -13,6 +13,7 @@ packages:
 
   rootfs:
   - layers/plasma
+  - layers/kde-apps-minimal
   - system/luet
   - system/luet-extensions
   - kernel/mocaccino-lts-full
