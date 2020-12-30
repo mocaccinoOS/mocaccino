@@ -99,7 +99,7 @@ repositories:
     arch: amd64
     project: "portage-tree" 
     buildkit: 1
-    smart: false
+    smart: true
     squash: false
     build_args: "--emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
