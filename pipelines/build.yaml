@@ -117,7 +117,7 @@ repositories:
     arch: amd64
     project: "mocaccino-musl-universe" 
     buildkit: 0
-    smart: false
+    smart: true
     squash: false
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
@@ -125,7 +125,7 @@ repositories:
     imageRepository: "quay.io/mocaccinocache/musl-universe-amd64-cache"
     tree: ""
     enabled: true
-    triggered: false
+    triggered: true
 
   - name: "mocaccino-aports"
     bucket: "mocaccino-aports"
@@ -175,7 +175,7 @@ repositories:
     buildkit: 0
     smart: false
     prune: false
-    squash: true
+    squash: false
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
     kube: false
