@@ -13,6 +13,7 @@ packages:
   - shells/bash
   - init/runit
   - init/runit-init 
+  - system/mocaccino-runit-splash
   - init/mocaccino-runit 
   - init/mocaccino-skel
   - utils/runit-helper
