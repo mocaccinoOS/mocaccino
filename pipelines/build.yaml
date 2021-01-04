@@ -91,7 +91,6 @@ repositories:
 
   - name: "portage-tree"
     bucket: "mocaccino-portage-tree"
-    
     prune: false
     branch: master
     qa: true
@@ -99,7 +98,7 @@ repositories:
     arch: amd64
     project: "portage-tree" 
     buildkit: 0
-    smart: true
+    smart: false
     squash: false
     build_args: "--emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
