@@ -47,6 +47,7 @@ packages:
   - system/mocaccino-live-boot
   initramfs:
   - utils/busybox
+  - system/kmod
   - kernel/mocaccino-minimal
   - system/mocaccino-init
   - system/mocaccino-live-boot
