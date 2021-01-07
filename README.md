@@ -2,6 +2,8 @@
 
 ![MocaccinoOS Micro](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20Micro/badge.svg)
 ![MocaccinoOS GNOME](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20GNOME/badge.svg)
+![MocaccinoOS MinimalX](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MinimalX/badge.svg)
+![MocaccinoOS LXQT](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20LXQT/badge.svg)
 ![MocaccinoOS MATE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MATE/badge.svg)
 ![MocaccinoOS KDE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20KDE/badge.svg)
 
@@ -20,6 +22,7 @@ Each flavor is composed by packages coming from multiple repositories, here is a
 | [GNOME](https://github.com/mocaccinoOS/ci/blob/master/specs/gnome.yaml) ([conf](https://github.com/mocaccinoOS/ci/blob/master/conf/luet-desktop.yaml)) |                                                                              |                                                                              | :heavy_check_mark:                                                                          | :heavy_check_mark:                                            | :heavy_check_mark:                                                | :heavy_check_mark:                                                        |
 | [MATE](https://github.com/mocaccinoOS/ci/blob/master/specs/mate.yaml) ([conf](https://github.com/mocaccinoOS/ci/blob/master/conf/luet-desktop.yaml))   |                                                                              |                                                                              | :heavy_check_mark:                                                                          | :heavy_check_mark:                                            | :heavy_check_mark:                                                | :heavy_check_mark:                                                        |
 | [KDE](https://github.com/mocaccinoOS/ci/blob/master/specs/kde.yaml) ([conf](https://github.com/mocaccinoOS/ci/blob/master/conf/luet-desktop.yaml))     |                                                                              |                                                                              | :heavy_check_mark:                                                                          | :heavy_check_mark:                                            | :heavy_check_mark:                                                | :heavy_check_mark:                                                        |
+| [LXQT](https://github.com/mocaccinoOS/ci/blob/master/specs/lxqt.yaml) ([conf](https://github.com/mocaccinoOS/ci/blob/master/conf/luet-desktop.yaml))   |                                                                              |                                                                              | :heavy_check_mark:                                                                          | :heavy_check_mark:                                            | :heavy_check_mark:                                                | :heavy_check_mark:                                                        |
 
 ## ISO specs
 
@@ -44,6 +47,13 @@ packages:
   initramfs:
   - distro/mocaccino-initramfs
 
+repository:
+  packages:
+  - repository/mocaccino-micro
+  - repository/mocaccino-musl-universe
+  initramfs:
+  - repository/mocaccino-micro
+
 # Use overlayfs to mount the rootfs. If disabled, only the initramfs will be booted.
 overlay: "true"
 
@@ -59,13 +69,15 @@ luet:
 
 Each spec defines which packages to be installed from [luet](https://github.com/mudler/luet) repositories. A config file for each spec has to be provided and placed in `conf/`.
 
-To build the iso, you need to run the `isospec` script inside `scripts/`, for e.g.
+To build the iso, you need to run the `luet geniso-isospec` for e.g.
 
 ```bash
 $> git clone https://github.com/mocaccinoOS/ci.git mocaccino-ci
 $> cd mocaccino-ci
-$> ./scripts/isospec specs/micro.yaml
+$> luet geniso-isospec specs/micro.yaml
 ```
+
+`luet geniso-isospec` is part of `luet-extensions`, that can be installed with `luet install luet-extensions` after [Luet official repository](https://github.com/Luet-lab/luet-repo) repositories are enabled in the system.
 
 ## Local Requirements
 
