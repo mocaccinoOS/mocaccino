@@ -1,13 +1,5 @@
 packages:
-  # Repositories packages from repository-index
-  repos:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel-stable
-  - repository/mocaccino-micro-stable
-  - repository/mocaccino-extra-stable
-  - repository/mocaccino-portage-stable
-  - repository/mocaccino-os-commons-stable
+
 
   rootfs:
   - kernel/mocaccino-lts-full
@@ -52,6 +44,23 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
+
+# Repositories packages from repository-index
+repository:
+  packages:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-portage-stable
+  - repository/mocaccino-os-commons-stable
+  initramfs:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-micro-stable
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-os-commons-stable
+  - repository/mocaccino-musl-universe-stable
 
 overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-0."

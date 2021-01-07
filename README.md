@@ -47,6 +47,7 @@ packages:
   initramfs:
   - distro/mocaccino-initramfs
 
+# This configuration isn't necessarly required. You can also just specify the repository to be used in the luet configuration file
 repository:
   packages:
   - repository/mocaccino-micro

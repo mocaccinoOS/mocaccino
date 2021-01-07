@@ -1,12 +1,4 @@
 packages:
-  repos:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel-stable
-  - repository/mocaccino-micro-stable
-  - repository/mocaccino-extra-stable
-  - repository/mocaccino-os-commons-stable
-  - repository/mocaccino-musl-universe-stable
   rootfs:
   - mocaccino-release/micro
   - utils/busybox
@@ -52,6 +44,24 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-live-boot
   - init/mocaccino-skel
+
+repository:
+  packages:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-micro-stable
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-os-commons-stable
+  - repository/mocaccino-musl-universe-stable
+  initramfs:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-micro-stable
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-os-commons-stable
+  - repository/mocaccino-musl-universe-stable
 
 overlay: "true"
 image_prefix: "MocaccinoOS-MicroServer-0."
