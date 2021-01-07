@@ -37,9 +37,6 @@ jobs:
             sudo -E luet geniso-isospec specs/micro-server.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - name: setup-docker
-      uses: docker-practice/actions-setup-docker@0.0.1
-
     - name: Install minio and login
       env:
         MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
