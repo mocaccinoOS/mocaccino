@@ -201,6 +201,23 @@ repositories:
     tree: ""
     triggered: true
 
+  - name: "portage-dev"
+    bucket: "mocaccino-portage-dev"
+    prune: false
+    branch: develop
+    qa: false
+    enabled: true
+    arch: amd64
+    project: "portage-tree" 
+    buildkit: 0
+    smart: false
+    squash: false
+    build_args: "--emoji=false --color=false --pull --only-target-package --push"
+    queue: lxd_mocaccino
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
+    tree: ""
+    triggered: false
 
 qa:
   chart: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.2.9/package-smoke-0.2.3.tar.gz"
