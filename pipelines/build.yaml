@@ -56,19 +56,19 @@ repositories:
     
     enabled: true
     project: "desktop" 
-    qa: false
+    qa: true
     branch: master
     arch: amd64
     buildkit: 0
-    smart: false
+    smart: true
     prune: false
     squash: false
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
     kube: false
-    imageRepository: "quay.io/mocaccinoos/desktop-cache"
+    imageRepository: "quay.io/mocaccinocache/desktop"
     tree: ""
-    triggered: false
+    triggered: true
 
   - name: "kernel-repo"
     bucket: "mocaccino-kernel"
@@ -93,7 +93,7 @@ repositories:
     bucket: "mocaccino-portage-tree"
     prune: false
     branch: master
-    qa: true
+    qa: false
     enabled: true
     arch: amd64
     project: "portage-tree" 
