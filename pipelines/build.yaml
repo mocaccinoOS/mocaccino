@@ -105,7 +105,7 @@ repositories:
     kube: false
     imageRepository: "quay.io/mocaccinocache/portage-amd64-cache"
     tree: ""
-    triggered: false
+    triggered: true
 
   - name: "musl-universe"
     bucket: "mocaccino-musl-universe"
