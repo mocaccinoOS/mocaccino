@@ -2,7 +2,9 @@
 {{ $config := (datasource "config") }}
 ---
 resources:
-
+- name: bidaily
+  type: time
+  source: {interval: 48h}
 {{ range $_, $repo := $config.repositories }}
 - name: {{$repo.name}}
   check_every: 10m
@@ -16,6 +18,8 @@ jobs:
 {{ range $_, $repo := $config.repositories }}
   - name: prune-{{$repo.name}}
     plan:
+      - get: bidaily
+        trigger: true
       - get: {{$repo.name}}
       - task: prune-repo
         input_mapping:
@@ -32,7 +36,6 @@ jobs:
             args: 
             - -ce
             - |
-                luet uninstall -y repository/mocaccino-extra repository/mocaccino-micro repository/mocaccino-musl-universe
                 luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
                 luet install -y development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
