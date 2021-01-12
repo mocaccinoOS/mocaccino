@@ -157,6 +157,7 @@ jobs:
                 - DOCKER_USERNAME=((docker_user))
                 - DOCKER_PASS=((docker_pass))
                 - DOCKER_REGISTRY=((docker_registry))
+                - TMPDIR=/var/tmp
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
