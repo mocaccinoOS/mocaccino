@@ -17,6 +17,7 @@ repositories:
     triggered: true
 
     smart: false
+
   - name: "mocaccino-micro"
     enabled: true
     bucket: "mocaccino-micro"
@@ -34,6 +35,7 @@ repositories:
     tree: ""
     triggered: true
     arch: amd64
+
   - name: "mocaccino-extra-arm"
     enabled: false
     bucket: "mocaccino-extra-arm"
@@ -42,15 +44,25 @@ repositories:
     triggered: false
     arch: arm
     branch: master
+
   - name: "mocaccino-micro-arm"
-    enabled: false
+    enabled: true
     bucket: "mocaccino-micro-arm"
-    
-    project: "mocaccino-micro" 
+    project: "mocaccino-micro"
     branch: master
     qa: true
+    buildkit: 0
+    smart: true
+    prune: false
+    squash: false
+    build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
+    queue: arm_lxd
+    kube: false
+    imageRepository: "quay.io/mocaccinocache/micro-arm-cache"
+    tree: ""
     triggered: false
     arch: arm
+
   - name: "desktop"
     bucket: "mocaccino-desktop"
     
