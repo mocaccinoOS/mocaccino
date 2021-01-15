@@ -56,7 +56,7 @@ repositories:
     prune: false
     squash: false
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
-    queue: arm_lxd
+    queue: "arm_lxd"
     kube: false
     imageRepository: "quay.io/mocaccinocache/micro-arm-cache"
     tree: ""
