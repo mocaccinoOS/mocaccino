@@ -139,7 +139,11 @@ jobs:
 
                 cat << EOF >task.yaml
                 name: "Build $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION} from {{$repo.name}} to minio"
+                {{- if eq $repo.arch "arm" }}
+                image: sabayon/builder-arm
+                {{- else }}
                 image: mocaccino/builder
+                {{- end }}
                 type: lxd
                 queue: {{$repo.queue}}
                 environment:
@@ -158,6 +162,8 @@ jobs:
                 - DOCKER_PASS=((docker_pass))
                 - DOCKER_REGISTRY=((docker_registry))
                 - TMPDIR=/var/tmp
+                - ARCH={{ $repo.arch }}
+                - REPO_CACHE={{ $repo.imageRepository }}
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
@@ -181,8 +187,8 @@ jobs:
                 - 'echo "{\"experimental\": \"enabled\",\"auths\": { \"https://index.docker.io/v1/\": {}}}" > \$HOME/.docker/config.json'
                 - docker login -u \$DOCKER_USERNAME -p \$DOCKER_PASS \$DOCKER_REGISTRY
                 {{- if eq $repo.arch "arm" }}
-                - wget https://downloads.svc.sabayon.org/luet-cross-bin/luet-latest-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
-                - wget https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
+                - wget -q https://get.svc.sabayon.org/luet/luet-0.9.26-4-g21d8ce6-linux-arm -O /usr/bin/luet && chmod a+x /usr/bin/luet
+                - wget -q https://dl.minio.io/client/mc/release/linux-arm/mc -O /usr/bin/mc && chmod +x /usr/bin/mc 
                 {{- else }}
                 - luet upgrade
                 - luet install system/luet-plugins-live -y
