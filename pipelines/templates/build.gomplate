@@ -140,7 +140,7 @@ jobs:
                 cat << EOF >task.yaml
                 name: "Build $PACKAGE_CATEGORY/${PACKAGE_NAME}@${PACKAGE_VERSION} from {{$repo.name}} to minio"
                 {{- if eq $repo.arch "arm" }}
-                image: sabayon/builder-arm
+                image: ubuntu/21.04/armhf
                 {{- else }}
                 image: mocaccino/builder
                 {{- end }}
@@ -167,17 +167,8 @@ jobs:
                 script:
                 - sleep 5
                 {{- if eq $repo.arch "arm" }}
-                # Temporary workaround for delay on DHCP response
-                - sleep 4
-                # stop systemd-networkd to drop iface address from docker0
-                # NOTE: this is needed until we use sabayon/builder-arm image
-                - echo "[Match]" >> /etc/systemd/network/default_dhcp.network
-                - echo 'Name=eth*' >> /etc/systemd/network/default_dhcp.network
-                - systemctl daemon-reload
-                - systemctl restart systemd-networkd
+                - apt-get -y update && apt-get -y install docker.io wget make
                 - systemctl start docker
-                - sleep 10
-                - systemctl status docker
                 - ip a
                 {{- end }}
                 - source /etc/profile
