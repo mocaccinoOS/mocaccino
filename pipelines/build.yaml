@@ -50,7 +50,7 @@ repositories:
     bucket: "mocaccino-micro-arm"
     project: "mocaccino-micro"
     branch: master
-    qa: true
+    qa: false
     buildkit: 0
     smart: true
     prune: false
