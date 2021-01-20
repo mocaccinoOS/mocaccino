@@ -66,15 +66,13 @@ jobs:
                 luet install -y system/luet-extensions development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
 
 {{- if $repo.kube }}
-                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-                chmod +x ./kubectl
-                mv ./kubectl /usr/bin/kubectl
+                luet install -y container/kubectl
                 export NAMESPACE=workload-{{$repo.name}}
 
                 echo "((kubeconfig))" | base64 -d > kubeconfig
                 export KUBECONFIG=$PWD/kubeconfig
-                kubectl delete namespace $NAMESPACE || true
-                kubectl create namespace $NAMESPACE
+                # kubectl delete namespace $NAMESPACE || true
+                kubectl create namespace $NAMESPACE || true
 {{- end }}
                 cat <<"EOB" | bash -e
                 REF=$(cat repository/.git/ref)
@@ -198,7 +196,7 @@ jobs:
 
 
 {{- else }}
-                export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
+                export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY-$PACKAGE_VERSION
                 JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
                 JOB_NAME=`echo -n $JOB_NAME | tr A-Z a-z`
 
@@ -234,24 +232,23 @@ jobs:
                     {{- else }}
                     - /packages
                     {{- end }}
-                    resources:
-                      requests:
-                        cpu: 3000m
-                        memory: 500Mi
-                      limits:
-                        cpu: 5000m
-                        memory: 1024Mi
                   registry:
                     enabled: true
                     registry: "((docker_registry))"
                     username: "((docker_user))"
                     password: "((docker_pass))"
                 EOF
-                
+                if kubectl get pods -n $NAMESPACE $JOB_NAME; then
+                  if ! kubectl get --output=json -n "$NAMESPACE" pod "$JOB_NAME" | jq '.status.containerStatuses[0].state.terminated.exitCode | tonumber'; then
+                    echo "Job for $PACKAGE_NAME already running , skipping"
+                    continue 1
+                  fi
+                  if [[ $(kubectl get --output=json -n "$NAMESPACE" pod "$JOB_NAME" | jq '.status.containerStatuses[0].state.terminated.exitCode | tonumber') != "0" ]]; then
+                    echo "Job failed, deleting"
+                    kubectl delete -n $NAMESPACE -f job.yaml 
+                  fi
+                fi
                 kubectl apply -n $NAMESPACE -f job.yaml
-                #while [[ -z $(kubectl get --output=json -n "$NAMESPACE" pod "$JOB_NAME" | jq '.status.containerStatuses[0].state.terminated.exitCode | tonumber' 2>/dev/null) ]]; do
-                #    kubectl attach -n "$JOB_NAME" "$POD" -it 2>/dev/null ||:
-                #done
 {{- end }}
 
 
@@ -264,13 +261,13 @@ jobs:
                   PACKAGE_CATEGORY=${parts[0]}
                   PACKAGE_NAME=${parts[1]}
                   PACKAGE_VERSION=$(echo "$PKG_LIST" | jq -r ".packages[] | select(.name==\"$PACKAGE_NAME\" and .category==\"$PACKAGE_CATEGORY\").version")
-
                   echo "Checking package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION is built"
                   while ! ( [ $(mc ls minio-ci/{{$repo.bucket}}/$PACKAGE_NAME\-$PACKAGE_CATEGORY\-$PACKAGE_VERSION.package | wc -l) != "0" ] )
                   do
                       echo "Package $PACKAGE_CATEGORY/$PACKAGE_NAME @ $PACKAGE_VERSION not built yet, sleeping"
                       sleep 20
                   done
+
                 done # Done waiting
                 {{- end }}
 
@@ -299,9 +296,7 @@ jobs:
                 luet install -y development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
 
 {{- if $repo.kube }}
-                curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-                chmod +x ./kubectl
-                mv ./kubectl /usr/bin/kubectl
+                luet install -y container/kubectl
                 export NAMESPACE=workload-{{$repo.name}}
 
                 echo "((kubeconfig))" | base64 -d > kubeconfig
@@ -326,7 +321,7 @@ jobs:
                     PACKAGE_NAME=$(echo "$i" | jq -r ".name")
                     PACKAGE_CATEGORY=$(echo "$i" | jq -r ".category")
                     PACKAGE_VERSION=$(echo "$i" | jq -r ".version")
-                    export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY
+                    export JOB_NAME=$PACKAGE_NAME-$PACKAGE_CATEGORY-$PACKAGE_VERSION
                     JOB_NAME=${JOB_NAME//[^a-zA-Z0-9]/}
                     JOB_NAME=`echo -n $JOB_NAME | tr A-Z a-z`
 

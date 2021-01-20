@@ -70,14 +70,14 @@ repositories:
     project: "desktop" 
     qa: true
     branch: master
-    arch: amd64
+    arch: ""
     buildkit: 0
     smart: true
     prune: false
     squash: false
     build_args: "--no-spinner --emoji=false --color=false --pull --only-target-package --push"
     queue: lxd_mocaccino
-    kube: false
+    kube: true
     imageRepository: "quay.io/mocaccinocache/desktop"
     tree: ""
     triggered: true
