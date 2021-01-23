@@ -63,7 +63,7 @@ jobs:
                 ls -liah repository
                 luet install -y repository/mocaccino-extra-stable repository/mocaccino-micro-stable repository/mocaccino-musl-universe-stable
 
-                luet install -y system/luet-extensions development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
+                luet install -y system/luet-extensions system/luet-devkit development/make dev-util/mottainai-cli vcs/git shells/bash utils/jq net-fs/minio-client utils/curl
 
 {{- if $repo.kube }}
                 luet install -y container/kubectl
@@ -345,7 +345,7 @@ jobs:
                 done
 
 {{- if $repo.kube }}
-                kubectl delete namespace $NAMESPACE || true
+                #kubectl delete namespace $NAMESPACE || true
 {{- end }}
 
       {{- if $repo.prune }}

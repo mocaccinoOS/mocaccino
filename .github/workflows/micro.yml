@@ -29,7 +29,7 @@ jobs:
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
         sudo luet install -y repository/mocaccino-extra
-        sudo luet install -y utils/jq utils/yq net-fs/minio-client
+        sudo luet install -y utils/jq utils/yq net-fs/minio-client system/luet-devkit
     - name: ISO Build 🔧
       env:
         LUET_NOLOCK: "true"

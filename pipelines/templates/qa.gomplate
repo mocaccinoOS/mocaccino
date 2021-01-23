@@ -44,7 +44,7 @@ jobs:
                 {{- else }}
                 luet upgrade -y
                 {{- end }}
-       
+                luet install -y system/luet-devkit
                 {{- if $chart.bucket.enabled }}
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mkdir -p {{$chart.bucket.dest}}
