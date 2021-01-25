@@ -52,7 +52,7 @@ repository:
   - repository/livecd
   - repository/mocaccino-extra-stable
   - repository/mocaccino-kernel-stable
-  - repository/mocaccino-desktop-stable
+  - repository/mocaccino-desktop
   - repository/mocaccino-os-commons-stable
   initramfs:
   - repository/luet
