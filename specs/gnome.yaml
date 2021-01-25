@@ -23,14 +23,14 @@ packages:
   - acct-group/disk
   - acct-group/gdm
   - acct-user/gdm
-  - www-client/epiphany
-  - www-client/chromium
-  - gnome-extra/gnome-tweaks
-  - gnome-extra/gnome-power-manager
-  - gnome-extra/gnome-documents
-  - gnome-extra/gnome-calendar
-  - gnome-extra/gnome-calculator
-  - gnome-extra/gnome-system-monitor
+  #- www-client/epiphany
+  #- www-client/chromium
+  #- gnome-extra/gnome-tweaks
+  #- gnome-extra/gnome-power-manager
+  #- gnome-extra/gnome-documents
+  #- gnome-extra/gnome-calendar
+  #- gnome-extra/gnome-calculator
+  #- gnome-extra/gnome-system-monitor
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -52,7 +52,7 @@ repository:
   - repository/livecd
   - repository/mocaccino-extra-stable
   - repository/mocaccino-kernel-stable
-  - repository/mocaccino-portage-stable
+  - repository/mocaccino-desktop-stable
   - repository/mocaccino-os-commons-stable
   initramfs:
   - repository/luet
@@ -64,7 +64,7 @@ repository:
   - repository/mocaccino-musl-universe-stable
 
 overlay: "true"
-image_prefix: "MocaccinoOS-GNOME-0."
+image_prefix: "MocaccinoOS-GNOME-dev-0."
 image_date: "true"
 
 luet:
