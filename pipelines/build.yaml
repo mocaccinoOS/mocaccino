@@ -68,7 +68,7 @@ repositories:
     
     enabled: true
     project: "desktop" 
-    qa: true
+    qa: false
     branch: master
     arch: ""
     buildkit: 0
