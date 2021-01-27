@@ -11,16 +11,16 @@ resources:
 - name: daily
   type: time
   source: {interval: 24h}
-- name: mocaccino-portage-tree
+- name: mocaccino-desktop
   type: luet-resource
   source:
-    url: https://get.mocaccino.org/mocaccino-portage-tree
+    url: https://get.mocaccino.org/mocaccino-desktop
 
 jobs:
 {{ range $_, $chart := $config.charts }}
   - name: {{$chart.name}}
     plan:
-      - get: mocaccino-portage-tree
+      - get: mocaccino-desktop
         trigger: true
       - get: daily
         trigger: true
@@ -44,11 +44,11 @@ jobs:
                 {{- else }}
                 luet upgrade -y
                 {{- end }}
-                luet install -y system/luet-devkit
+                luet install -y system/luet-devkit net-fs/minio-client
                 {{- if $chart.bucket.enabled }}
                 mc alias set minio-ci ((minio_url)) ((minio_id)) ((minio_secret))
                 mkdir -p {{$chart.bucket.dest}}
-                mc mirror  --exclude '*.gz' minio-ci/{{$chart.bucket.name}}/ {{$chart.bucket.dest}}
+                mc mirror  --exclude '*.gz' --exclude '*.zstd' --exclude '*.zst' minio-ci/{{$chart.bucket.name}}/ {{$chart.bucket.dest}}
                 {{- end }}
                 {{- if eq $chart.image "sabayon/base" }}              
                 luet install -y repository/mocaccino-extra
