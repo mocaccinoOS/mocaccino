@@ -23,14 +23,7 @@ packages:
   - acct-group/disk
   - acct-group/gdm
   - acct-user/gdm
-  #- www-client/epiphany
-  #- www-client/chromium
-  #- gnome-extra/gnome-tweaks
-  #- gnome-extra/gnome-power-manager
-  #- gnome-extra/gnome-documents
-  #- gnome-extra/gnome-calendar
-  #- gnome-extra/gnome-calculator
-  #- gnome-extra/gnome-system-monitor
+  - apps/google-chrome
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
