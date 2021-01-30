@@ -1,10 +1,13 @@
-name: ISO Bucket cleanup
+name: Bucket cleanup
 
 on:
   schedule:
     - cron:  '* 20 * * *'
+
+  push:
+    branches: [ cleanup ]
 jobs:
-  build:
+  iso:
     runs-on: ubuntu-latest
     steps:
     - name: Install minio and login
@@ -21,3 +24,47 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         mc find minio/mocaccino-iso --older-than 7d --exec "mc rm {}"
+
+  packages:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       include:
+         - bucket: "mocaccino-extra"
+           upstream_repo: "mocaccinoOS/mocaccino-extra"
+           name: "Mocaccino Extra"
+         - bucket: "mocaccino-micro"
+           upstream_repo: "mocaccinoOS/mocaccino-micro"
+           name: "Mocaccino Micro"
+         - bucket: "mocaccino-desktop"
+           upstream_repo: "mocaccinoOS/desktop"
+           name: "Mocaccino Desktop"
+         - bucket: "mocaccino-musl-universe"
+           upstream_repo: "mocaccinoOS/mocaccino-musl-universe"
+           name: "Mocaccino Musl Universe"
+         - bucket: "mocaccino-distfiles-collection"
+           upstream_repo: "mocaccinoOS/distfiles-collection"
+           name: "Mocaccino Distfiles collection"
+         - bucket: "mocaccino-kernel"
+           upstream_repo: "mocaccinoOS/kernel-repo"
+           name: "Mocaccino Kernel repository"
+    env:
+      MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      BUCKET: ${{matrix.bucket}}
+      TREE_DIR: ${{matrix.tree_dir}}
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: ${{matrix.upstream_repo}}
+    - run: |
+        git fetch --prune --unshallow
+    - name: Installing dependencies
+      run: |
+        curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+        sudo luet install -y repository/mocaccino-extra-stable
+        sudo luet install -y system/luet-extensions system/luet-devkit utils/jq net-fs/minio-client
+    - name: Prune repository 🔧
+      run: |
+        BUILD_PHASE=false CREATE_REPO=false PRUNE_PHASE=true luet k8s-build-scheduler
