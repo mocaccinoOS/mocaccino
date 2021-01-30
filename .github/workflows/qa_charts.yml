@@ -1,0 +1,58 @@
+name: QA Charts
+
+on:
+  schedule:
+    - cron:  '* 20 * * *'
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    env:
+      LUET_NOLOCK: true
+      LUET_YES: true
+      MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+    strategy:
+      matrix:
+       include:
+        - url: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.3.1/artifact-qa-0.3.tar.gz"
+          from_repo: true 
+          repo: "https://github.com/mocaccinoOS/mocaccino-charty"
+          chartpath: "testcharts/artifact-qa"
+          name: "File conflicts in MocaccinoOS Desktop"
+          args: >
+                  --set packages_dir=/repo
+                  --set luet_version=0.10.2
+                  --set features.verify_fileconflicts=true
+          bucket:
+            enabled: true
+            name: "mocaccino-desktop"
+            dest: "/repo"
+    steps:
+      - name: QA ${{matrix.name}}
+        env:
+          BUCKET_ENABLED: "${{matrix.bucket.enabled}}"
+          BUCKET_DIR: "${{matrix.bucket.dest}}"
+          BUCKET_NAME: "${{matrix.bucket.name}}"
+          FROM_REPO: "${{matrix.from_repo}}"
+          CHART_URL: "${{matrix.url}}"
+          CHART_ARGS: "${{matrix.args}}"
+          CHART_PATH: "${{matrix.chartpath}}"
+          CHART_REPO: "${{matrix.repo}}"
+        run: |
+                curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+                sudo luet install -y repository/mocaccino-extra
+                sudo luet install -y system/luet-extensions system/luet-devkit net-fs/minio-client dev-util/mottainai-cli utils/jq utils/yq utils/charty
+              
+                if [[ "${BUCKET_ENABLED}" == "true" ]]; then
+                  mc alias set minio-ci $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+                  sudo mkdir -p $BUCKET_DIR
+                  sudo chmod 777 $BUCKET_DIR
+                  mc mirror  --exclude '*.gz' --exclude '*.zstd' --exclude '*.zst' minio-ci/$BUCKET_NAME/ $BUCKET_DIR
+                fi
+                if [[ "${FROM_REPO}" == "true" ]]; then
+                  git clone $CHART_REPO chart
+                  charty start chart/$CHART_PATH $CHART_ARGS
+                else
+                  charty start $CHART_URL $CHART_ARGS
+                fi
