@@ -1,5 +1,5 @@
 TARGET ?= mocaccino
-PIPELINES ?= prune  test build bump qa
+PIPELINES ?= prune  test build qa
 PIPELINE ?= test
 VARS ?=
 
