@@ -1,4 +1,4 @@
-name: Bucket cleanup
+name: ISO Bucket cleanup
 
 on:
   schedule:
