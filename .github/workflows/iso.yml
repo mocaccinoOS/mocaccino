@@ -1,0 +1,82 @@
+name: Bucket cleanup
+
+on:
+  push:
+    paths:
+    - 'conf/**'
+    - 'specs/**'
+    - 'scripts/**'
+    - '.github/workflows/**'
+    branches: [ master, develop ]
+  pull_request:
+    paths:
+    - 'conf/**'
+    - 'specs/**'
+    - 'scripts/**'
+    - '.github/workflows/**'
+    branches: [ master, develop ]
+  schedule:
+    - cron:  '* 1 * * *'
+
+jobs:
+  iso:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install minio and login
+      env:
+        MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+        MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+        MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      run: |
+        sudo wget https://dl.min.io/client/mc/release/linux-amd64/mc -O /usr/bin/mc
+        sudo chmod +x /usr/bin/mc
+        mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+
+    - name: Clean 🚀
+      run: |
+        mc find minio/mocaccino-iso --older-than 7d --exec "mc rm {}"
+
+  packages:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+       include:
+         - spec: "micro"
+           name: "Mocaccino Micro"
+         - spec: "gnome"
+           name: "Mocaccino GNOME Desktop"
+         - spec: "micro-dev"
+           name: "Mocaccino Micro Development version"
+         - spec: "gnome-dev"
+           name: "Mocaccino GNOME Desktop Development version"
+    env:
+      MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Luet and deps 🔧
+      run: |
+        sudo apt-get install -y xorriso squashfs-tools dosfstools
+        curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+        sudo luet install -y repository/mocaccino-extra
+        sudo luet install -y utils/jq utils/yq net-fs/minio-client system/luet-devkit
+    - name: ${{matrix.name}} ISO Build 🔧
+      env:
+        LUET_NOLOCK: "true"
+        SPEC: ${{matrix.spec}}
+      run: |
+            sudo -E luet geniso-isospec specs/$SPEC.yaml
+            mkdir isobuild
+            mv *.iso *.sha256 isobuild/
+    - name: Install minio and login
+      env:
+        MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+        MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+        MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+      run: |
+        mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+    - name: Deploy 🚀
+      if: github.ref == 'refs/heads/master'
+      run: |
+        mc cp --recursive $PWD/isobuild/ minio/mocaccino-iso
