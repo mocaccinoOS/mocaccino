@@ -22,6 +22,7 @@ jobs:
   iso:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
        include:
          - spec: "micro"
