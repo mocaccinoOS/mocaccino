@@ -54,6 +54,12 @@ repository:
   - repository/mocaccino-musl-universe
   initramfs:
   - repository/mocaccino-micro
+  
+# Optionally, you can specify initramfs/kernel and avoid generation on-the-fly
+# files must be present on /boot folder in either initramfs or rootfs
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "rootfs.cpio.xz"
 
 # Use overlayfs to mount the rootfs. If disabled, only the initramfs will be booted.
 overlay: "true"
