@@ -30,6 +30,7 @@ jobs:
          - bucket: "mocaccino-extra"
            upstream_repo: "mocaccinoOS/mocaccino-extra"
            name: "Mocaccino Extra"
+           tree_dir: "amd64 multi-arch"
          - bucket: "mocaccino-micro"
            upstream_repo: "mocaccinoOS/mocaccino-micro"
            name: "Mocaccino Micro"
