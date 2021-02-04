@@ -2,7 +2,7 @@ name: QA Charts
 
 on:
   schedule:
-    - cron:  '* 20 * * *'
+    - cron:  '0 20 * * *'
 jobs:
   qa:
     runs-on: ubuntu-latest
