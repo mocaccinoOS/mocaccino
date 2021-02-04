@@ -2,7 +2,7 @@ name: Marvin Autobump
 
 on:
   schedule:
-    - cron:  '* 20 * * *'
+    - cron:  '0 20 * * *'
 jobs:
   bump:
     runs-on: ubuntu-latest
