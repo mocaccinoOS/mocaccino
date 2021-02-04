@@ -16,7 +16,7 @@ on:
     - '.github/workflows/**'
     branches: [ master, develop ]
   schedule:
-    - cron:  '* 1 * * *'
+    - cron:  '0 1 * * *'
 
 jobs:
   iso:
