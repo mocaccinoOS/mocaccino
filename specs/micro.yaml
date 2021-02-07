@@ -1,4 +1,5 @@
 packages:
+  keep_luet_db: "true"
   rootfs:
   - mocaccino-release/micro
   - utils/busybox

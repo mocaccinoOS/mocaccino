@@ -1,6 +1,5 @@
 packages:
-
-
+  keep_luet_db: "true"
   rootfs:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
