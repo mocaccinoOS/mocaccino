@@ -18,6 +18,8 @@ packages:
   - runit-srv/udhcpc
   - runit-srv/sshd
   - utils/eudev
+  - utils/efibootmgr
+  - utils/efivar
   - mocaccino/unattended-install
   - utils/openssh
   - utils/procps
