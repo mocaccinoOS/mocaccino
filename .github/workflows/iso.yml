@@ -67,5 +67,5 @@ jobs:
     - uses: actions/upload-artifact@v2
       if: always()
       with:
-        name: build-log
+        name: build-log-${{matrix.spec}}
         path: isowork/*.log
