@@ -12,7 +12,7 @@ packages:
   - system/luet-extensions
   - utils/yip
   - utils/yip-systemd
-  - app-admin/calamares
+#  - app-admin/calamares
   - system/mocaccino-calamares
   - init/mocaccino-skel
   - system/mocaccino-init
