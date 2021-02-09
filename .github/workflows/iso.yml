@@ -64,3 +64,8 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         mc cp --recursive $PWD/isobuild/ minio/mocaccino-iso
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: build-log
+        path: isowork/*.log
