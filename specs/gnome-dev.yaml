@@ -34,8 +34,6 @@ packages:
   - utils/busybox
   - system/kmod
   - kernel/mocaccino-lts-minimal
-  - system/mocaccino-init
-  - system/mocaccino-live-boot
   - init/mocaccino-skel
 
 # Repositories packages from repository-index
