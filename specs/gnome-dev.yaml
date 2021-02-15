@@ -2,8 +2,8 @@ packages:
 
   keep_luet_db: "true"
   rootfs:
-  - kernel/mocaccino-lts-full
-  - kernel/mocaccino-lts-modules
+  - kernel/mocaccino-full
+  - kernel/mocaccino-modules
   - layers/firmware
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
@@ -33,7 +33,7 @@ packages:
   initramfs:
   - utils/busybox
   - system/kmod
-  - kernel/mocaccino-lts-minimal
+  - kernel/mocaccino-minimal
   - init/mocaccino-skel
 
 # Repositories packages from repository-index
