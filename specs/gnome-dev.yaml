@@ -12,8 +12,8 @@ packages:
   - system/luet-extensions
   - utils/yip
   - utils/yip-systemd
-#  - app-admin/calamares
-#  - system/mocaccino-calamares
+  - app-admin/calamares
+  - system/mocaccino-calamares
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
