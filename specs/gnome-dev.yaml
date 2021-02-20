@@ -7,7 +7,7 @@ packages:
   - layers/firmware
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
-  - layers/system-x
+  - layers/gnome
   - system/luet
   - system/luet-extensions
   - utils/yip
@@ -23,7 +23,7 @@ packages:
   - acct-group/disk
   - acct-group/gdm
   - acct-user/gdm
-    #  - apps/google-chrome
+  - apps/google-chrome
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
