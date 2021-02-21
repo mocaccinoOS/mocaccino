@@ -13,6 +13,7 @@ packages:
   - repository/mocaccino-extra 
   - system/mocaccino-init
   - kernel/mocaccino-full
+  - kernel/mocaccino-initramfs
   - system/mocaccino-live-boot
   - system/luet
   - system/luet-extensions
@@ -36,13 +37,6 @@ packages:
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
-  initramfs:
-  - utils/busybox
-  - system/kmod
-  - kernel/mocaccino-minimal
-  - system/mocaccino-init
-  - system/mocaccino-live-boot
-  - init/mocaccino-skel
 
 # Repositories packages from repository-index
 repository:
@@ -54,19 +48,12 @@ repository:
   - repository/mocaccino-extra
   - repository/mocaccino-os-commons
   - repository/mocaccino-musl-universe
-  initramfs:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel
-  - repository/mocaccino-micro
-  - repository/mocaccino-extra
-  - repository/mocaccino-os-commons
-  - repository/mocaccino-musl-universe
 
 overlay: "true"
-image_prefix: "MocaccinoOS-Micro-dev-0."
+image_prefix: "MocaccinoOS-Micro-embedded-dev-0."
 image_date: "true"
-
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
 luet:
   config: conf/luet-micro-thin.yaml
-

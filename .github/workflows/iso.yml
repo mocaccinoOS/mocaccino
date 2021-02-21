@@ -33,6 +33,8 @@ jobs:
            name: "Mocaccino Micro Development version"
          - spec: "gnome-dev"
            name: "Mocaccino GNOME Desktop Development version"
+         - spec: "micro-embedded"
+           name: "Mocaccino Micro embedded dev"
     env:
       MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
