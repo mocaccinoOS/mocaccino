@@ -1,7 +1,7 @@
 packages:
   keep_luet_db: "true"
   rootfs:
-  - mocaccino-release/micro
+  - mocaccino-release/micro-embedded
   - utils/busybox
   - shells/bash
   - init/runit
