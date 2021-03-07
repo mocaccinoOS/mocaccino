@@ -4,6 +4,7 @@ packages:
   rootfs:
   - kernel/mocaccino-full
   - kernel/mocaccino-modules
+  - kernel/mocaccino-initramfs
   - layers/firmware
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
@@ -18,7 +19,7 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
-  - mocaccino-release/portage
+  - mocaccino-release/desktop-embedded
   - acct-group/audio
   - acct-group/disk
   - acct-group/gdm
@@ -30,13 +31,6 @@ packages:
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
-  initramfs:
-  - utils/busybox
-  - system/kmod
-  - kernel/mocaccino-minimal
-  - system/mocaccino-init
-  - system/mocaccino-live-boot
-  - init/mocaccino-skel
 
 # Repositories packages from repository-index
 repository:
@@ -47,14 +41,10 @@ repository:
   - repository/mocaccino-kernel
   - repository/mocaccino-desktop
   - repository/mocaccino-os-commons
-  initramfs:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel
-  - repository/mocaccino-micro
-  - repository/mocaccino-extra
-  - repository/mocaccino-os-commons
-  - repository/mocaccino-musl-universe
+
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
 
 overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-dev-0."
