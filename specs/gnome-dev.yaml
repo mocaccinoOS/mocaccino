@@ -25,6 +25,7 @@ packages:
   - acct-group/gdm
   - acct-user/gdm
   - apps/google-chrome
+  - mocaccino/unattended-install
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
