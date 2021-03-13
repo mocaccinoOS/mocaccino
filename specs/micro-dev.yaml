@@ -9,6 +9,8 @@ packages:
   - init/mocaccino-runit 
   - init/mocaccino-skel
   - utils/runit-helper
+  - runit-srv/yip
+  - system-profile/default
   - editors/vim 
   - repository/mocaccino-extra 
   - system/mocaccino-init
