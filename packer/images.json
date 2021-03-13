@@ -1,0 +1,92 @@
+{                                   
+    "builders": [                                                                                     
+      {                                                             
+        "boot_wait": "{{user `sleep`}}",
+        "disk_size": "{{user `disk_size`}}",                                                                                                                                                                                                   
+        "guest_additions_mode": "disable",                   
+        "guest_os_type": "MocaccinoOS",                        
+        "headless": true,                                                                                               
+        "iso_url": "{{user `iso`}}",
+        "memory": 1024,
+        "iso_checksum": "none",
+        "shutdown_command": "shutdown -hP now",     
+        "ssh_password": "{{user `root_password`}}",  
+        "ssh_username": "{{user `root_username`}}",
+        "format": "ova",
+        "ssh_timeout": "1m",
+        "ssh_handshake_attempts": "20",
+        "type": "virtualbox-iso",
+        "vm_name": "MocaccinoOS"
+      },
+      {
+        "boot_wait": "{{user `sleep`}}",
+        "disk_interface": "ide",
+        "disk_size": "{{user `disk_size`}}",
+        "format": "qcow2",
+        "accelerator": "{{user `accelerator`}}",
+        "headless": true,
+        "iso_url": "{{user `iso`}}",
+        "iso_checksum": "none",
+        "qemuargs": [
+          [
+            "-m",
+            "8192M"
+          ]
+        ],
+        "shutdown_command": "shutdown -hP now",
+        "ssh_password": "{{user `root_password`}}",
+        "ssh_timeout": "1m",
+        "ssh_handshake_attempts": "20",
+        "ssh_username": "{{user `root_username`}}",
+        "type": "qemu",
+        "vm_name": "MocaccinoOS"
+      }
+    ],
+    "description": "MocaccinoOS",
+    "post-processors": [
+      {
+        "only": [
+          "virtualbox-iso",
+          "qemu"
+        ],
+        "output": "MocaccinoOS_{{user `build`}}_{{user `arch`}}_{{user `flavor`}}.box",
+        "type": "vagrant"
+      },
+      {
+        "only": [
+          "virtualbox-iso",
+          "qemu"
+        ],
+        "output": "MocaccinoOS_{{user `build`}}_{{user `arch`}}_{{user `flavor`}}.tar.gz",
+        "type": "compress"
+      }
+    ],
+    "provisioners": [
+      {
+        "destination": "/vagrant.yaml",
+        "source": "vagrant.yaml",
+        "type": "file"
+      },
+     {
+        "inline": [
+          "AUTOMATED_INSTALL=true mocaccino-unattended-installer",
+          "if [ {{user `vagrant`}} == true ]; then mkdir -p /mnt/mocaccino/etc/yip.d/; cp -rf /vagrant.yaml /mnt/mocaccino/etc/yip.d/vagrant.yaml; fi"
+        ],
+        "pause_after": "30s",
+        "type": "shell"
+      }
+    ],
+    "variables": {
+      "arch": "amd64",
+      "build": "dev",
+      "disk_size": "50000",
+      "flavor": "micro",
+      "root_password": "mocaccino",
+      "root_username": "root",
+      "iso": "",
+      "sleep": "120s",
+      "accellerator": "kvm",
+      "vagrant": "false"
+    }
+  }
+      
