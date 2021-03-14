@@ -37,6 +37,8 @@ jobs:
            name: "Mocaccino GNOME Desktop Development version"
          - spec: "minimal-dev"
            name: "Mocaccino Desktop Minimal Development version"
+         - spec: "minimal"
+           name: "Mocaccino Desktop Minimal version"
     env:
       MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
@@ -94,6 +96,8 @@ jobs:
            flavor: "Micro"
          - spec: "minimal"
            flavor: "Minimal"
+         - spec: "minimal-dev"
+           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -140,6 +144,8 @@ jobs:
            flavor: "Micro"
          - spec: "minimal"
            flavor: "Minimal"
+         - spec: "minimal-dev"
+           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -186,6 +192,8 @@ jobs:
            flavor: "Micro"
          - spec: "minimal"
            flavor: "Minimal"
+         - spec: "minimal-dev"
+           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -226,10 +234,36 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "micro-dev"
-           flavor: "Micro-Dev"
          - spec: "micro"
            flavor: "Micro"
+         - spec: "minimal"
+           flavor: "Minimal"
+      steps:
+      - name: Install Go
+        uses: actions/setup-go@v2
+      - uses: actions/checkout@v2
+      - name: Download vagrant box
+        uses: actions/download-artifact@v2
+        with:
+          name: mOS-${{ matrix.spec }}.box
+          path: packer
+
+      - name: Run tests 🔧
+        run: |
+          go get -u github.com/onsi/ginkgo/ginkgo
+          go get -u github.com/onsi/gomega/...
+          make test
+
+  tests-dev:
+      runs-on: macos-10.15
+      needs: vbox-vagrant
+      strategy:
+        matrix:
+         include:
+         - spec: "micro-dev"
+           flavor: "Micro-Dev"
+         - spec: "minimal-dev"
+           flavor: "Minimal-Dev"
       steps:
       - name: Install Go
         uses: actions/setup-go@v2
