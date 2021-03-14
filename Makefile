@@ -1,6 +1,15 @@
 export ROOT_DIR:=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 export ISO?=$(ROOT_DIR)/$(shell ls *.iso)
 
+deps:
+ifneq ($(shell id -u), 0)
+	@echo "You must be root to perform this action."
+	exit 1
+endif
+	curl https://get.mocaccino.org/luet/get_luet_root.sh |  sh
+	luet install -y repository/mocaccino-extra-stable
+	luet install -y utils/jq utils/yq system/luet-devkit
+
 # QEMU
 
 $(ROOT_DIR)/.qemu:
