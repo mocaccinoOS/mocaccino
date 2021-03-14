@@ -7,6 +7,8 @@ packages:
   - kernel/mocaccino-initramfs
   - layers/firmware
   - layers/system-x
+  - layers/X
+  - system-profile/default
   - system/luet
   - system/luet-extensions
   - utils/yip
