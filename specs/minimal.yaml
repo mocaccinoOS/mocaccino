@@ -1,0 +1,50 @@
+packages:
+
+  keep_luet_db: "true"
+  rootfs:
+  - kernel/mocaccino-full
+  - kernel/mocaccino-modules
+  - kernel/mocaccino-initramfs
+  - layers/firmware
+  - layers/system-x
+  - layers/X
+  - system-profile/default
+  - system/luet
+  - system/luet-extensions
+  - utils/yip
+  - utils/yip-systemd
+  - init/mocaccino-skel
+  - system/mocaccino-init
+  - system/mocaccino-wallpaper
+  - mocaccino/live-setup
+  - mocaccino-release/desktop-embedded
+  - acct-group/audio
+  - acct-group/disk
+  - mocaccino/unattended-install
+  uefi:
+  - live/systemd-boot
+  - system/mocaccino-live-boot
+  isoimage:
+  - live/syslinux
+  - system/mocaccino-live-boot
+
+# Repositories packages from repository-index
+repository:
+  packages:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-extra-stable
+  - repository/mocaccino-kernel-stable
+  - repository/mocaccino-desktop-stable
+  - repository/mocaccino-os-commons-stable
+
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
+
+overlay: "true"
+image_prefix: "MocaccinoOS-DesktopMinimal-0."
+image_date: "true"
+
+luet:
+  config: conf/luet-desktop-thin.yaml
