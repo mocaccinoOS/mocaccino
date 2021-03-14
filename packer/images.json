@@ -67,10 +67,17 @@
         "source": "vagrant.yaml",
         "type": "file"
       },
+      {
+        "destination": "/config.yaml",
+        "source": "config.yaml",
+        "type": "file"
+      },
      {
         "inline": [
           "AUTOMATED_INSTALL=true mocaccino-unattended-installer",
-          "if [ {{user `vagrant`}} == true ]; then mkdir -p /mnt/mocaccino/etc/yip.d/; cp -rf /vagrant.yaml /mnt/mocaccino/etc/yip.d/vagrant.yaml; fi"
+          "if [ ! -d /mnt/mocaccino/etc/yip.d/ ] ; then mkdir -p /mnt/mocaccino/etc/yip.d/; fi",
+          "if [ {{user `vagrant`}} == true ]; then cp -rf /vagrant.yaml /mnt/mocaccino/etc/yip.d/vagrant.yaml; fi",
+          "cp -rf /config.yaml /mnt/mocaccino/etc/yip.d/config.yaml"
         ],
         "pause_after": "30s",
         "type": "shell"
@@ -80,7 +87,7 @@
       "arch": "amd64",
       "build": "dev",
       "disk_size": "50000",
-      "flavor": "micro",
+      "flavor": "Micro",
       "root_password": "mocaccino",
       "root_username": "root",
       "iso": "",
