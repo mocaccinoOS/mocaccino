@@ -92,7 +92,7 @@ When running it locally, you need these tools installed:
 
 - [luet](https://github.com/mudler/luet)
 - luet-extensions (can be installed with `luet install luet-extensions` from the [Luet official repository](https://github.com/Luet-lab/luet-repo))
-- xorriso
+- xorriso (provided by the dev-libs/libisoburn package in Gentoo/Sabayon)
 - squashfs-tools
 - dosfstools
 - jq
