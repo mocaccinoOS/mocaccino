@@ -7,6 +7,7 @@ packages:
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/gnome
+  - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
   - utils/yip

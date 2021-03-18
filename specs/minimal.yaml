@@ -9,6 +9,7 @@ packages:
   - layers/system-x
   - layers/X
   - system-profile/default-systemd
+  - system-profile/ssh-systemd
   - system/luet
   - system/luet-extensions
   - utils/yip
