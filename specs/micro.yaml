@@ -1,7 +1,7 @@
 packages:
   keep_luet_db: "true"
   rootfs:
-  - mocaccino-release/micro
+  - mocaccino-release/micro-embedded
   - utils/busybox
   - shells/bash
   - init/runit
@@ -9,16 +9,21 @@ packages:
   - init/mocaccino-runit 
   - init/mocaccino-skel
   - utils/runit-helper
+  - runit-srv/yip
+  - system-profile/default-runit
   - editors/vim 
   - repository/mocaccino-extra 
   - system/mocaccino-init
   - kernel/mocaccino-full
+  - kernel/mocaccino-initramfs
   - system/mocaccino-live-boot
   - system/luet
   - system/luet-extensions
   - runit-srv/udhcpc
   - runit-srv/sshd
   - utils/eudev
+  - utils/efibootmgr
+  - utils/efivar
   - mocaccino/unattended-install
   - utils/openssh
   - utils/procps
@@ -34,13 +39,6 @@ packages:
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
-  initramfs:
-  - utils/busybox
-  - system/kmod
-  - kernel/mocaccino-minimal
-  - system/mocaccino-init
-  - system/mocaccino-live-boot
-  - init/mocaccino-skel
 
 # Repositories packages from repository-index
 repository:
@@ -52,14 +50,10 @@ repository:
   - repository/mocaccino-extra-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
-  initramfs:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel-stable
-  - repository/mocaccino-micro-stable
-  - repository/mocaccino-extra-stable
-  - repository/mocaccino-os-commons-stable
-  - repository/mocaccino-musl-universe-stable
+
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
 
 overlay: "true"
 image_prefix: "MocaccinoOS-Micro-0."
