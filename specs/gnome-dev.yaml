@@ -25,6 +25,7 @@ packages:
   - acct-group/disk
   - acct-group/gdm
   - acct-user/gdm
+  - apps/gparted
   - apps/google-chrome
   - mocaccino/unattended-install
   uefi:
