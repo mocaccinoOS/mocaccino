@@ -20,7 +20,8 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
-  - mocaccino-release/desktop-embedded
+  - mocaccino-release/desktop
+  - sys-kernel/mocaccino-dracut
   - acct-group/audio
   - acct-group/disk
   - acct-group/gdm
