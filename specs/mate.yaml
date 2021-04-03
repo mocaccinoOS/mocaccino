@@ -12,6 +12,7 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
+  - system/mocaccino-grub-splash
   - mocaccino/live-setup
   - mocaccino-release/portage
   - x11-misc/lightdm

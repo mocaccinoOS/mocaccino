@@ -13,6 +13,7 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
+  - system/mocaccino-grub-splash
   - mocaccino/live-setup
   - app-admin/calamares
   - mocaccino-release/portage
