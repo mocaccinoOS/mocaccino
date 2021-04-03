@@ -16,6 +16,7 @@ packages:
   - utils/yip-systemd
   - app-admin/calamares
   - system/mocaccino-calamares
+  - system/mocaccino-grub-splash
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
