@@ -1,36 +1,38 @@
 packages:
+
   keep_luet_db: "true"
   rootfs:
-  - layers/mate
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
+  - kernel/mocaccino-lts-initramfs
   - sys-kernel/linux-firmware
-  - utils/yip
-  - utils/yip-systemd
+  - layers/mate
+  - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
+  - utils/yip
+  - utils/yip-systemd
+  - app-admin/calamares
+  - system/mocaccino-calamares
+  - system/mocaccino-grub-splash
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - system/mocaccino-grub-splash
   - mocaccino/live-setup
-  - mocaccino-release/portage
-  - x11-misc/lightdm
-  - app-admin/calamares
-  - www-client/chromium
+  - mocaccino-release/desktop
+  - sys-kernel/mocaccino-dracut
+  - acct-group/audio
+  - acct-group/disk
+  - apps/lightdm
+  - apps/gparted
+  - apps/google-chrome
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
-  initramfs:
-  - utils/busybox
-  - system/kmod
-  - kernel/mocaccino-lts-minimal
-  - system/mocaccino-init
-  - system/mocaccino-live-boot
-  - init/mocaccino-skel
 
 # Repositories packages from repository-index
 repository:
@@ -39,16 +41,12 @@ repository:
   - repository/livecd
   - repository/mocaccino-extra-stable
   - repository/mocaccino-kernel-stable
-  - repository/mocaccino-portage-stable
+  - repository/mocaccino-desktop-stable
   - repository/mocaccino-os-commons-stable
+
   initramfs:
-  - repository/luet
-  - repository/livecd
-  - repository/mocaccino-kernel-stable
-  - repository/mocaccino-micro-stable
-  - repository/mocaccino-extra-stable
-  - repository/mocaccino-os-commons-stable
-  - repository/mocaccino-musl-universe-stable
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
 
 overlay: "true"
 image_prefix: "MocaccinoOS-MATE-0."
