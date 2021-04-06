@@ -31,6 +31,8 @@ jobs:
            name: "Mocaccino Micro"
          - spec: "gnome"
            name: "Mocaccino GNOME Desktop"
+         - spec: "mate"
+           name: "Mocaccino MATE Desktop"
          - spec: "micro-dev"
            name: "Mocaccino Micro Development version"
          - spec: "gnome-dev"
@@ -292,6 +294,8 @@ jobs:
            name: "Mocaccino Micro"
          - spec: "gnome"
            name: "Mocaccino GNOME Desktop"
+         - spec: "mate"
+           name: "Mocaccino MATE Desktop"
          - spec: "minimal"
            name: "Mocaccino Minimal Desktop"
       steps:
