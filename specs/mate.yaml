@@ -5,7 +5,7 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  - sys-kernel/linux-firmware
+  - layers/firmware
   - layers/mate
   - system-profile/default-systemd
   - system/luet
