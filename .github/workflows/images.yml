@@ -33,6 +33,8 @@ jobs:
            name: "Mocaccino GNOME Desktop"
          - spec: "mate"
            name: "Mocaccino MATE Desktop"
+         - spec: "mate-dev"
+           name: "Mocaccino MATE Development Desktop"
          - spec: "micro-dev"
            name: "Mocaccino Micro Development version"
          - spec: "gnome-dev"
