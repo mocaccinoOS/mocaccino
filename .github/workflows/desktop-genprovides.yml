@@ -1,0 +1,65 @@
+name: Marvin Provides generation for desktop
+
+on:
+  schedule:
+    - cron:  '0 20 * * *'
+jobs:
+  syncprovides:
+    runs-on: ubuntu-latest
+    env:
+      GIT_AUTHOR_NAME: MarvinHatesOceans
+      GIT_AUTHOR_EMAIL: github-bots@sabayon.com
+      GIT_COMMITTER_NAME: MarvinHatesOceans
+      GIT_COMMITTER_EMAIL: github-bots@sabayon.com
+      WORK_BRANCH: genprovides
+      AUTO_GIT: true
+      LUET_NOLOCK: true
+      LUET_YES: true
+      TOKEN: ${{ secrets.MARVIN_GITHUB_TOKEN }}
+      GITHUB_PRIVATE_KEY: "${{ secrets.MARVIN_GITHUB_PRIVATE_KEY }}"
+      GITHUB_PUBLIC_KEY: "${{ secrets.MARVIN_GITHUB_PUBLIC_KEY }}"
+      HUB_CREDENTIALS: "${{ secrets.MARVIN_HUB_CREDENTIALS }}"
+    strategy:
+      matrix:
+       include:
+         - upstream_branch: "master"
+           fork: "git@github.com:auto-maintainers/desktop.git"
+           upstream_repo: "https://github.com/mocaccinoOS/desktop"
+           name: "Mocaccino Desktop"
+    steps:
+      - env:
+          HUB_ARGS: "-b ${{ matrix.upstream_branch }}"
+          FORK_REPO: ${{ matrix.fork }}
+          UPSTREAM_REPO: ${{ matrix.upstream_repo }}
+          RESET_BRANCH: ${{ matrix.upstream_branch }}
+        name: Autobump ${{matrix.name}}
+        run: |
+                curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
+                sudo luet install -y repository/mocaccino-extra
+                sudo luet install -y dev-util/pkgs-checker-minimal system/luet-extensions system/luet-devkit dev-util/mottainai-cli utils/jq utils/yq vcs/hub
+                mkdir -p $HOME/.ssh
+                mkdir -p $HOME/.config
+                echo "$GITHUB_PRIVATE_KEY" > $HOME/.ssh/id_rsa
+                echo "$GITHUB_PUBLIC_KEY" > $HOME/.ssh/id_rsa.pub
+                echo "$HUB_CREDENTIALS" > $HOME/.config/hub
+                chmod 700 ~/.ssh
+                chmod 600 ~/.ssh/id_rsa
+                chmod 600 ~/.ssh/id_rsa.pub
+
+                git clone $FORK_REPO fork
+                cd fork
+                git remote add upstream $UPSTREAM_REPO
+                git fetch --all
+                git reset --hard upstream/${RESET_BRANCH}
+                git push -fv
+                echo "Removing working branch if present"
+                git branch -D $WORK_BRANCH || true
+
+                git checkout -b $WORK_BRANCH
+                git reset --hard upstream/${RESET_BRANCH}
+                git push -fv -u origin $WORK_BRANCH
+                ./scripts/generate_all_provides.sh
+                git add packages
+                git commit -m "Update layer provides"
+                git push -f -v origin $WORK_BRANCH
+                hub pull-request $HUB_ARGS -m "$(git log -1 --pretty=%B)"
