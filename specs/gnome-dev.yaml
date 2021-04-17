@@ -3,6 +3,7 @@ packages:
   keep_luet_db: "true"
   rootfs:
   - apps/mocaccino-statusbar
+  - mocaccino/gnome-skel
   - kernel/mocaccino-full
   - kernel/mocaccino-modules
   - kernel/mocaccino-initramfs
