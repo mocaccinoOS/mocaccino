@@ -23,10 +23,6 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
-  - acct-group/audio
-  - acct-group/disk
-  - acct-group/gdm
-  - acct-user/gdm
   - apps/gparted
   - apps/google-chrome
   uefi:

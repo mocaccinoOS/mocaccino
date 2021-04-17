@@ -22,8 +22,6 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
-  - acct-group/audio
-  - acct-group/disk
   - apps/lightdm
   - apps/gparted
   - apps/google-chrome

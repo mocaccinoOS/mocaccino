@@ -20,8 +20,6 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop-embedded
   - system/mocaccino-grub-splash
-  - acct-group/audio
-  - acct-group/disk
   - mocaccino/unattended-install
   uefi:
   - live/systemd-boot

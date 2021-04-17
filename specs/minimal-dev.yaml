@@ -19,8 +19,6 @@ packages:
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - mocaccino-release/desktop-embedded
-  - acct-group/audio
-  - acct-group/disk
   - mocaccino/unattended-install
   uefi:
   - live/systemd-boot

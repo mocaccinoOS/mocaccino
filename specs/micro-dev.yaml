@@ -27,7 +27,7 @@ packages:
   - mocaccino/unattended-install
   - utils/openssh
   - utils/procps
-  - groups/utmp
+  - entity/utmp
   - utils/sed
   - utils/file
   - utils/procps
