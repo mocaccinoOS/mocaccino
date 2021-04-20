@@ -43,6 +43,8 @@ jobs:
            name: "Mocaccino Desktop Minimal Development version"
          - spec: "minimal"
            name: "Mocaccino Desktop Minimal version"
+         - spec: "funtoo-experimental"
+           name: "Mocaccino Funtoo Experimental version"
     env:
       MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
@@ -59,6 +61,7 @@ jobs:
     - name: ${{matrix.name}} ISO Build 🔧
       env:
         LUET_NOLOCK: "true"
+        LUET_CONFIG_PROTECT_SKIP: "true"
         SPEC: ${{matrix.spec}}
       run: |
             sudo -E luet geniso-isospec specs/$SPEC.yaml
