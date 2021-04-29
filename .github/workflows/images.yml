@@ -39,6 +39,8 @@ jobs:
            name: "Mocaccino Micro Development version"
          - spec: "gnome-dev"
            name: "Mocaccino GNOME Desktop Development version"
+         - spec: "kde-dev"
+           name: "Mocaccino KDE Desktop Development version"
          - spec: "minimal-dev"
            name: "Mocaccino Desktop Minimal Development version"
          - spec: "minimal"
