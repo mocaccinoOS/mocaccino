@@ -1,0 +1,53 @@
+packages:
+  keep_luet_db: "true"
+  rootfs:
+  - apps/mocaccino-statusbar
+  - kernel/mocaccino-full
+  - kernel/mocaccino-modules
+  - kernel/mocaccino-initramfs
+  - layers/firmware
+  - layers/plasma
+  - layers/kde-apps-minimal
+  - system-profile/default-systemd
+  - system/luet
+  - system/luet-extensions
+  - utils/yip
+  - utils/yip-systemd
+  - app-admin/calamares
+  - system/mocaccino-calamares
+  - system/mocaccino-grub-splash
+  - init/mocaccino-skel
+  - system/mocaccino-init
+  - system/mocaccino-wallpaper
+  - mocaccino/live-setup
+  - mocaccino-release/desktop
+  - sys-kernel/mocaccino-dracut
+  - apps/google-chrome
+  - apps/vim
+  uefi:
+  - live/systemd-boot
+  - system/mocaccino-live-boot
+  isoimage:
+  - live/syslinux
+  - system/mocaccino-live-boot
+
+# Repositories packages from repository-index
+repository:
+  packages:
+  - repository/luet
+  - repository/livecd
+  - repository/mocaccino-extra
+  - repository/mocaccino-kernel
+  - repository/mocaccino-desktop
+  - repository/mocaccino-os-commons
+
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
+
+overlay: "true"
+image_prefix: "MocaccinoOS-KDE-dev-0."
+image_date: "true"
+
+luet:
+  config: conf/luet-desktop-thin.yaml
