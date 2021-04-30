@@ -1,5 +1,5 @@
 packages:
-  keep_luet_db: "true"
+  keep_luet_db: true
   rootfs:
   - layers/plasma
   - layers/kde-apps-minimal
@@ -50,9 +50,17 @@ repository:
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
 
-overlay: "true"
+overlay: true
 image_prefix: "MocaccinoOS-KDE-0."
-image_date: "true"
+image_date: true
 
 luet:
-  config: conf/luet-desktop-thin.yaml
+  repositories:
+  - name: "mocaccino-repository-index"
+    description: "MocaccinoOS Repository index"
+    type: "http"
+    enable: true
+    cached: true
+    priority: 1
+    urls:
+    - "https://get.mocaccino.org/mocaccino-repository-index"

@@ -59,14 +59,14 @@ jobs:
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
         sudo luet install -y repository/mocaccino-extra
-        sudo luet install -y utils/jq utils/yq net-fs/minio-client system/luet-devkit
+        sudo luet install -y utils/jq utils/yq net-fs/minio-client extension/makeiso
     - name: ${{matrix.name}} ISO Build 🔧
       env:
         LUET_NOLOCK: "true"
         LUET_CONFIG_PROTECT_SKIP: "true"
         SPEC: ${{matrix.spec}}
       run: |
-            sudo -E luet geniso-isospec specs/$SPEC.yaml
+            sudo -E luet makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
     - name: Install minio and login
@@ -86,11 +86,6 @@ jobs:
         path: |
           isobuild/*.iso
           isobuild/*.sha256
-    - uses: actions/upload-artifact@v2
-      if: always()
-      with:
-        name: build-log-${{matrix.spec}}
-        path: isowork/*.log
 
   qemu:
       runs-on: ubuntu-latest
