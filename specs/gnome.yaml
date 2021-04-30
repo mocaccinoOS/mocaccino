@@ -1,6 +1,6 @@
 packages:
 
-  keep_luet_db: true
+  keep_luet_db: "true"
   rootfs:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
@@ -47,17 +47,9 @@ initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
 
-overlay: true
+overlay: "true"
 image_prefix: "MocaccinoOS-GNOME-0."
-image_date: true
+image_date: "true"
 
 luet:
-  repositories:
-  - name: "mocaccino-repository-index"
-    description: "MocaccinoOS Repository index"
-    type: "http"
-    enable: true
-    cached: true
-    priority: 1
-    urls:
-    - "https://get.mocaccino.org/mocaccino-repository-index"
+  config: conf/luet-desktop-thin.yaml
