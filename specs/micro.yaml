@@ -1,5 +1,5 @@
 packages:
-  keep_luet_db: "true"
+  keep_luet_db: true
   rootfs:
   - mocaccino-release/micro-embedded
   - utils/busybox
@@ -55,9 +55,17 @@ initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
 
-overlay: "true"
+overlay: true
 image_prefix: "MocaccinoOS-Micro-0."
-image_date: "true"
+image_date: true
 
 luet:
-  config: conf/luet-micro-thin.yaml
+  repositories:
+  - name: "mocaccino-repository-index"
+    description: "MocaccinoOS Repository index"
+    type: "http"
+    enable: true
+    cached: true
+    priority: 1
+    urls:
+    - "https://get.mocaccino.org/mocaccino-repository-index"
