@@ -76,27 +76,24 @@ luet:
 
 Each spec defines which packages to be installed from [luet](https://github.com/mudler/luet) repositories. A config file for each spec has to be provided and placed in `conf/`.
 
-To build the iso, you need to run the `luet geniso-isospec` for e.g.
+To build the iso, you need to run `luet makeiso` for e.g.
 
 ```bash
 $> git clone https://github.com/mocaccinoOS/ci.git mocaccino-ci
 $> cd mocaccino-ci
-$> luet geniso-isospec specs/micro.yaml
+$> luet makeiso specs/micro.yaml
 ```
 
-`luet geniso-isospec` is part of `luet-extensions`, that can be installed with `luet install luet-extensions` after [Luet official repository](https://github.com/Luet-lab/luet-repo) repositories are enabled in the system.
+`luet makeiso` can be installed with `luet install extension/makeiso` after [Luet official repository](https://github.com/Luet-lab/luet-repo) repositories are enabled in the system.
 
 ## Local Requirements
 
 When running it locally, you need these tools installed:
 
 - [luet](https://github.com/mudler/luet)
-- luet-extensions (can be installed with `luet install luet-extensions` from the [Luet official repository](https://github.com/Luet-lab/luet-repo))
+- luet-makeiso
 - xorriso (provided by the dev-libs/libisoburn package in Gentoo/Sabayon)
 - squashfs-tools
-- dosfstools
-- jq
-- yq
 
 e.g. the CI installs them as the following:
 
