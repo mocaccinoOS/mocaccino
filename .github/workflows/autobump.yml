@@ -50,6 +50,10 @@ jobs:
            fork: "git@github.com:auto-maintainers/kernel-repo.git"
            upstream_repo: "https://github.com/mocaccinoOS/kernel-repo"
            name: "Mocaccino Kernel repository"
+         - upstream_branch: "master"
+           fork: "git@github.com/auto-maintainers/mocaccino-stage3"
+           upstream_repo: "https://github.com/mocaccinoOS/mocaccino-stage3"
+           name: "Mocaccino stage3"
     steps:
       - env:
           HUB_ARGS: "-b ${{ matrix.upstream_branch }}"
