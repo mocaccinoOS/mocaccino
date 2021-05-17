@@ -24,6 +24,7 @@ packages:
   - sys-kernel/mocaccino-dracut
   - apps/google-chrome
   - apps/vim
+  - apps/discover
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
