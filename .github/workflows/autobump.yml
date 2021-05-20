@@ -3,6 +3,10 @@ name: Marvin Autobump
 on:
   schedule:
     - cron:  '0 20 * * *'
+
+  push:
+    branch:
+      - test2
 jobs:
   bump:
     runs-on: ubuntu-latest
