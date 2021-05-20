@@ -12,7 +12,6 @@ packages:
   - runit-srv/yip
   - system-profile/default-runit
   - editors/vim 
-  - repository/mocaccino-extra 
   - system/mocaccino-init
   - kernel/mocaccino-full
   - kernel/mocaccino-initramfs
