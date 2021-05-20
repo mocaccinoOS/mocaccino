@@ -52,7 +52,7 @@ jobs:
            upstream_repo: "https://github.com/mocaccinoOS/kernel-repo"
            name: "Mocaccino Kernel repository"
          - upstream_branch: "master"
-           fork: "git@github.com/auto-maintainers/mocaccino-stage3"
+           fork: "git@github.com:auto-maintainers/mocaccino-stage3.git"
            upstream_repo: "https://github.com/mocaccinoOS/mocaccino-stage3"
            name: "Mocaccino stage3"
     steps:
