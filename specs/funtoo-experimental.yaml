@@ -2,24 +2,22 @@ packages:
 
   keep_luet_db: "true"
   rootfs:
-  - kernel/mocaccino-full
-  - kernel/mocaccino-modules
-  - kernel/mocaccino-initramfs
   #- layers/firmware
-  - layer/funtoo-base
-  - system-profile/default-systemd
+  - mocaccino/cli
+  - system/entities
+  - mocaccino-release/funtoo
+  - virtual/sh
+  - virtual/gnome
+  - virtual/mocaccino-kernel-lts
   - system/luet
   - system/luet-extensions
   - utils/yip
-  - utils/yip-systemd
+  - layer/funtoo-calamares
   - system/mocaccino-grub-splash
-  - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
-  - mocaccino-release/desktop
-  - sys-kernel/mocaccino-dracut
-  - virtual/sh
+  - kernel/mocaccino-lts-initramfs
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -32,8 +30,9 @@ repository:
   packages:
   - repository/luet
   - repository/livecd
+  - repository/geaaru
   - repository/mocaccino-extra
-  - repository/mocaccino-kernel
+  #- repository/mocaccino-kernel
   - repository/mocaccino-funtoo
   - repository/mocaccino-os-commons
 
