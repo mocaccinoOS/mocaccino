@@ -13,6 +13,7 @@ packages:
   - system/luet-extensions
   - utils/yip
   - layer/funtoo-calamares
+  - layer/funtoo-kde-commons
   - system/mocaccino-grub-splash
   - system/mocaccino-init
   - system/mocaccino-wallpaper
