@@ -14,11 +14,17 @@ packages:
   - utils/yip
   - layer/funtoo-calamares
   - layer/funtoo-kde-commons
+  - layer/funtoo-xorg-drivers-extra
   - system/mocaccino-grub-splash
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - kernel/mocaccino-lts-initramfs
+
+  # Extra kernel modules
+  - sys-fs-5.10/zfs-kmod
+  - x11-drivers-5.10/nvidia-kernel-modules
+
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
