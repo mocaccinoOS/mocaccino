@@ -5,7 +5,6 @@ packages:
   #- layers/firmware
   - mocaccino/cli
   - system/entities
-  - mocaccino-release/funtoo
   - virtual/sh
   - virtual/gnome
   - virtual/mocaccino-kernel-lts
@@ -18,7 +17,10 @@ packages:
   - system/mocaccino-grub-splash
   - system/mocaccino-init
   - system/mocaccino-wallpaper
+  - system/mocaccino-calamares
   - mocaccino/live-setup
+  - mocaccino-release/funtoo
+  - www-client/firefox-bin
   - kernel/mocaccino-lts-initramfs
 
   # Extra kernel modules
