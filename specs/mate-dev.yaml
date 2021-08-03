@@ -2,9 +2,9 @@ packages:
 
   keep_luet_db: true
   rootfs:
-  - kernel/mocaccino-full
-  - kernel/mocaccino-modules
-  - kernel/mocaccino-initramfs
+  - kernel/mocaccino-lts-full
+  - kernel/mocaccino-lts-modules
+  - kernel/mocaccino-lts-initramfs
   - layers/firmware
   - layers/mate
   - system-profile/default-systemd
