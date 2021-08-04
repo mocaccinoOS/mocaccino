@@ -16,7 +16,7 @@ packages:
   - layer/funtoo-xorg-drivers-extra
   - system/mocaccino-init
   - system/mocaccino-wallpaper
-  - system/mocaccino-calamares
+  - system/mocaccino-funtoo-calamares
   - mocaccino/live-setup
   - mocaccino-release/funtoo
   - www-client/firefox-bin
