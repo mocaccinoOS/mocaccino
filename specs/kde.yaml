@@ -46,7 +46,7 @@ initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
 
-overlay: true
+
 image_prefix: "MocaccinoOS-KDE-0."
 image_date: true
 

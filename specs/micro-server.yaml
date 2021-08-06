@@ -64,7 +64,7 @@ repository:
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
 
-overlay: true
+
 image_prefix: "MocaccinoOS-MicroServer-0."
 image_date: true
 

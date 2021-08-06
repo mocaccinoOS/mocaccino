@@ -47,7 +47,7 @@ initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
 
-overlay: true
+
 image_prefix: "MocaccinoOS-MATE-0."
 image_date: true
 

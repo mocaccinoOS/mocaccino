@@ -50,7 +50,7 @@ repository:
   - repository/mocaccino-os-commons
   - repository/mocaccino-musl-universe
 
-overlay: true
+
 image_prefix: "MocaccinoOS-Micro-dev-0."
 image_date: true
 initramfs:

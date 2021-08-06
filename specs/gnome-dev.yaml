@@ -50,7 +50,7 @@ initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
 
-overlay: true
+
 image_prefix: "MocaccinoOS-GNOME-dev-0."
 image_date: true
 
