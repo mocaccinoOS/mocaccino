@@ -5,7 +5,6 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  - kernel-modules/virtualbox-guest-additions-lts
   - layers/firmware
   - layers/system-x
   - layers/X
