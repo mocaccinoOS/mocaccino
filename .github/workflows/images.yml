@@ -66,10 +66,9 @@ jobs:
       env:
         LUET_NOLOCK: "true"
         LUET_CONFIG_PROTECT_SKIP: "true"
-        HTTP_TIMEOUT: "900"
         SPEC: ${{matrix.spec}}
       run: |
-            sudo -E luet makeiso specs/$SPEC.yaml
+            sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
     - name: Install minio and login
