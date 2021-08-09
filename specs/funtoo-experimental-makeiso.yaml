@@ -1,6 +1,6 @@
 packages:
 
-  keep_luet_db: "true"
+  keep_luet_db: true
   rootfs:
   #- layers/firmware
   - mocaccino/cli
@@ -49,7 +49,7 @@ initramfs:
   rootfs_file: "Initrd"
 
 image_prefix: "MocaccinoOS-Funtoo-experimental-0."
-image_date: "true"
+image_date: true
 
 luet:
   general:
