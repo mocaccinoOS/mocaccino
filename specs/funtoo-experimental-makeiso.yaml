@@ -1,0 +1,69 @@
+packages:
+
+  keep_luet_db: "true"
+  rootfs:
+  #- layers/firmware
+  - mocaccino/cli
+  - system/entities
+  - virtual/sh
+  - virtual/gnome
+  - virtual/mocaccino-kernel-lts
+  - system/luet
+  - system/luet-extensions
+  - utils/yip
+  - layer/funtoo-calamares
+  - layer/funtoo-kde-commons
+  - layer/funtoo-xorg-drivers-extra
+  - system/mocaccino-init
+  - system/mocaccino-wallpaper
+  - system/mocaccino-funtoo-calamares
+  - mocaccino/live-setup
+  - mocaccino-release/funtoo
+  - www-client/firefox-bin
+  - kernel/mocaccino-lts-initramfs
+
+  # Extra kernel modules
+  - sys-fs-5.10/zfs-kmod
+  - x11-drivers-5.10/nvidia-kernel-modules
+
+  uefi:
+  - live/systemd-boot
+  - system/mocaccino-live-boot
+  isoimage:
+  - live/syslinux
+  - system/mocaccino-live-boot
+
+# Repositories packages from repository-index
+repository:
+  packages:
+  - repository/luet
+  - repository/livecd
+  - repository/geaaru
+  - repository/mocaccino-extra
+  #- repository/mocaccino-kernel
+  - repository/mocaccino-funtoo
+  - repository/mocaccino-os-commons
+
+initramfs:
+  kernel_file: "bzImage"
+  rootfs_file: "Initrd"
+
+image_prefix: "MocaccinoOS-Funtoo-experimental-0."
+image_date: "true"
+
+luet:
+  general:
+    debug: true
+
+    # spinner every 30m
+    spinner_ms: 1800000
+    spinner_charset: 12
+  repositories:
+  - name: "mocaccino-repository-index"
+    description: "MocaccinoOS Repository index"
+    type: "http"
+    enable: true
+    cached: true
+    priority: 1
+    urls:
+    - "https://get.mocaccino.org/mocaccino-repository-index"
