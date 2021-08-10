@@ -51,6 +51,9 @@ initramfs:
 image_prefix: "MocaccinoOS-Funtoo-experimental-0."
 image_date: true
 
+# Ensure initialization of /tmp/ and others directories
+ensure_common_dirs: true
+
 luet:
   general:
     debug: true
