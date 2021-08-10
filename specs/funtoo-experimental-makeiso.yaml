@@ -8,7 +8,7 @@ packages:
   - virtual/sh
   - virtual/gnome
   - virtual/mocaccino-kernel-lts
-  - system/luet
+  - system/luet-geaaru
   - system/luet-extensions
   - utils/yip
   - layer/funtoo-calamares
@@ -61,6 +61,11 @@ luet:
     # spinner every 30m
     spinner_ms: 1800000
     spinner_charset: 12
+
+  finalizer_envs:
+    - key: "BUILD_ISO"
+      value: "1"
+
   repositories:
   - name: "mocaccino-repository-index"
     description: "MocaccinoOS Repository index"
