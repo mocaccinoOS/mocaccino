@@ -35,16 +35,8 @@ jobs:
            name: "Mocaccino GNOME Desktop"
          - spec: "mate"
            name: "Mocaccino MATE Desktop"
-         - spec: "mate-dev"
-           name: "Mocaccino MATE Desktop Development version"
-         - spec: "gnome-dev"
-           name: "Mocaccino GNOME Desktop Development version"
          - spec: "kde"
            name: "Mocaccino KDE Desktop"
-         - spec: "kde-dev"
-           name: "Mocaccino KDE Desktop Development version"
-         - spec: "minimal-dev"
-           name: "Mocaccino Desktop Minimal Development version"
          - spec: "minimal"
            name: "Mocaccino Desktop Minimal"
         #  - spec: "funtoo-experimental"
@@ -98,8 +90,6 @@ jobs:
          include:
          - spec: "minimal"
            flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -142,8 +132,6 @@ jobs:
          include:
          - spec: "minimal"
            flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -186,8 +174,6 @@ jobs:
          include:
          - spec: "minimal"
            flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -245,31 +231,6 @@ jobs:
           go get -u github.com/onsi/ginkgo/ginkgo
           go get -u github.com/onsi/gomega/...
           make test
-
-  tests-dev:
-      runs-on: macos-10.15
-      needs: vbox-vagrant
-      strategy:
-        matrix:
-         include:
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
-      steps:
-      - name: Install Go
-        uses: actions/setup-go@v2
-      - uses: actions/checkout@v2
-      - name: Download vagrant box
-        uses: actions/download-artifact@v2
-        with:
-          name: mOS-${{ matrix.spec }}.box
-          path: packer
-
-      - name: Run tests 🔧
-        run: |
-          go get -u github.com/onsi/ginkgo/ginkgo
-          go get -u github.com/onsi/gomega/...
-          make test
-
 
   release:
       if: startsWith(github.ref, 'refs/tags/')
