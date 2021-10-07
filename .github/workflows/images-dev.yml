@@ -1,4 +1,4 @@
-name: Iso building
+name: Labs ISO building
 
 on:
   push:
@@ -27,28 +27,12 @@ jobs:
       fail-fast: false
       matrix:
        include:
-        #  - spec: "micro"
-        #    name: "Mocaccino Micro"
-        #  - spec: "micro-dev"
-        #    name: "Mocaccino Micro Development version"
-         - spec: "gnome"
-           name: "Mocaccino GNOME Desktop"
-         - spec: "mate"
-           name: "Mocaccino MATE Desktop"
-         - spec: "mate-dev"
-           name: "Mocaccino MATE Desktop Development version"
-         - spec: "gnome-dev"
-           name: "Mocaccino GNOME Desktop Development version"
-         - spec: "kde"
-           name: "Mocaccino KDE Desktop"
-         - spec: "kde-dev"
-           name: "Mocaccino KDE Desktop Development version"
-         - spec: "minimal-dev"
-           name: "Mocaccino Desktop Minimal Development version"
-         - spec: "minimal"
-           name: "Mocaccino Desktop Minimal"
-        #  - spec: "funtoo-experimental"
-        #    name: "Mocaccino Funtoo Experimental"
+         - spec: "micro"
+           name: "Mocaccino Micro"
+         - spec: "micro-dev"
+           name: "Mocaccino Micro Development version"
+         - spec: "funtoo-experimental"
+           name: "Mocaccino Funtoo Experimental"
     env:
       MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
       MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
@@ -96,10 +80,10 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal"
-           flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
+         - spec: "micro-dev"
+           flavor: "Micro-Dev"
+         - spec: "micro"
+           flavor: "Micro"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -140,10 +124,10 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal"
-           flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
+         - spec: "micro-dev"
+           flavor: "Micro-Dev"
+         - spec: "micro"
+           flavor: "Micro"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -184,10 +168,10 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal"
-           flavor: "Minimal"
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
+         - spec: "micro-dev"
+           flavor: "Micro-Dev"
+         - spec: "micro"
+           flavor: "Micro"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
@@ -228,8 +212,8 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal"
-           flavor: "Minimal"
+         - spec: "micro"
+           flavor: "Micro"
       steps:
       - name: Install Go
         uses: actions/setup-go@v2
@@ -252,8 +236,8 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal-dev"
-           flavor: "Minimal-Dev"
+         - spec: "micro-dev"
+           flavor: "Micro-Dev"
       steps:
       - name: Install Go
         uses: actions/setup-go@v2
@@ -278,20 +262,29 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "gnome"
-           name: "Mocaccino GNOME Desktop"
-         - spec: "mate"
-           name: "Mocaccino MATE Desktop"
-         - spec: "kde"
-           name: "Mocaccino KDE Desktop"
-         - spec: "minimal"
-           name: "Mocaccino Minimal Desktop"
+         - spec: "micro"
+           name: "Mocaccino Micro"
       steps:
       - uses: actions/checkout@v2
       - name: Download ISO
         uses: actions/download-artifact@v2
         with:
           name: mOS-${{ matrix.spec }}.iso.zip
+          path: release
+      - name: Download vagrant box
+        uses: actions/download-artifact@v2
+        with:
+          name: mOS-${{ matrix.spec }}.box
+          path: release
+      - name: Download vagrant box
+        uses: actions/download-artifact@v2
+        with:
+          name: mOS-${{ matrix.spec }}.ova
+          path: release
+      - name: Download vagrant box
+        uses: actions/download-artifact@v2
+        with:
+          name: mOS-${{ matrix.spec }}.qcow
           path: release
       - name: Release
         uses: fnkr/github-action-ghr@v1
