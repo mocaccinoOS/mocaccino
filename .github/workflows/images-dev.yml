@@ -81,50 +81,50 @@ jobs:
           isobuild/*.iso
           isobuild/*.sha256
 
-  qemu:
-      runs-on: ubuntu-latest
-      needs: iso
+  # qemu:
+  #     runs-on: ubuntu-latest
+  #     needs: iso
 
-      strategy:
-        matrix:
-         include:
-         - spec: "micro-dev"
-           flavor: "Micro-Dev"
-         - spec: "micro"
-           flavor: "Micro"
-      steps:
-      - uses: actions/checkout@v2
-      - name: Download ISO
-        uses: actions/download-artifact@v2
-        with:
-          name: mOS-${{ matrix.spec }}.iso.zip
+  #     strategy:
+  #       matrix:
+  #        include:
+  #        - spec: "micro-dev"
+  #          flavor: "Micro-Dev"
+  #        - spec: "micro"
+  #          flavor: "Micro"
+  #     steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Download ISO
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: mOS-${{ matrix.spec }}.iso.zip
 
-      - name: Install deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y qemu qemu-system qemu-kvm
-          sudo -E make deps
-          sudo luet install -y utils/packer
-      - name: Build QEMU Image 🔧
-        run: |
-          build=$(date +%Y%m%d)
-          PACKER_ARGS="-var='accellerator=none' -var='sleep=5m' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only qemu" make packer
-      - name: Install minio and login
-        env:
-          MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-          MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-        run: |
-          mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
-      - name: Deploy 🚀
-        if: github.ref == 'refs/heads/master'
-        run: |
-          mc cp --recursive $PWD/packer/*.tar.gz minio/mocaccino-iso
-      - uses: actions/upload-artifact@v2
-        with:
-          name: mOS-${{ matrix.spec }}.qcow
-          path: |
-            packer/*.tar.gz
+  #     - name: Install deps
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y qemu qemu-system qemu-kvm
+  #         sudo -E make deps
+  #         sudo luet install -y utils/packer
+  #     - name: Build QEMU Image 🔧
+  #       run: |
+  #         build=$(date +%Y%m%d)
+  #         PACKER_ARGS="-var='accellerator=none' -var='sleep=5m' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only qemu" make packer
+  #     - name: Install minio and login
+  #       env:
+  #         MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
+  #         MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
+  #         MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
+  #       run: |
+  #         mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
+  #     - name: Deploy 🚀
+  #       if: github.ref == 'refs/heads/master'
+  #       run: |
+  #         mc cp --recursive $PWD/packer/*.tar.gz minio/mocaccino-iso
+  #     - uses: actions/upload-artifact@v2
+  #       with:
+  #         name: mOS-${{ matrix.spec }}.qcow
+  #         path: |
+  #           packer/*.tar.gz
 
   vbox:
       runs-on: macos-10.15
