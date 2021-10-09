@@ -304,3 +304,4 @@ jobs:
         env:
           GHR_PATH: release/
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHR_COMPRESS: xz
