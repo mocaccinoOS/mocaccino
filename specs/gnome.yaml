@@ -29,6 +29,7 @@ packages:
   - apps/gparted
   - apps/google-chrome
   - apps/vim
+  - apps/htop
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
