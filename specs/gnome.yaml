@@ -65,4 +65,4 @@ luet:
     cached: true
     priority: 1
     urls:
-    - "https://get.mocaccino.org/mocaccino-repository-index"
+    - "https://raw.githubusercontent.com/mocaccinoOS/repository-index/gh-pages"
