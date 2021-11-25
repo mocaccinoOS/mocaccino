@@ -41,10 +41,6 @@ jobs:
            name: "Mocaccino Desktop Minimal"
         #  - spec: "funtoo-experimental"
         #    name: "Mocaccino Funtoo Experimental"
-    env:
-      MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-      MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-      MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
     steps:
     - uses: actions/checkout@v2
     - uses: fkirc/skip-duplicate-actions@master
@@ -63,13 +59,6 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - name: Install minio and login
-      env:
-        MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-        MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-        MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-      run: |
-        mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
     - name: Deploy 🚀
       if: github.ref == 'refs/heads/master'
       run: |
@@ -107,13 +96,6 @@ jobs:
   #       run: |
   #         build=$(date +%Y%m%d)
   #         PACKER_ARGS="-var='accellerator=none' -var='sleep=5m' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only qemu" make packer
-  #     - name: Install minio and login
-  #       env:
-  #         MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-  #         MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-  #         MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-  #       run: |
-  #         mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
   #     - name: Deploy 🚀
   #       if: github.ref == 'refs/heads/master'
   #       run: |
@@ -149,13 +131,6 @@ jobs:
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -only virtualbox-iso -var=build=$build -var='flavor=${{ matrix.flavor }}'" make packer
           ls packer
-      - name: Install minio and login
-        env:
-          MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-          MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-        run: |
-          mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
       - name: Deploy 🚀
         if: github.ref == 'refs/heads/master'
         run: |
@@ -191,13 +166,6 @@ jobs:
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
-      - name: Install minio and login
-        env:
-          MINIO_API_URL: ${{ secrets.MINIO_API_URL }}
-          MINIO_ACCESS_KEY: ${{ secrets.MINIO_ACCESS_KEY }}
-          MINIO_SECRET_KEY: ${{ secrets.MINIO_SECRET_KEY }}
-        run: |
-          mc alias set minio $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
       - name: Deploy 🚀
         if: github.ref == 'refs/heads/master'
         run: |
