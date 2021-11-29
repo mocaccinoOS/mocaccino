@@ -49,7 +49,7 @@ jobs:
         sudo apt-get install -y xorriso squashfs-tools dosfstools
         curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
         sudo luet install -y repository/mocaccino-extra
-        sudo luet install -y utils/jq utils/yq net-fs/minio-client extension/makeiso
+        sudo luet install -y utils/jq utils/yq extension/makeiso
     - name: ${{matrix.name}} ISO Build 🔧
       env:
         LUET_NOLOCK: "true"
@@ -59,10 +59,6 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - name: Deploy 🚀
-      if: github.ref == 'refs/heads/master'
-      run: |
-        mc cp --recursive $PWD/isobuild/ minio/mocaccino-iso
     - uses: actions/upload-artifact@v2
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
@@ -96,10 +92,6 @@ jobs:
   #       run: |
   #         build=$(date +%Y%m%d)
   #         PACKER_ARGS="-var='accellerator=none' -var='sleep=5m' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only qemu" make packer
-  #     - name: Deploy 🚀
-  #       if: github.ref == 'refs/heads/master'
-  #       run: |
-  #         mc cp --recursive $PWD/packer/*.tar.gz minio/mocaccino-iso
   #     - uses: actions/upload-artifact@v2
   #       with:
   #         name: mOS-${{ matrix.spec }}.qcow
@@ -125,16 +117,11 @@ jobs:
         run: |
           brew tap hashicorp/tap
           brew install hashicorp/tap/packer
-          brew install minio-mc
       - name: Build VBox Image 🔧
         run: |
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -only virtualbox-iso -var=build=$build -var='flavor=${{ matrix.flavor }}'" make packer
           ls packer
-      - name: Deploy 🚀
-        if: github.ref == 'refs/heads/master'
-        run: |
-          mc cp --recursive $PWD/packer/*.tar.gz minio/mocaccino-iso
       - uses: actions/upload-artifact@v2
         with:
           name: mOS-${{ matrix.spec }}.ova
@@ -155,21 +142,15 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: mOS-${{ matrix.spec }}.iso.zip
-
       - name: Install deps
         run: |
           brew tap hashicorp/tap
           brew install hashicorp/tap/packer
-          brew install minio-mc
       - name: Build VBox Image 🔧
         run: |
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
-      - name: Deploy 🚀
-        if: github.ref == 'refs/heads/master'
-        run: |
-          mc cp --recursive $PWD/packer/*.box minio/mocaccino-iso
       - uses: actions/upload-artifact@v2
         with:
           name: mOS-${{ matrix.spec }}.box
