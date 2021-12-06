@@ -194,25 +194,6 @@ repositories:
     imageRepository: "quay.io/mocaccinocache/os-commons-amd64-cache"
     enabled: true
 
-  - name: "mocaccino-funtoo"
-    bucket: "mocaccino-funtoo"
-    
-    prune: false
-    branch: master
-    qa: true
-    enabled: true
-    arch: amd64
-    project: "mocaccino-funtoo"
-    buildkit: 1
-    smart: false
-    squash: false
-    build_args: "--emoji=false --color=false --pull --only-target-package --push"
-    queue: lxd_mocaccino
-    kube: false
-    imageRepository: "quay.io/mocaccinocache/funtoo-amd64-cache"
-    tree: ""
-    triggered: true
-
   - name: "portage-dev"
     bucket: "mocaccino-portage-dev"
     prune: false
