@@ -31,8 +31,6 @@ jobs:
            name: "Mocaccino Micro"
          - spec: "micro-dev"
            name: "Mocaccino Micro Development version"
-         - spec: "funtoo-experimental"
-           name: "Mocaccino Funtoo Experimental"
          - spec: "mate-dev"
            name: "Mocaccino MATE Desktop Development version"
          - spec: "gnome-dev"

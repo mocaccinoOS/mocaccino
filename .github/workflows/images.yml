@@ -39,8 +39,6 @@ jobs:
            name: "Mocaccino KDE Desktop"
          - spec: "minimal"
            name: "Mocaccino Desktop Minimal"
-        #  - spec: "funtoo-experimental"
-        #    name: "Mocaccino Funtoo Experimental"
     steps:
     - uses: actions/checkout@v2
     - uses: fkirc/skip-duplicate-actions@master
