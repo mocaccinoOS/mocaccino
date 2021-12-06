@@ -36,7 +36,7 @@ jobs:
         run: |
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
                 sudo luet install -y repository/mocaccino-extra
-                sudo luet install -y dev-util/pkgs-checker-minimal system/luet-extensions system/luet-devkit dev-util/mottainai-cli utils/jq utils/yq vcs/hub
+                sudo luet install -y dev-util/pkgs-checker-minimal system/luet-extensions system/luet-devkit utils/jq utils/yq vcs/hub
                 mkdir -p $HOME/.ssh
                 mkdir -p $HOME/.config
                 echo "$GITHUB_PRIVATE_KEY" > $HOME/.ssh/id_rsa
