@@ -12,6 +12,7 @@ packages:
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/fynedesk
   - layers/X
+  - apps/lightdm
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
