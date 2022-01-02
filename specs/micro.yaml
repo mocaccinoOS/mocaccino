@@ -49,6 +49,7 @@ repository:
   - repository/mocaccino-extra-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
+  - repository/mocaccino-repository-index
 
 initramfs:
   kernel_file: "bzImage"

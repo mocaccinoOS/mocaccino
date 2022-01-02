@@ -63,6 +63,7 @@ repository:
   - repository/mocaccino-extra-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-musl-universe-stable
+  - repository/mocaccino-repository-index
 
 
 image_prefix: "MocaccinoOS-MicroServer-0."

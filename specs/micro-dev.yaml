@@ -49,6 +49,7 @@ repository:
   - repository/mocaccino-extra
   - repository/mocaccino-os-commons
   - repository/mocaccino-musl-universe
+  - repository/mocaccino-repository-index
 
 
 image_prefix: "MocaccinoOS-Micro-dev-0."
