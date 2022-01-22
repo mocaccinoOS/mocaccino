@@ -147,7 +147,6 @@ jobs:
         with:
           name: mOS-${{ matrix.spec }}.box
           path: packer
-
       - name: Run tests 🔧
         run: |
           go get -u github.com/onsi/ginkgo/ginkgo
