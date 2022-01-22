@@ -134,8 +134,8 @@ jobs:
       strategy:
         matrix:
          include:
-         - spec: "minimal"
-           flavor: "Minimal"
+         - spec: "minimal-dev"
+           flavor: "Minimal-dev"
       steps:
       - name: Install Go
         uses: actions/setup-go@v2
