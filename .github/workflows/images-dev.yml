@@ -8,12 +8,14 @@ on:
     - 'scripts/**'
     - '.github/workflows/**'
     - 'Makefile'
+    - 'tests/**'
   pull_request:
     paths:
     - 'conf/**'
     - 'specs/**'
     - 'scripts/**'
     - '.github/workflows/**'
+    - 'tests/**'
     - 'Makefile'
   schedule:
     - cron:  '0 1 * * *'
