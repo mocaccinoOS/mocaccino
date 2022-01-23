@@ -7,14 +7,14 @@ on:
     - 'specs/**'
     - 'scripts/**'
     - '.github/workflows/**'
-    branches: [ master, develop ]
+    - 'Makefile'
   pull_request:
     paths:
     - 'conf/**'
     - 'specs/**'
     - 'scripts/**'
     - '.github/workflows/**'
-    branches: [ master, develop ]
+    - 'Makefile'
   schedule:
     - cron:  '0 1 * * *'
   create:
