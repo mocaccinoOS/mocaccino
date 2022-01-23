@@ -13,8 +13,8 @@ var _ = Describe("MocaccinoOS X", func() {
 	Context("Graphics", func() {
 		It("installs gnome", func() {
 			out, err := sshCommand("luet install -y layers/gnome")
-			Expect(err).ToNot(HaveOccurred())
 			Expect(out).Should(ContainSubstring("installed"))
+			Expect(err).ToNot(HaveOccurred())
 		})
 	})
 })
