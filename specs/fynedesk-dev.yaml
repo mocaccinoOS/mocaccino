@@ -54,7 +54,7 @@ initramfs:
   rootfs_file: "Initrd"
 
 
-image_prefix: "MocaccinoOS-GNOME-dev-0."
+image_prefix: "MocaccinoOS-Fynedesk-dev-0."
 image_date: true
 
 luet:
