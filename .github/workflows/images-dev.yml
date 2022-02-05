@@ -1,5 +1,7 @@
 name: Labs ISO building
-
+concurrency:
+  group: ci-dev-${{ github.head_ref || github.ref }}-${{ github.repository }}
+  cancel-in-progress: true
 on:
   push:
     paths:

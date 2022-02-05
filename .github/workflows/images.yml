@@ -1,5 +1,7 @@
 name: Iso building
-
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}-${{ github.repository }}
+  cancel-in-progress: true
 on:
   push:
     paths:
