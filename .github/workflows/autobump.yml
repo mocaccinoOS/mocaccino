@@ -24,6 +24,10 @@ jobs:
       matrix:
        include:
          - upstream_branch: "master"
+           fork: "git@github.com:auto-maintainers/repository-index.git"
+           upstream_repo: "https://github.com/mocaccinoOS/repository-index"
+           name: "Mocaccino Repository index"
+         - upstream_branch: "master"
            fork: "git@github.com:auto-maintainers/luet-repo.git"
            upstream_repo: "https://github.com/Luet-lab/luet-repo"
            name: "Luet official repository"
@@ -64,6 +68,7 @@ jobs:
         name: Autobump ${{matrix.name}}
         run: |
                 sudo rm -rf /usr/local/bin/yq
+                sudo apt-get install -y skopeo
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
                 sudo luet install -y repository/mocaccino-extra
                 sudo luet install -y system/luet-extensions system/luet-devkit utils/jq utils/yq vcs/hub
