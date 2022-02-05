@@ -2,6 +2,7 @@ packages:
 
   keep_luet_db: true
   rootfs:
+  - apps/mos-updater
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
