@@ -27,7 +27,7 @@ packages:
   - sys-kernel/mocaccino-dracut
   - apps/lightdm
   - apps/gparted
-  - apps/google-chrome
+  - apps/firefox
   - apps/vim
   - apps/htop
   uefi:
