@@ -3,6 +3,7 @@ packages:
   keep_luet_db: true
   rootfs:
   - repo-updater/mocaccino-desktop-stable
+  - themes/mate
   - apps/mos-updater
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
