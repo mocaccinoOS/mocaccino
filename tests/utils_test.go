@@ -1,9 +1,11 @@
 package mos_test
 
 import (
+	"context"
 	"os"
 	"time"
 
+	"github.com/bramvdbogaerde/go-scp"
 	. "github.com/onsi/gomega"
 	ssh "golang.org/x/crypto/ssh"
 )
@@ -12,6 +14,55 @@ func HasDir(s string) {
 	out, err := sshCommand("if [ -d " + s + " ]; then echo ok; else echo wrong; fi")
 	Expect(err).ToNot(HaveOccurred())
 	Expect(out).Should(Equal("ok\n"))
+}
+
+func Conn() (string, string, string) {
+	user := os.Getenv("MOCACCINO_USER")
+	if user == "" {
+		user = "root"
+	}
+	pass := os.Getenv("MOCACCINO_PASS")
+	if pass == "" {
+		pass = "mocaccino"
+	}
+
+	host := os.Getenv("MOCACCINO_HOST")
+	if host == "" {
+		host = "127.0.0.1:2222"
+	}
+
+	return user, pass, host
+}
+
+func SendFile(src, dst, permission string) error {
+	user, pass, host := Conn()
+
+	sshConfig := &ssh.ClientConfig{
+		User:    user,
+		Auth:    []ssh.AuthMethod{ssh.Password(pass)},
+		Timeout: 30 * time.Second, // max time to establish connection
+	}
+	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
+
+	scpClient := scp.NewClientWithTimeout(host, sshConfig, 10*time.Second)
+	defer scpClient.Close()
+
+	if err := scpClient.Connect(); err != nil {
+		return err
+	}
+
+	f, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+
+	defer scpClient.Close()
+	defer f.Close()
+
+	if err := scpClient.CopyFile(context.Background(), f, dst, permission); err != nil {
+		return err
+	}
+	return nil
 }
 
 func eventuallyConnects(t ...int) {
@@ -40,19 +91,7 @@ func sshCommand(cmd string) (string, error) {
 }
 
 func connectToHost() (*ssh.Client, *ssh.Session, error) {
-	user := os.Getenv("MOCACCINO_USER")
-	if user == "" {
-		user = "root"
-	}
-	pass := os.Getenv("MOCACCINO_PASS")
-	if pass == "" {
-		pass = "mocaccino"
-	}
-
-	host := os.Getenv("MOCACCINO_HOST")
-	if host == "" {
-		host = "127.0.0.1:2222"
-	}
+	user, pass, host := Conn()
 
 	sshConfig := &ssh.ClientConfig{
 		User:    user,

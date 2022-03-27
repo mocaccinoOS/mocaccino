@@ -1,9 +1,23 @@
 package mos_test
 
 import (
+	"strings"
+	"fmt"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
+
+var toIgnore []string = []string{
+	"libsamba-debug-samba4.so",
+	"libreplace-samba4.so",
+}
+
+func pruneOutput(out string) string {
+	for _, i := range toIgnore {
+		out = strings.ReplaceAll(out, fmt.Sprintf("%s => not found", i), "")
+	}
+	return out
+}
 
 var _ = Describe("MocaccinoOS", func() {
 	BeforeEach(func() {
@@ -27,6 +41,16 @@ var _ = Describe("MocaccinoOS", func() {
 			out, err := sshCommand("luet upgrade -y")
 			Expect(err).ToNot(HaveOccurred())
 			Expect(out).Should(ContainSubstring("Computing upgrade"))
+		})
+	})
+
+	Context("Lib test", func() {
+		It("does not have any broken lib", func() {
+			err := SendFile("assets/libtest.sh", "/tmp/libtest.sh", "0777")
+			Expect(err).ToNot(HaveOccurred())
+			out, err := sshCommand("bash /tmp/libtest.sh")
+			Expect(err).ToNot(HaveOccurred())
+			Expect(pruneOutput(out)).ShouldNot(ContainSubstring("not found"))
 		})
 	})
 })
