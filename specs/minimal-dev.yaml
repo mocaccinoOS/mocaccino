@@ -34,7 +34,7 @@ repository:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-extra
-  - repository/mocaccino-kernel
+#  - repository/mocaccino-kernel
   - repository/mocaccino-desktop
   - repository/mocaccino-os-commons
   - repository/mocaccino-repository-index
