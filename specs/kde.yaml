@@ -42,7 +42,7 @@ repository:
   - repository/livecd
   - repository/mocaccino-extra-stable
   - repository/mocaccino-kernel-stable
-  - repository/mocaccino-desktop-stable
+#  - repository/mocaccino-desktop-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-repository-index
 
