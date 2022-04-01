@@ -24,7 +24,7 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
-  - apps/google-chrome
+  - apps/firefox
   - apps/vim
   - apps/htop
   - apps/discover
