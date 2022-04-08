@@ -7,7 +7,6 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-#  - kernel-modules/virtualbox-guest-additions-lts
   - layers/firmware
   # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
   # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
@@ -26,6 +25,7 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
+  - apps/drawing
   - apps/gnome-software
   - apps/gparted
   - apps/firefox
