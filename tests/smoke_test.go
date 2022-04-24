@@ -1,9 +1,10 @@
 package mos_test
 
 import (
-	"strings"
 	"fmt"
-	. "github.com/onsi/ginkgo"
+	"strings"
+
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
