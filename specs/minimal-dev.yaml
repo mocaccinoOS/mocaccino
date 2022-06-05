@@ -19,6 +19,7 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
+  - mocaccino/polkit-rules
   - mocaccino-release/desktop-embedded
   - mocaccino/unattended-install
   uefi:

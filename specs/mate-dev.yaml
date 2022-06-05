@@ -23,6 +23,7 @@ packages:
   - system/mocaccino-grub-splash
   - themes/mate
   - mocaccino/live-setup
+  - mocaccino/polkit-rules
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
   - apps/lightdm
