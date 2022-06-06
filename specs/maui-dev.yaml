@@ -24,7 +24,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
-  - mocaccino/polkit-rules
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
   - apps/gparted
