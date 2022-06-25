@@ -11,7 +11,7 @@ import (
 var toIgnore []string = []string{
 	"libsamba-debug-samba4.so",
 	"libreplace-samba4.so",
-	"libim-ibus.so"
+	"libim-ibus.so",
 }
 
 func pruneOutput(out string) string {
