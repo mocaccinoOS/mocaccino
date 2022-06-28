@@ -24,7 +24,6 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
-  - themes/mocaccino-plymouth
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut

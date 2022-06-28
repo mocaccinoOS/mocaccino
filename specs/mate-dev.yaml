@@ -21,7 +21,6 @@ packages:
   - system/mocaccino-init
   - system/mocaccino-wallpaper
   - system/mocaccino-grub-splash
-  - themes/mocaccino-plymouth
   - themes/mate
   - mocaccino/live-setup
   - mocaccino-release/desktop
