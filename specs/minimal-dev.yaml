@@ -18,6 +18,7 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
+  - themes/mocaccino-plymouth
   - mocaccino/live-setup
   - mocaccino-release/desktop-embedded
   - mocaccino/unattended-install
@@ -34,7 +35,6 @@ repository:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-extra
-#  - repository/mocaccino-kernel
   - repository/mocaccino-desktop
   - repository/mocaccino-os-commons
   - repository/mocaccino-repository-index
