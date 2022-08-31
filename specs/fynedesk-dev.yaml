@@ -56,6 +56,7 @@ initramfs:
 
 
 image_prefix: "MocaccinoOS-Fynedesk-dev-0."
+label: "MOCACCINOOS_FYNEDESK_DEV"
 image_date: true
 
 luet:

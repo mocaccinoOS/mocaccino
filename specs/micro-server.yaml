@@ -67,6 +67,7 @@ repository:
 
 
 image_prefix: "MocaccinoOS-MicroServer-0."
+label: "MOCACCINOOS_MICRO_SERVER"
 image_date: true
 
 luet:

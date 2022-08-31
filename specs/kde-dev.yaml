@@ -52,6 +52,7 @@ initramfs:
 
 
 image_prefix: "MocaccinoOS-KDE-dev-0."
+label: "MOCACCINOOS_KDE_DEV"
 image_date: true
 
 luet:

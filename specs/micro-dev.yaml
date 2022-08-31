@@ -53,7 +53,9 @@ repository:
 
 
 image_prefix: "MocaccinoOS-Micro-dev-0."
+label: "MOCACCINOOS_MICRO_DEV"
 image_date: true
+
 initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"

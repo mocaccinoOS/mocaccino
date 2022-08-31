@@ -54,6 +54,7 @@ initramfs:
 
 
 image_prefix: "MocaccinoOS-GNOME-0."
+label: "MOCACCINOOS_GNOME"
 image_date: true
 
 luet:
