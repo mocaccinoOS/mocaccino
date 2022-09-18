@@ -47,7 +47,7 @@ jobs:
          - spec: "kde-dev"
            name: "Mocaccino KDE Desktop Development version"
          - spec: "xfce-dev"
-           name: "Mocaccino KDE Desktop Development version"
+           name: "Mocaccino XFCE Desktop Development version"
     steps:
     - uses: actions/checkout@v2
     - uses: fkirc/skip-duplicate-actions@master
