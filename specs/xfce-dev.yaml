@@ -7,7 +7,7 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  - layers/mate
+  - layers/xfce
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
@@ -21,7 +21,6 @@ packages:
   - system/mocaccino-wallpaper
   - system/mocaccino-grub-splash
   - themes/mocaccino-plymouth
-  - themes/mate
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
@@ -52,8 +51,8 @@ initramfs:
   rootfs_file: "Initrd"
 
 
-image_prefix: "MocaccinoOS-MATE-dev-0."
-label: "MOCACCINOOS_MATE_DEV"
+image_prefix: "MocaccinoOS-XFCE-dev-0."
+label: "MOCACCINOOS_XFCE_DEV"
 image_date: true
 
 luet:

@@ -5,7 +5,6 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  # - kernel-modules/virtualbox-guest-additions-lts
   - layers/firmware
   - layers/plasma
   - layers/kde-apps-minimal
@@ -41,7 +40,6 @@ repository:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-extra
-#  - repository/mocaccino-kernel
   - repository/mocaccino-desktop
   - repository/mocaccino-os-commons
   - repository/mocaccino-repository-index
