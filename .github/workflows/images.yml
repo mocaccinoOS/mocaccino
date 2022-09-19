@@ -40,6 +40,8 @@ jobs:
            name: "Mocaccino MATE Desktop"
          - spec: "kde"
            name: "Mocaccino KDE Desktop"
+         - spec: "xfce"
+           name: "Mocaccino XFCE Desktop"
          - spec: "minimal"
            name: "Mocaccino Desktop Minimal"
     steps:
@@ -196,6 +198,8 @@ jobs:
            name: "Mocaccino MATE Desktop"
          - spec: "kde"
            name: "Mocaccino KDE Desktop"
+         - spec: "xfce"
+           name: "Mocaccino XFCE Desktop"
          - spec: "minimal"
            name: "Mocaccino Minimal Desktop"
       steps:
