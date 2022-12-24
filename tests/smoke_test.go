@@ -13,6 +13,7 @@ var toIgnore []string = []string{
 	"libreplace-samba4.so",
 	"libgtk-4.so.1",
 	"libsystemd-shared-251.so",
+	"libcairo-sphinx.so",
 }
 
 func pruneOutput(out string) string {
