@@ -25,7 +25,7 @@ packages:
   - sys-kernel/mocaccino-dracut
   - apps/firefox
   - apps/vim
-  - apps/htop
+  - apps/btop
   - apps/discover
   uefi:
   - live/systemd-boot

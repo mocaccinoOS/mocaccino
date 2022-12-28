@@ -30,7 +30,7 @@ packages:
   - apps/gparted
   - apps/firefox
   - apps/vim
-  - apps/htop
+  - apps/btop
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
