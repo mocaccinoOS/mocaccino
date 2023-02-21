@@ -12,10 +12,10 @@ var toIgnore []string = []string{
 	"libsamba-debug-samba4.so",
 	"libreplace-samba4.so",
 	"libgtk-4.so.1",
-	"libsystemd-shared-251.so",
+	"libsystemd-shared-252.so",
 	"libcairo-sphinx.so",
-	"libtracker-extract.so",	
-}	
+	"libtracker-extract.so",
+}
 
 func pruneOutput(out string) string {
 	for _, i := range toIgnore {
