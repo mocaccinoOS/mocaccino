@@ -28,7 +28,7 @@ packages:
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
   - apps/gparted
-  - apps/google-chrome
+  - apps/firefox
   - apps/vim
   - apps/btop
   uefi:
