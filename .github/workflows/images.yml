@@ -34,6 +34,8 @@ jobs:
         #    name: "Mocaccino Micro"
         #  - spec: "micro-dev"
         #    name: "Mocaccino Micro Development version"
+         - spec: "community"
+           name: "Mocaccino Community Desktop"
          - spec: "gnome"
            name: "Mocaccino GNOME Desktop"
          - spec: "mate"
