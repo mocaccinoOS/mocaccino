@@ -104,7 +104,7 @@ jobs:
   #           packer/*.tar.gz
 
   vbox:
-      runs-on: macos-10.15
+      runs-on: macos-11
       needs: iso
       strategy:
         matrix:
@@ -134,7 +134,7 @@ jobs:
             packer/*.tar.gz
 
   vbox-vagrant:
-      runs-on: macos-10.15
+      runs-on: macos-11
       needs: iso
       strategy:
         matrix:
@@ -163,7 +163,7 @@ jobs:
             packer/*.box
 
   tests:
-      runs-on: macos-10.15
+      runs-on: macos-11
       needs: vbox-vagrant
       strategy:
         matrix:
