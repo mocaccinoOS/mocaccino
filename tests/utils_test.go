@@ -40,7 +40,7 @@ func SendFile(src, dst, permission string) error {
 	sshConfig := &ssh.ClientConfig{
 		User:    user,
 		Auth:    []ssh.AuthMethod{ssh.Password(pass)},
-		Timeout: 30 * time.Second, // max time to establish connection
+		Timeout: 60 * time.Second, // max time to establish connection
 	}
 	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
@@ -96,7 +96,7 @@ func connectToHost() (*ssh.Client, *ssh.Session, error) {
 	sshConfig := &ssh.ClientConfig{
 		User:    user,
 		Auth:    []ssh.AuthMethod{ssh.Password(pass)},
-		Timeout: 30 * time.Second, // max time to establish connection
+		Timeout: 60 * time.Second, // max time to establish connection
 	}
 
 	sshConfig.HostKeyCallback = ssh.InsecureIgnoreHostKey()
