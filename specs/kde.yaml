@@ -28,6 +28,7 @@ packages:
   - apps/vim
   - apps/btop
   - apps/discover
+  - apps/neofetch
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -49,7 +50,6 @@ repository:
 initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
-
 
 image_prefix: "MocaccinoOS-KDE-0."
 label: "MOCACCINOOS_KDE"

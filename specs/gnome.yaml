@@ -31,6 +31,7 @@ packages:
   - apps/firefox
   - apps/vim
   - apps/btop
+  - apps/neofetch
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -51,7 +52,6 @@ repository:
 initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
-
 
 image_prefix: "MocaccinoOS-GNOME-0."
 label: "MOCACCINOOS_GNOME"

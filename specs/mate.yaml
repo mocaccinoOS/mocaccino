@@ -31,6 +31,7 @@ packages:
   - apps/firefox
   - apps/vim
   - apps/btop
+  - apps/neofetch
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
@@ -44,7 +45,6 @@ repository:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-extra-stable
-#  - repository/mocaccino-kernel-stable
   - repository/mocaccino-desktop-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-repository-index
@@ -52,7 +52,6 @@ repository:
 initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
-
 
 image_prefix: "MocaccinoOS-MATE-0."
 label: "MOCACCINOOS_MATE"

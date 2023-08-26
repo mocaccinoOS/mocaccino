@@ -28,6 +28,7 @@ packages:
   - apps/firefox
   - apps/vim
   - apps/btop
+  - apps/neofetch
 # Community specific packages
   - apps/gimp
   - apps/libreoffice
