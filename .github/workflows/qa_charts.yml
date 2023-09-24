@@ -16,7 +16,7 @@ jobs:
       matrix:
        include:
         - url: "https://github.com/mocaccinoOS/mocaccino-charty/releases/download/v0.3.1/artifact-qa-0.3.tar.gz"
-          from_repo: true 
+          from_repo: true
           repo: "https://github.com/mocaccinoOS/mocaccino-charty"
           chartpath: "testcharts/artifact-qa"
           name: "File conflicts in MocaccinoOS Desktop"
@@ -42,8 +42,8 @@ jobs:
         run: |
                 curl https://get.mocaccino.org/luet/get_luet_root.sh | sudo sh
                 sudo luet install -y repository/mocaccino-extra
-                sudo luet install -y system/luet-extensions system/luet-devkit net-fs/minio-client dev-util/mottainai-cli utils/jq utils/yq utils/charty
-              
+                sudo luet install -y system/luet-extensions system/luet-devkit net-fs/minio-client utils/jq utils/yq utils/charty
+
                 if [[ "${BUCKET_ENABLED}" == "true" ]]; then
                   mc alias set minio-ci $MINIO_API_URL $MINIO_ACCESS_KEY $MINIO_SECRET_KEY
                   sudo mkdir -p $BUCKET_DIR
