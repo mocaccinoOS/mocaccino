@@ -155,6 +155,8 @@ jobs:
           brew install hashicorp/tap/packer
       - name: Build VBox Image 🔧
         run: |
+          packer plugins install github.com/hashicorp/virtualbox
+          packer plugins install github.com/hashicorp/vagrant
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
