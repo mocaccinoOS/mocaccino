@@ -117,7 +117,7 @@ jobs:
       steps:
       - uses: actions/checkout@v3
       - name: Download ISO
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: mOS-${{ matrix.spec }}.iso.zip
       - name: Install deps
@@ -147,12 +147,12 @@ jobs:
            flavor: "Minimal-dev"
       steps:
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
             go-version: '^1.16'
       - uses: actions/checkout@v3
       - name: Download vagrant box
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: mOS-${{ matrix.spec }}.box
           path: packer
@@ -173,22 +173,22 @@ jobs:
 #      steps:
 #      - uses: actions/checkout@v3
 #      - name: Download ISO
-#        uses: actions/download-artifact@v2
+#        uses: actions/download-artifact@v3
 #        with:
 #          name: mOS-${{ matrix.spec }}.iso.zip
 #          path: release
 #      - name: Download vagrant box
-#        uses: actions/download-artifact@v2
+#        uses: actions/download-artifact@v3
 #        with:
 #          name: mOS-${{ matrix.spec }}.box
 #          path: release
 #      - name: Download vagrant box
-#        uses: actions/download-artifact@v2
+#        uses: actions/download-artifact@v3
 #        with:
 #          name: mOS-${{ matrix.spec }}.ova
 #          path: release
 #      - name: Download vagrant box
-#        uses: actions/download-artifact@v2
+#        uses: actions/download-artifact@v3
 #        with:
 #          name: mOS-${{ matrix.spec }}.qcow
 #          path: release
