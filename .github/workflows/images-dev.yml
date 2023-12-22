@@ -49,7 +49,7 @@ jobs:
          - spec: "xfce-dev"
            name: "Mocaccino XFCE Desktop Development version"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: fkirc/skip-duplicate-actions@master
     - name: Install Luet and deps 🔧
       run: |
@@ -66,7 +66,7 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -81,7 +81,7 @@ jobs:
          - spec: "minimal-dev"
            name: "Mocaccino Desktop Minimal Development version"
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: fkirc/skip-duplicate-actions@master
     - name: Install Luet and deps 🔧
       run: |
@@ -98,7 +98,7 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -115,7 +115,7 @@ jobs:
          - spec: "minimal-dev"
            flavor: "Minimal-dev"
       steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download ISO
         uses: actions/download-artifact@v2
         with:
@@ -131,7 +131,7 @@ jobs:
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: mOS-${{ matrix.spec }}.box
           path: |
@@ -150,7 +150,7 @@ jobs:
         uses: actions/setup-go@v2
         with:
             go-version: '^1.16'
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Download vagrant box
         uses: actions/download-artifact@v2
         with:
@@ -171,7 +171,7 @@ jobs:
 #         - spec: "micro"
 #           name: "Mocaccino Micro"
 #      steps:
-#      - uses: actions/checkout@v2
+#      - uses: actions/checkout@v3
 #      - name: Download ISO
 #        uses: actions/download-artifact@v2
 #        with:
