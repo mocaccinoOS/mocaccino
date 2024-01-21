@@ -2,11 +2,9 @@ packages:
   keep_luet_db: true
   rootfs:
   - repo-updater/mocaccino-desktop-stable
-  - apps/mos-updater
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  # - kernel-modules/virtualbox-guest-additions-lts
   - layers/firmware
   - layers/plasma
   - layers/kde-apps-minimal
@@ -42,7 +40,6 @@ repository:
   - repository/luet
   - repository/livecd
   - repository/mocaccino-extra-stable
-#  - repository/mocaccino-kernel-stable
   - repository/mocaccino-desktop-stable
   - repository/mocaccino-os-commons-stable
   - repository/mocaccino-repository-index

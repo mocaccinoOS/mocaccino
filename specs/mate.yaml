@@ -4,11 +4,9 @@ packages:
   rootfs:
   - repo-updater/mocaccino-desktop-stable
   - themes/mate
-  - apps/mos-updater
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  # - kernel-modules/virtualbox-guest-additions-lts
   - layers/firmware
   - layers/mate
   - system-profile/default-systemd
