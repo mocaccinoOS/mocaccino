@@ -2,7 +2,6 @@ packages:
 
   keep_luet_db: true
   rootfs:
-  - apps/mos-updater
   - mocaccino/gnome-skel
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
