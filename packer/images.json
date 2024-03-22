@@ -1,16 +1,16 @@
-{                                   
-    "builders": [                                                                                     
-      {                                                             
+{
+    "builders": [
+      {
         "boot_wait": "{{user `sleep`}}",
-        "disk_size": "{{user `disk_size`}}",                                                                                                                                                                                                   
-        "guest_additions_mode": "disable",                   
-        "guest_os_type": "MocaccinoOS",                        
-        "headless": true,                                                                                               
+        "disk_size": "{{user `disk_size`}}",
+        "guest_additions_mode": "disable",
+        "guest_os_type": "MocaccinoOS",
+        "headless": true,
         "iso_url": "{{user `iso`}}",
         "memory": 1024,
         "iso_checksum": "none",
-        "shutdown_command": "shutdown -hP now",     
-        "ssh_password": "{{user `root_password`}}",  
+        "shutdown_command": "shutdown -hP now",
+        "ssh_password": "{{user `root_password`}}",
         "ssh_username": "{{user `root_username`}}",
         "format": "ova",
         "ssh_timeout": "1m",
@@ -74,7 +74,7 @@
       },
      {
         "inline": [
-          "AUTOMATED_INSTALL=true mocaccino-unattended-installer",
+          "AUTOMATED_INSTALL=true /usr/sbin/mocaccino-unattended-installer",
           "if [ ! -d /mnt/mocaccino/etc/yip.d/ ] ; then mkdir -p /mnt/mocaccino/etc/yip.d/; fi",
           "if [ {{user `vagrant`}} == true ]; then cp -rf /vagrant.yaml /mnt/mocaccino/etc/yip.d/vagrant.yaml; fi",
           "cp -rf /config.yaml /mnt/mocaccino/etc/yip.d/config.yaml"
@@ -96,4 +96,3 @@
       "vagrant": "false"
     }
   }
-      
