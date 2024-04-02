@@ -20,6 +20,7 @@ packages:
   - system/mocaccino-wallpaper
   - system/mocaccino-grub-splash
   - themes/mocaccino-plymouth
+  - themes/xfce
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
