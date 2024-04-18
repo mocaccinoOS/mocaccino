@@ -36,6 +36,8 @@ jobs:
 #           name: "Mocaccino Micro"
          - spec: "fynedesk-dev"
            name: "Mocaccino Fynedesk Development version"
+         - spec: "cosmic-dev"
+           name: "Mocaccino Cosmic Development version"
 #        - spec: "maui-dev"
 #          name: "Mocaccino Maui Development version"
 #        - spec: "micro-dev"
