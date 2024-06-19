@@ -109,7 +109,7 @@ jobs:
 
 
   vbox-vagrant:
-      runs-on: macos-latest
+      runs-on: macos-12
       needs: test-iso
       strategy:
         matrix:
