@@ -6,7 +6,7 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  - layers/cosmic-epoch-git
+  - layers/cosmic
   - layers/X
   - apps/lightdm
   - system-profile/default-systemd
