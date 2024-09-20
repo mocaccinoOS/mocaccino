@@ -23,6 +23,7 @@ packages:
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
   - apps/firefox
+  - apps/vlc
   - apps/vim
   - apps/btop
   - apps/discover
