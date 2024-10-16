@@ -33,7 +33,6 @@ packages:
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
-  - system/shim
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
