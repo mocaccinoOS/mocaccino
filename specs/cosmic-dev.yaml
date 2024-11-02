@@ -8,7 +8,6 @@ packages:
   - layers/firmware
   - layers/cosmic
   - layers/X
-  - apps/lightdm
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
@@ -24,6 +23,7 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
+  - apps/cosmic-store
   - apps/gparted
   - apps/firefox
   - apps/vim
