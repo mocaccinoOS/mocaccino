@@ -23,6 +23,7 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - sys-kernel/mocaccino-dracut
+  - themes/cosmic
   - apps/cosmic-store
   - apps/gparted
   - apps/firefox
