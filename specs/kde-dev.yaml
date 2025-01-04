@@ -47,8 +47,7 @@ repository:
 
 initramfs:
   kernel_file: "bzImage"
-# Disable this to see what happens
-#  rootfs_file: "Initrd"
+  rootfs_file: "Initrd"
 
 image_prefix: "MocaccinoOS-KDE-dev-0."
 label: "MOCACCINOOS_KDE_DEV"
