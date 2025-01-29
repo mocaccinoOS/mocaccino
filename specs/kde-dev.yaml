@@ -24,6 +24,7 @@ packages:
   - sys-kernel/mocaccino-dracut
   - apps/firefox
   - apps/vim
+  - apps/vlc
   - apps/btop
   - apps/discover
   - apps/neofetch
