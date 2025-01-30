@@ -8,6 +8,7 @@ packages:
   - layers/plasma
   - layers/kde-apps-minimal
   - system-profile/default-systemd
+  - system-profile/flathub
   - system/luet
   - system/luet-extensions
   - utils/yip
