@@ -18,6 +18,7 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-init
   - system/mocaccino-wallpaper
+  - themes/gnome
   - themes/mocaccino-plymouth
   - mocaccino/live-setup
   - mocaccino-release/desktop
