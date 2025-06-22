@@ -1,16 +1,6 @@
 # mocaccino-ci
 
-![MocaccinoOS Micro](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20Micro/badge.svg)
-![MocaccinoOS GNOME](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20GNOME/badge.svg)
-<!-- ![MocaccinoOS MinimalX](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MinimalX/badge.svg) -->
-<!-- ![MocaccinoOS LXQT](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20LXQT/badge.svg) -->
-![MocaccinoOS MATE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20MATE/badge.svg)
-![MocaccinoOS KDE](https://github.com/mocaccinoOS/ci/workflows/MocaccinoOS%20KDE/badge.svg)
-
 This repository contains GitHub Actions to build MocaccinoOS ISOs.
-
-The [CI](https://www.linux.com/news/what-cicd-0) will deploy from master the iso built in the [mocaccino minio instance](https://get.mocaccino.org/minio/mocaccino-iso).
-
 
 ## Flavors
 
