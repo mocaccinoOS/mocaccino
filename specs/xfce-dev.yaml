@@ -22,6 +22,7 @@ packages:
   - themes/xfce
   - mocaccino/live-setup
   - mocaccino-release/desktop
+  - mocaccino/udev-rules
   - sys-kernel/mocaccino-dracut
   - apps/lightdm
   - apps/gparted
