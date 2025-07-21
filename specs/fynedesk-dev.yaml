@@ -6,8 +6,6 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  # https://github.com/mocaccinoOS/desktop/tree/master/packages/meta/flavors/gnome
-  # https://github.com/mocaccinoOS/desktop/blob/master/packages/sabayon/layers/gnome/0.1/build.yaml#L19
   - layers/fynedesk
   - layers/X
   - apps/lightdm
@@ -25,6 +23,7 @@ packages:
   - themes/mocaccino-plymouth
   - mocaccino/live-setup
   - mocaccino-release/desktop
+  - mocaccino/udev-rules
   - sys-kernel/mocaccino-dracut
   - apps/gparted
   - apps/firefox

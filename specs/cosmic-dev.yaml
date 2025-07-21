@@ -22,6 +22,7 @@ packages:
   - themes/mocaccino-plymouth
   - mocaccino/live-setup
   - mocaccino-release/desktop
+  - mocaccino/udev-rules
   - sys-kernel/mocaccino-dracut
   - themes/cosmic
   - apps/cosmic-store
