@@ -6,7 +6,7 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  - layers/cinnamon
+  - layers/xfce
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
@@ -37,7 +37,6 @@ packages:
   - apps/filezilla
   - apps/gimp
   - apps/libreoffice
-  - apps/shutter
   - apps/tree
   uefi:
   - live/systemd-boot
