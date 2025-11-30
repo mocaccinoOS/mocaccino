@@ -43,7 +43,6 @@ packages:
   - apps/inkscape
   - apps/kalgebra
   - apps/krfb
-  - apps/kstars
   - apps/libreoffice
   - apps/marble
   - apps/plasma-firewall
