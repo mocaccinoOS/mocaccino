@@ -6,7 +6,7 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  - layers/xfce
+  - layers/cinnamon
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
@@ -29,13 +29,19 @@ packages:
   - apps/vim
   - apps/btop
   - apps/neofetch
+# Additional packages
   - apps/steam
+  - apps/vajo
 # Community specific packages
+  - apps/filezilla
   - apps/gimp
   - apps/libreoffice
+  - apps/shutter
+  - apps/tree
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
+
   isoimage:
   - live/syslinux
   - system/mocaccino-live-boot
@@ -54,7 +60,6 @@ repository:
 initramfs:
   kernel_file: "bzImage"
   rootfs_file: "Initrd"
-
 
 image_prefix: "MocaccinoOS-community-0."
 label: "MOCACCINOOS_COMMUNITY"
