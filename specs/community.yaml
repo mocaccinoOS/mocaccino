@@ -29,6 +29,7 @@ packages:
   - apps/vim
   - apps/btop
   - apps/neofetch
+  - apps/xarchiver
 # Additional packages
   - apps/steam
   - apps/vajo
