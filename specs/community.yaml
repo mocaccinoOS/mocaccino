@@ -6,7 +6,8 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
-  - layers/xfce
+  - layers/plasma
+  - layers/kde-apps-minimal
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
@@ -23,20 +24,33 @@ packages:
   - mocaccino-release/desktop
   - mocaccino/udev-rules
   - sys-kernel/mocaccino-dracut
-  - apps/lightdm
   - apps/gparted
+  - apps/vlc
   - apps/firefox
   - apps/vim
   - apps/btop
+  - apps/discover
   - apps/neofetch
-  - apps/xarchiver
 # Additional packages
   - apps/steam
   - apps/vajo
 # Community specific packages
+  - apps/clamav
+  - apps/darktable
+  - apps/filelight
   - apps/filezilla
   - apps/gimp
+  - apps/inkscape
+  - apps/kalgebra
+  - apps/krfb
+  - apps/kstars
   - apps/libreoffice
+  - apps/marble
+  - apps/plasma-firewall
+  - apps/rawtherapee
+  - apps/scribus
+  - apps/solaar
+  - apps/systemdgenie
   - apps/tree
   uefi:
   - live/systemd-boot
