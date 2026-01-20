@@ -7,10 +7,10 @@ jobs:
   syncprovides:
     runs-on: ubuntu-latest
     env:
-      GIT_AUTHOR_NAME: "Joost Ruis"
-      GIT_AUTHOR_EMAIL: joost.ruis@mocaccino.org
-      GIT_COMMITTER_NAME: "Joost Ruis"
-      GIT_COMMITTER_EMAIL: joost.ruis@mocaccino.org
+      GIT_AUTHOR_NAME: MarvinHatesOceans
+      GIT_AUTHOR_EMAIL: github-bots@sabayon.com
+      GIT_COMMITTER_NAME: MarvinHatesOceans
+      GIT_COMMITTER_EMAIL: github-bots@sabayon.com
       WORK_BRANCH: genprovides
       AUTO_GIT: true
       LUET_NOLOCK: true
