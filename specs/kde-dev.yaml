@@ -22,6 +22,7 @@ packages:
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - mocaccino/udev-rules
+  - mocaccino/manual
   - sys-kernel/mocaccino-dracut
   - apps/firefox
   - apps/vim
