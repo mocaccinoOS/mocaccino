@@ -51,8 +51,7 @@ jobs:
          - spec: "xfce-dev"
            name: "Mocaccino XFCE Desktop Development version"
     steps:
-    - uses: actions/checkout@v4
-    - uses: fkirc/skip-duplicate-actions@master
+    - uses: actions/checkout@v5
     - name: Install Luet and deps 🔧
       run: |
         sudo apt-get install -y xorriso squashfs-tools dosfstools
@@ -68,7 +67,7 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -83,8 +82,7 @@ jobs:
          - spec: "minimal-dev"
            name: "Mocaccino Desktop Minimal Development version"
     steps:
-    - uses: actions/checkout@v4
-    - uses: fkirc/skip-duplicate-actions@master
+    - uses: actions/checkout@v5
     - name: Install Luet and deps 🔧
       run: |
         sudo apt-get install -y xorriso squashfs-tools dosfstools
@@ -100,7 +98,7 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v5
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -117,9 +115,9 @@ jobs:
          - spec: "minimal-dev"
            flavor: "Minimal-dev"
       steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Download ISO
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: mOS-${{ matrix.spec }}.iso.zip
       - name: Install deps
@@ -133,7 +131,7 @@ jobs:
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: mOS-${{ matrix.spec }}.box
           path: |
@@ -149,12 +147,12 @@ jobs:
            flavor: "Minimal-dev"
       steps:
       - name: Install Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
             go-version: '^1.16'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Download vagrant box
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: mOS-${{ matrix.spec }}.box
           path: packer
