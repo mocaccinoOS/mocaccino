@@ -30,6 +30,7 @@ packages:
   - apps/vim
   - apps/btop
   - apps/neofetch
+  - apps/xarchiver
   uefi:
   - live/systemd-boot
   - system/mocaccino-live-boot
