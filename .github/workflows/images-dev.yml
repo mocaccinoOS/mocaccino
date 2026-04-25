@@ -42,6 +42,8 @@ jobs:
 #          name: "Mocaccino Maui Development version"
 #        - spec: "micro-dev"
 #          name: "Mocaccino Micro Development version"
+         - spec: "cinnamon-dev"
+           name: "Mocaccino Cinnamon Desktop Development version"
          - spec: "mate-dev"
            name: "Mocaccino MATE Desktop Development version"
          - spec: "gnome-dev"
