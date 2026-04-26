@@ -19,6 +19,7 @@ packages:
   - system/mocaccino-wallpaper
   - system/mocaccino-grub-splash
   - themes/mocaccino-plymouth
+  - themes/cinnamon
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - mocaccino/udev-rules
