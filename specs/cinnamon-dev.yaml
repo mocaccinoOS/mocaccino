@@ -31,6 +31,7 @@ packages:
   - apps/vim
   - apps/btop
   - apps/neofetch
+  - apps/vlc
   - apps/xarchiver
   uefi:
   - live/systemd-boot
