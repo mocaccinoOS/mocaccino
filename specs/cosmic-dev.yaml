@@ -24,6 +24,7 @@ packages:
   - mocaccino-release/desktop
   - mocaccino/udev-rules
   - sys-kernel/mocaccino-dracut
+  - fonts/noto-cjk
   - themes/cosmic
   - apps/cosmic-store
   - apps/gparted

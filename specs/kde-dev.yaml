@@ -24,6 +24,7 @@ packages:
   - mocaccino/udev-rules
   - mocaccino/manual
   - sys-kernel/mocaccino-dracut
+  - fonts/noto-cjk
   - apps/firefox
   - apps/vim
   - apps/vlc
