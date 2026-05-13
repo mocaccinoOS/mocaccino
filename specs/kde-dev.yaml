@@ -6,7 +6,6 @@ packages:
   - kernel/mocaccino-lts-initramfs
   - layers/firmware
   - layers/plasma
-  - layers/kde-apps-minimal
   - system-profile/default-systemd
   - system/luet
   - system/luet-extensions
