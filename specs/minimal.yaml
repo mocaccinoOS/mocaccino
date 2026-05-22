@@ -7,7 +7,7 @@ packages:
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
   - kernel-modules/virtualbox-guest-additions-lts
-  - layers/firmware
+  - firmware/linux-firmware
   - layers/system-x
   - layers/X
   - system-profile/default-systemd

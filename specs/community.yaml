@@ -5,7 +5,7 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  - layers/firmware
+  - firmware/linux-firmware
   - layers/plasma
   - layers/kde-apps-minimal
   - system-profile/default-systemd

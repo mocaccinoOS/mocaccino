@@ -6,7 +6,7 @@ packages:
   - kernel/mocaccino-lts-full
   - kernel/mocaccino-lts-modules
   - kernel/mocaccino-lts-initramfs
-  - layers/firmware
+  - firmware/linux-firmware
   - layers/gnome
   - system-profile/default-systemd
   - system/luet
