@@ -27,12 +27,13 @@ packages:
   - mocaccino/manual
   - sys-kernel/mocaccino-dracut
   - fonts/noto-cjk
-  - apps/lightdm
-  - apps/gparted
-  - apps/firefox
-  - apps/vim
+  - apps/blueman
   - apps/btop
+  - apps/lightdm
+  - apps/firefox
+  - apps/gparted
   - apps/neofetch
+  - apps/vim
   - apps/xarchiver
   uefi:
   - live/systemd-boot
