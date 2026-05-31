@@ -36,6 +36,8 @@ jobs:
         #    name: "Mocaccino Micro Development version"
          - spec: "community"
            name: "Mocaccino Community Desktop"
+         - spec: "cosmic"
+           name: "Mocaccino COSMIC Desktop"
          - spec: "gnome"
            name: "Mocaccino GNOME Desktop"
          - spec: "mate"
@@ -199,6 +201,8 @@ jobs:
          include:
          - spec: "gnome"
            name: "Mocaccino GNOME Desktop"
+         - spec: "cosmic"
+           name: "Mocaccino COSMIC Desktop"
          - spec: "mate"
            name: "Mocaccino MATE Desktop"
          - spec: "kde"
