@@ -14,7 +14,6 @@ packages:
   - app-admin/calamares
   - system/mocaccino-calamares
   - init/mocaccino-skel
-  - system/mocaccino-init
   - system/mocaccino-wallpaper
   - themes/mocaccino-plymouth
   - mocaccino/live-setup
