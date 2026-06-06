@@ -16,7 +16,6 @@ packages:
   - system/mocaccino-calamares
   - system/mocaccino-grub-splash
   - init/mocaccino-skel
-  - system/mocaccino-init
   - system/mocaccino-wallpaper
   - themes/mocaccino-plymouth
   - mocaccino/live-setup

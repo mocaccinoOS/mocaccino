@@ -17,7 +17,6 @@ packages:
   - utils/yip
   - utils/yip-systemd
   - init/mocaccino-skel
-  - system/mocaccino-init
   - system/mocaccino-wallpaper
   - mocaccino/live-setup
   - mocaccino-release/desktop-embedded
