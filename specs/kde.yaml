@@ -18,6 +18,7 @@ packages:
   - init/mocaccino-skel
   - system/mocaccino-wallpaper
   - themes/mocaccino-plymouth
+  - themes/plasma
   - mocaccino/live-setup
   - mocaccino-release/desktop
   - mocaccino/udev-rules
