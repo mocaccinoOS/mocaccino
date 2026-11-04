@@ -69,12 +69,16 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
+    - name: Generate package list 📦
+      run: |
+            sudo ./scripts/mocaccino-packagelist.sh isobuild/
     - uses: actions/upload-artifact@v5
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
           isobuild/*.iso
           isobuild/*.sha256
+          isobuild/*.pkglist
   test-iso:
     runs-on: ubuntu-latest
     strategy:
@@ -100,13 +104,16 @@ jobs:
             sudo -E HTTP_TIMEOUT="900" luet-makeiso specs/$SPEC.yaml
             mkdir isobuild
             mv *.iso *.sha256 isobuild/
+    - name: Generate package list 📦
+      run: |
+            sudo ./scripts/mocaccino-packagelist.sh isobuild/
     - uses: actions/upload-artifact@v5
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
           isobuild/*.iso
           isobuild/*.sha256
-
+          isobuild/*.pkglist
 
   vbox-vagrant:
       runs-on: macos-15
