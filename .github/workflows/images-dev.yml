@@ -72,7 +72,7 @@ jobs:
     - name: Generate package list 📦
       run: |
             sudo ./scripts/mocaccino-packagelist.sh isobuild/
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -107,7 +107,7 @@ jobs:
     - name: Generate package list 📦
       run: |
             sudo ./scripts/mocaccino-packagelist.sh isobuild/
-    - uses: actions/upload-artifact@v5
+    - uses: actions/upload-artifact@v6
       with:
         name: mOS-${{ matrix.spec }}.iso.zip
         path: |
@@ -140,7 +140,7 @@ jobs:
           build=$(date +%Y%m%d)
           PACKER_ARGS="-var='sleep=5m' -var='vagrant=true' -var=build=$build -var='flavor=${{ matrix.flavor }}' -only virtualbox-iso" make packer
           ls packer
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: mOS-${{ matrix.spec }}.box
           path: |
